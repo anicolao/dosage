@@ -34,7 +34,7 @@ The label is always “Ordered dose,” with its own unit selector. For a vial i
 
 ### 4. Result and verification
 
-When all inputs are valid, the fixed calculator says “Answer hidden until review” and offers “Review calculation”; it does not expose the administration volume visually or to assistive technology. The action opens one modal panel that simultaneously shows every substituted KaTeX equation at a large, readable size:
+When all inputs are valid, the fixed calculator says “Answer hidden until review” and offers “Review calculation”; it does not expose the administration volume visually or to assistive technology. The action opens one modal panel that simultaneously shows every substituted KaTeX equation at a large, readable size. Each formula is written as one uninterrupted line, with no equation line breaks:
 
 1. vial concentration: _A ÷ Vv = Cv vial-unit/mL_;
 2. prepared concentration: _A ÷ Vf = Cp vial-unit/mL_;

@@ -12,14 +12,15 @@ A blank calculator gates its answer behind a simultaneous review of every substi
 - [x] Neither unit selector nor any final volume has a default
 - [x] No answer or review action is present for incomplete input
 
-## All four large equations fit together in one no-scroll review panel
+## All four large single-line equations fit together in one no-scroll review panel
 
-![All four large equations fit together in one no-scroll review panel](./screenshots/001-simultaneous-calculation-review-phone.png)
+![All four large single-line equations fit together in one no-scroll review panel](./screenshots/001-simultaneous-calculation-review-phone.png)
 
 **Verifications:**
 
 - [x] Vial, preparation, conversion, and administration MathML are simultaneously visible
 - [x] The mg-to-mcg factor and substituted 2000 mcg order remain explicit
+- [x] Every equation is emitted as one uninterrupted KaTeX line
 - [x] The review sheet and every equation fit without scrolling or clipping
 - [x] The administration answer is still absent from the underlying calculator
 

@@ -63,24 +63,24 @@
     {
       id: 'vial',
       title: 'Vial concentration',
-      expression: `\\begin{gathered} \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${mathNumber(vial)}\\,\\mathrm{mL}} \\\\ = ${concentration(vialConcentration, vialUnit)} \\end{gathered}`
+      expression: `\\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${mathNumber(vial)}\\,\\mathrm{mL}} = ${concentration(vialConcentration, vialUnit)}`
     },
     {
       id: 'prepared',
       title: 'Prepared concentration',
-      expression: `\\begin{gathered} \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${finalVolume}\\,\\mathrm{mL}} \\\\ = ${concentration(preparedConcentration, vialUnit)} \\end{gathered}`
+      expression: `\\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${finalVolume}\\,\\mathrm{mL}} = ${concentration(preparedConcentration, vialUnit)}`
     },
     ...(vialUnit !== orderedUnit ? [{
       id: 'conversion',
       title: 'Unit conversion',
       expression: vialUnit === 'mg'
-        ? `\\begin{gathered} ${concentration(preparedConcentration, vialUnit)} \\times \\frac{1000\\,${mathUnit('mcg')}}{1\\,${mathUnit('mg')}} \\\\ = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{gathered}`
-        : `\\begin{gathered} ${concentration(preparedConcentration, vialUnit)} \\times \\frac{1\\,${mathUnit('mg')}}{1000\\,${mathUnit('mcg')}} \\\\ = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{gathered}`
+        ? `${concentration(preparedConcentration, vialUnit)} \\times \\frac{1000\\,${mathUnit('mcg')}}{1\\,${mathUnit('mg')}} = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}`
+        : `${concentration(preparedConcentration, vialUnit)} \\times \\frac{1\\,${mathUnit('mg')}}{1000\\,${mathUnit('mcg')}} = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}`
     }] : []),
     {
       id: 'administration',
       title: 'Volume to administer',
-      expression: `\\begin{gathered} \\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} \\\\ = ${mathNumber(administrationVolume)}\\,\\mathrm{mL} \\end{gathered}`
+      expression: `\\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} = ${mathNumber(administrationVolume)}\\,\\mathrm{mL}`
     }
   ] : [];
 

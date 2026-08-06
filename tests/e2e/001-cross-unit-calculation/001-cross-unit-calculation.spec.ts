@@ -42,7 +42,7 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
   await page.getByRole('button', { name: 'Review calculation' }).click();
 
   await steps.step('simultaneous-calculation-review', {
-    description: 'All four large equations fit together in one no-scroll review panel',
+    description: 'All four large single-line equations fit together in one no-scroll review panel',
     verifications: [
       { spec: 'Vial, preparation, conversion, and administration MathML are simultaneously visible', check: async () => {
         await expect(page.getByRole('dialog').locator('math')).toHaveCount(4);
@@ -55,6 +55,14 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
           .toContainText('\\frac{1000\\,\\mathrm{mcg}}{1\\,\\mathrm{mg}}');
         await expect(page.getByTestId('administration-equation').locator('annotation'))
           .toContainText('2{,}000');
+      } },
+      { spec: 'Every equation is emitted as one uninterrupted KaTeX line', check: async () => {
+        const sources = await page.getByRole('dialog').locator('.equation annotation').allTextContents();
+        expect(sources).toHaveLength(4);
+        for (const source of sources) {
+          expect(source).not.toContain('\\begin{gathered}');
+          expect(source).not.toContain('\\\\');
+        }
       } },
       { spec: 'The review sheet and every equation fit without scrolling or clipping', check: async () => {
         const overflowing = await page.locator('dialog, .equation-list, .equation-step, .equation').evaluateAll((elements) => elements

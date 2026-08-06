@@ -73,7 +73,7 @@ Potentially unusual but mathematically valid values receive a non-blocking “ve
 3. Choose a visual final-volume card.
 4. Enter the ordered dose.
 5. Once inputs are complete, open **Review calculation**; the answer remains absent from the calculator.
-6. Inspect the vial concentration, prepared concentration, unit conversion when required, and substituted administration equation together in one no-scroll panel.
+6. Inspect the vial concentration, prepared concentration, unit conversion when required, and substituted administration equation together in one no-scroll panel; every formula is presented on one uninterrupted line.
 7. Choose **Complete review** to reveal the calculated mL.
 8. Confirm “I checked the order, vial unit, ordered-dose unit, and final prepared volume.”
 9. Save locally or discard. Changing any critical input revokes review, hides the answer, and clears confirmation.

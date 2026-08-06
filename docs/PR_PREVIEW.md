@@ -19,7 +19,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - Rendered vial concentration, prepared concentration, conversion factor, and administration volume with locally bundled KaTeX and accessible MathML.
 - Added generated container illustrations, product documentation, safety boundaries, and UX mockups.
 - Added deterministic Playwright coverage with zero-pixel screenshot comparisons.
-- Reworked the calculator into a fixed-height, no-scroll phone layout with blank initial fields, paged saved records, and a simultaneous KaTeX review panel that gates the answer.
+- Reworked the calculator into a fixed-height, no-scroll phone layout with blank initial fields, paged saved records, and a simultaneous KaTeX review panel with uninterrupted single-line formulas that gates the answer.
 - Added PR-gated E2E and GitHub Pages preview deployment under `/pr<PR number>/`.
 - Licensed the public project under GNU GPL v3.0.
 
