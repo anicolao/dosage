@@ -8,7 +8,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 
 ![Dosage calculation review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/docs/pr-preview.png)
 
-![No-scroll KaTeX unit-conversion review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/tests/e2e/001-cross-unit-calculation/screenshots/001-unit-conversion-review-phone.png)
+![No-scroll simultaneous KaTeX review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/tests/e2e/001-cross-unit-calculation/screenshots/001-simultaneous-calculation-review-phone.png)
 
 ## What changed
 
@@ -19,7 +19,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - Rendered vial concentration, prepared concentration, conversion factor, and administration volume with locally bundled KaTeX and accessible MathML.
 - Added generated container illustrations, product documentation, safety boundaries, and UX mockups.
 - Added deterministic Playwright coverage with zero-pixel screenshot comparisons.
-- Reworked the calculator into a fixed-height, no-scroll phone layout with compact inputs, paged saved records, and a step-by-step KaTeX review sheet.
+- Reworked the calculator into a fixed-height, no-scroll phone layout with blank initial fields, paged saved records, and a simultaneous KaTeX review panel that gates the answer.
 - Added PR-gated E2E and GitHub Pages preview deployment under `/pr<PR number>/`.
 - Licensed the public project under GNU GPL v3.0.
 
@@ -32,6 +32,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - non-convertible activity-unit handling;
 - favourite and history persistence/deletion;
 - acknowledgement requirements and no dose carry-forward;
+- blank initial fields, explicit unit/container selection, and answer gating until completed review;
 - same-origin GET-only operation with no runtime fetch/XHR/beacon;
 - corrupt-storage recovery without losing calculation capability;
 - WCAG A/AA automated analysis, MathML, labels, focus, 44 px targets, 320 px reflow, phone and desktop visual baselines.

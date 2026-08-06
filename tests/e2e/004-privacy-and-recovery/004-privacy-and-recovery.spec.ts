@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { TestStepHelper } from '../helpers/test-step-helper';
+import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 test('normal operation emits no runtime requests and survives unavailable storage', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
@@ -33,7 +33,9 @@ test('normal operation emits no runtime requests and survives unavailable storag
   });
 
   await page.goto('/');
+  await enterStandardCalculation(page);
   await page.getByRole('button', { name: 'Save medication as favourite' }).click();
+  await completeCalculationReview(page);
   await page.getByRole('checkbox').check();
   await page.getByRole('button', { name: 'Save mix on this phone' }).click();
 
@@ -66,6 +68,8 @@ test('normal operation emits no runtime requests and survives unavailable storag
     localStorage.setItem('dosage.favourites.v2', '{not valid json');
   });
   await page.reload();
+  await enterStandardCalculation(page);
+  await completeCalculationReview(page);
 
   await steps.step('storage-recovery', {
     description: 'A corrupt local record disables saving but never disables calculation',

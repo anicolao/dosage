@@ -18,7 +18,7 @@ The header always shows the product name and a visible “On this device” stat
 
 ### 1. Medication
 
-The first section asks for medication name, amount in the vial, vial unit, and vial volume. Field labels remain visible after entry. Example placeholders are never saved as real data. Loading a favourite fills only this section and clears the ordered dose and verification checkbox.
+The first section asks for medication name, amount in the vial, vial unit, and vial volume. Field labels remain visible after entry. No text, numeric, unit, or final-volume field has an initial default. Loading a favourite fills only its saved vial-label facts; final volume, ordered-dose unit, ordered dose, review state, and verification remain empty.
 
 ### 2. Final prepared volume
 
@@ -34,14 +34,14 @@ The label is always “Ordered dose,” with its own unit selector. For a vial i
 
 ### 4. Result and verification
 
-When all inputs are valid, the fixed calculator shows the calculated administration volume beside a “Review calculation” action. That action opens a modal review sheet with one readable KaTeX equation at a time:
+When all inputs are valid, the fixed calculator says “Answer hidden until review” and offers “Review calculation”; it does not expose the administration volume visually or to assistive technology. The action opens one modal panel that simultaneously shows every substituted KaTeX equation at a large, readable size:
 
 1. vial concentration: _A ÷ Vv = Cv vial-unit/mL_;
 2. prepared concentration: _A ÷ Vf = Cp vial-unit/mL_;
 3. explicit conversion when required: _Cp mg/mL × 1000 = Cpd mcg/mL_;
 4. full substituted equation: _D ordered-unit ÷ Cpd ordered-unit/mL = Va mL_.
 
-Tabs and Previous/Next controls expose the sequence without scrolling. Each view repeats the result and the local rounding-policy reminder. Closing the sheet returns focus to the review action.
+The complete proof fits without document, panel, or equation scrolling. “Go back,” Escape, or close returns without revealing the answer. “Complete review” closes the panel and reveals the administration volume, acknowledgement, and save control. Changing any critical field revokes review and hides the answer again.
 
 The save action remains disabled until the clinician checks: “I checked the order, vial unit, ordered-dose unit, and final prepared volume.” Editing any critical value clears that acknowledgement. Saving is not required to use or dismiss a result.
 
@@ -61,7 +61,7 @@ These generated images establish hierarchy, density, and visual tone. They are n
 
 ### Empty
 
-No result card is shown. The main action is “Calculate,” but results may update live after the first complete valid entry if testing demonstrates that live updates do not mask input mistakes.
+No field or selection is prepopulated and no result card is shown. The review action appears only after all required calculation inputs are complete and compatible.
 
 ### Incomplete
 
@@ -71,9 +71,13 @@ Incomplete fields show neutral helper text, not a red error while the user is st
 
 The result area is replaced—not merely covered—by a red-outlined error message with a plain-language correction. Example: “Ordered dose is greater than the medication available in one vial.” Previously calculated mL is removed from the accessibility tree.
 
-### Valid, unconfirmed
+### Valid, unreviewed
 
-The result is visible with a teal-neutral treatment. The save button is disabled and the acknowledgement is unchecked.
+The answer remains hidden. A neutral gate confirms that inputs are complete and requires “Review calculation.”
+
+### Reviewed, unconfirmed
+
+The result is visible with a teal-neutral treatment only after “Complete review.” The save button is disabled and the acknowledgement is unchecked.
 
 ### Saved
 

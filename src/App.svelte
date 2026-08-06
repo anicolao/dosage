@@ -11,34 +11,37 @@
   };
 
   let tab = 'mix';
-  let medicationName = 'Example medication';
-  let medicationAmount = '10';
-  let vialUnit = 'mg';
-  let vialVolume = '1';
-  let finalVolume = 50;
-  let orderedDose = '2000';
-  let orderedUnit = 'mcg';
+  let medicationName = '';
+  let medicationAmount = '';
+  let vialUnit = '';
+  let vialVolume = '';
+  let finalVolume = null;
+  let orderedDose = '';
+  let orderedUnit = '';
+  let reviewed = false;
   let acknowledged = false;
   let favourites = [];
   let history = [];
   let storageAvailable = true;
   let notice = '';
   let detailDialog;
-  let detailStep = 0;
   let favouritePage = 0;
   let historyPage = 0;
 
   $: amount = Number(medicationAmount);
   $: vial = Number(vialVolume);
   $: dose = Number(orderedDose);
-  $: compatibleDimensions = unitDimension(vialUnit) === unitDimension(orderedUnit);
+  $: hasRequiredValues =
+    medicationAmount !== '' && vialUnit !== '' && vialVolume !== '' &&
+    finalVolume !== null && orderedDose !== '' && orderedUnit !== '';
+  $: compatibleDimensions = hasRequiredValues && unitDimension(vialUnit) === unitDimension(orderedUnit);
   $: amountInBaseUnit = amount * unitFactor(vialUnit);
   $: availableInOrderedUnit = amountInBaseUnit / unitFactor(orderedUnit);
   $: validNumbers =
     Number.isFinite(amount) && amount > 0 &&
     Number.isFinite(vial) && vial > 0 &&
     Number.isFinite(dose) && dose > 0;
-  $: error = !medicationAmount || !vialVolume || !orderedDose
+  $: error = !hasRequiredValues
     ? ''
     : !validNumbers
       ? 'Enter positive numbers for vial amount, vial volume, and ordered dose.'
@@ -49,7 +52,7 @@
         : dose > availableInOrderedUnit
           ? 'Ordered dose is greater than the medication available in one vial.'
           : '';
-  $: isValid = validNumbers && !error;
+  $: isValid = hasRequiredValues && validNumbers && !error;
   $: vialConcentration = isValid ? amount / vial : null;
   $: preparedConcentration = isValid ? amount / finalVolume : null;
   $: preparedConcentrationInOrderedUnit = isValid
@@ -59,32 +62,27 @@
   $: calculationSteps = isValid ? [
     {
       id: 'vial',
-      shortLabel: 'Vial',
       title: 'Vial concentration',
-      expression: `\\begin{aligned} C_v &= \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${mathNumber(vial)}\\,\\mathrm{mL}} \\\\ &= ${concentration(vialConcentration, vialUnit)} \\end{aligned}`
+      expression: `\\begin{gathered} \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${mathNumber(vial)}\\,\\mathrm{mL}} \\\\ = ${concentration(vialConcentration, vialUnit)} \\end{gathered}`
     },
     {
       id: 'prepared',
-      shortLabel: 'Mixed',
       title: 'Prepared concentration',
-      expression: `\\begin{aligned} C_p &= \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${finalVolume}\\,\\mathrm{mL}} \\\\ &= ${concentration(preparedConcentration, vialUnit)} \\end{aligned}`
+      expression: `\\begin{gathered} \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${finalVolume}\\,\\mathrm{mL}} \\\\ = ${concentration(preparedConcentration, vialUnit)} \\end{gathered}`
     },
     ...(vialUnit !== orderedUnit ? [{
       id: 'conversion',
-      shortLabel: 'Units',
       title: 'Unit conversion',
       expression: vialUnit === 'mg'
-        ? `\\begin{aligned} ${concentration(preparedConcentration, vialUnit)} &\\times \\frac{1000\\,${mathUnit('mcg')}}{1\\,${mathUnit('mg')}} \\\\ &= ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{aligned}`
-        : `\\begin{aligned} ${concentration(preparedConcentration, vialUnit)} &\\times \\frac{1\\,${mathUnit('mg')}}{1000\\,${mathUnit('mcg')}} \\\\ &= ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{aligned}`
+        ? `\\begin{gathered} ${concentration(preparedConcentration, vialUnit)} \\times \\frac{1000\\,${mathUnit('mcg')}}{1\\,${mathUnit('mg')}} \\\\ = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{gathered}`
+        : `\\begin{gathered} ${concentration(preparedConcentration, vialUnit)} \\times \\frac{1\\,${mathUnit('mg')}}{1000\\,${mathUnit('mcg')}} \\\\ = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{gathered}`
     }] : []),
     {
       id: 'administration',
-      shortLabel: 'Dose',
       title: 'Volume to administer',
-      expression: `\\begin{aligned} V_{\\mathrm{admin}} &= \\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} \\\\ &= ${mathNumber(administrationVolume)}\\,\\mathrm{mL} \\end{aligned}`
+      expression: `\\begin{gathered} \\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} \\\\ = ${mathNumber(administrationVolume)}\\,\\mathrm{mL} \\end{gathered}`
     }
   ] : [];
-  $: currentCalculationStep = calculationSteps[Math.min(detailStep, calculationSteps.length - 1)];
 
   onMount(() => {
     try {
@@ -140,7 +138,9 @@
   }
 
   function unitDimension(unit) {
-    return unit === 'units' ? 'activity' : 'mass';
+    if (unit === 'units') return 'activity';
+    if (unit === 'mg' || unit === 'mcg') return 'mass';
+    return null;
   }
 
   function unitFactor(unit) {
@@ -148,15 +148,14 @@
   }
 
   function criticalChange() {
+    reviewed = false;
     acknowledged = false;
     notice = '';
   }
 
   function selectVialUnit(event) {
     vialUnit = event.currentTarget.value;
-    orderedUnit = vialUnit === 'units'
-      ? 'units'
-      : orderedUnit === 'units' ? 'mcg' : orderedUnit;
+    orderedUnit = '';
     orderedDose = '';
     criticalChange();
   }
@@ -188,9 +187,11 @@
     medicationName = favourite.name;
     medicationAmount = favourite.medicationAmount;
     vialUnit = favourite.vialUnit;
-    orderedUnit = vialUnit === 'units' ? 'units' : 'mcg';
+    orderedUnit = '';
     vialVolume = favourite.vialVolume;
+    finalVolume = null;
     orderedDose = '';
+    reviewed = false;
     acknowledged = false;
     notice = 'Favourite loaded. Enter the ordered dose.';
     tab = 'mix';
@@ -205,7 +206,7 @@
   }
 
   function saveMix() {
-    if (!storageAvailable || !isValid || !acknowledged) return;
+    if (!storageAvailable || !isValid || !reviewed || !acknowledged) return;
     const next = [{
       id: crypto.randomUUID(),
       medicationName: medicationName.trim() || 'Unnamed medication',
@@ -244,8 +245,13 @@
   }
 
   function openCalculationDetails() {
-    detailStep = 0;
     detailDialog?.showModal();
+  }
+
+  function completeCalculationReview() {
+    reviewed = true;
+    acknowledged = false;
+    detailDialog?.close();
   }
 
   function closeCalculationDetails() {
@@ -296,6 +302,7 @@
               <label>
                 Vial unit
                 <select aria-label="Vial unit" value={vialUnit} onchange={selectVialUnit}>
+                  <option value="" disabled>Select</option>
                   <option value="mg">mg</option>
                   <option value="mcg">mcg</option>
                   <option value="units">units</option>
@@ -307,7 +314,7 @@
               </label>
             </div>
 
-            <button class="text-button" type="button" aria-label="Save medication as favourite" onclick={saveFavourite} disabled={!storageAvailable || !medicationName.trim()}>
+            <button class="text-button" type="button" aria-label="Save medication as favourite" onclick={saveFavourite} disabled={!storageAvailable || !medicationName.trim() || !medicationAmount || !vialUnit || !vialVolume}>
               <span aria-hidden="true">☆</span> Save favourite
             </button>
           </fieldset>
@@ -341,6 +348,7 @@
               <label>
                 Ordered-dose unit
                 <select aria-label="Ordered-dose unit" value={orderedUnit} onchange={selectOrderedUnit}>
+                  <option value="" disabled>Select</option>
                   {#if vialUnit === 'units'}
                     <option value="units">units</option>
                   {:else}
@@ -358,66 +366,64 @@
               <span>{error}</span>
             </div>
           {:else if isValid}
-            <section class="result" data-testid="calculation-result" aria-labelledby="result-heading" aria-live="polite">
-              <div>
-                <p id="result-heading">Give</p>
-                <strong class="result-number">{format(administrationVolume)} <span>mL</span></strong>
-              </div>
-              <button class="details-button" type="button" onclick={openCalculationDetails}>
-                Review calculation <span aria-hidden="true">›</span>
-              </button>
-            </section>
+            {#if reviewed}
+              <section class="result" data-testid="calculation-result" aria-labelledby="result-heading" aria-live="polite">
+                <div>
+                  <p id="result-heading">Give</p>
+                  <strong class="result-number">{format(administrationVolume)} <span>mL</span></strong>
+                </div>
+                <button class="details-button" type="button" onclick={openCalculationDetails}>
+                  Review again <span aria-hidden="true">›</span>
+                </button>
+              </section>
 
-            <label class="acknowledgement">
-              <input type="checkbox" bind:checked={acknowledged} />
-              <span>I checked the order, vial unit, ordered-dose unit, and final prepared volume.</span>
-            </label>
+              <label class="acknowledgement">
+                <input type="checkbox" bind:checked={acknowledged} />
+                <span>I checked the order, vial unit, ordered-dose unit, and final prepared volume.</span>
+              </label>
 
-            <button class="primary" type="button" onclick={saveMix} disabled={!acknowledged || !storageAvailable}>Save mix on this phone</button>
+              <button class="primary" type="button" onclick={saveMix} disabled={!acknowledged || !storageAvailable}>Save mix on this phone</button>
+            {:else}
+              <section class="review-ready" data-testid="calculation-ready" aria-live="polite">
+                <div>
+                  <p>Inputs complete</p>
+                  <strong>Answer hidden until review</strong>
+                </div>
+                <button class="primary" type="button" onclick={openCalculationDetails}>Review calculation</button>
+              </section>
+            {/if}
           {/if}
         </form>
 
         <dialog class="calculation-dialog" aria-labelledby="calculation-dialog-heading" bind:this={detailDialog} oncancel={closeCalculationDetails}>
-          {#if currentCalculationStep}
+          {#if calculationSteps.length > 0}
             <div class="dialog-heading">
               <div>
                 <p id="calculation-dialog-heading">Calculation details</p>
-                <h2>{format(administrationVolume)} mL</h2>
+                <h2>Check every step</h2>
               </div>
               <button type="button" aria-label="Close calculation details" onclick={closeCalculationDetails}>×</button>
             </div>
 
-            <div class="equation-tabs" role="tablist" aria-label="Calculation steps">
+            <div class="equation-list" aria-label="Calculation steps">
               {#each calculationSteps as step, index}
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={detailStep === index}
-                  aria-controls="equation-panel"
-                  onclick={() => detailStep = index}
-                >
-                  <span>{index + 1}</span>{step.shortLabel}
-                </button>
+                <section class="equation-step" aria-labelledby={`equation-title-${step.id}`}>
+                  <div>
+                    <span>{index + 1}</span>
+                    <h3 id={`equation-title-${step.id}`}>{step.title}</h3>
+                  </div>
+                  <div class="equation" data-testid={`${step.id}-equation`}>
+                    {@html renderMath(step.expression)}
+                  </div>
+                </section>
               {/each}
             </div>
-
-            <section id="equation-panel" class="equation-panel" role="tabpanel" aria-live="polite">
-              <p>Step {detailStep + 1} of {calculationSteps.length}</p>
-              <h3>{currentCalculationStep.title}</h3>
-              <div class="equation" data-testid={`${currentCalculationStep.id}-equation`}>
-                {@html renderMath(currentCalculationStep.expression)}
-              </div>
-            </section>
 
             <p class="rounding">Use local policy for measurable volume and rounding.</p>
 
             <div class="dialog-actions">
-              <button type="button" disabled={detailStep === 0} onclick={() => detailStep -= 1}>Previous</button>
-              {#if detailStep < calculationSteps.length - 1}
-                <button class="primary" type="button" onclick={() => detailStep += 1}>Next step</button>
-              {:else}
-                <button class="primary" type="button" onclick={closeCalculationDetails}>Done</button>
-              {/if}
+              <button type="button" onclick={closeCalculationDetails}>Go back</button>
+              <button class="primary" type="button" onclick={completeCalculationReview}>Complete review</button>
             </div>
           {/if}
         </dialog>
@@ -674,7 +680,7 @@
   .vial-section { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 7px; }
   .vial-section legend, .vial-section .input-grid { grid-column: 1 / -1; }
   .name-field { min-width: 0; }
-  .input-grid { grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); gap: 5px; margin-top: 4px; }
+  .input-grid { grid-template-columns: minmax(0, 1fr) 88px minmax(0, 1fr); gap: 5px; margin-top: 4px; }
   .input-grid label:last-child { grid-column: auto; }
   .text-button { align-self: end; min-height: 44px; margin: 0; padding: 4px 3px; font-size: .74rem; white-space: nowrap; }
   .volume-section { padding-bottom: 5px; }
@@ -686,20 +692,24 @@
   .selected-mark { top: 2px; right: 2px; width: 15px; height: 15px; font-size: .52rem; }
   .caution { min-height: 14px; margin: 3px 0 0; padding-left: 17px; overflow: hidden; font-size: .66rem; line-height: 1.25; white-space: nowrap; }
   .caution::before { width: 13px; height: 13px; font-size: .55rem; }
-  .dose-grid { grid-template-columns: minmax(0, 1fr) 94px; gap: 5px; }
+  .dose-grid { grid-template-columns: minmax(0, 1fr) 100px; gap: 5px; }
   .error { min-height: 54px; gap: 1px; padding: 7px 10px; border-width: 1.5px; border-radius: 10px; font-size: .72rem; }
   .result { display: flex; align-items: center; justify-content: space-between; min-height: 74px; padding: 6px 8px 6px 12px; text-align: left; border-width: 1.5px; border-radius: 11px; }
   .result > div > p { margin: 0; color: #185b58; font-size: .72rem; font-weight: 800; text-transform: uppercase; }
   .result-number { margin: 0; font-size: clamp(2.4rem, 12vw, 3.5rem); }
   .details-button { min-height: 44px; padding: 6px 8px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-size: .76rem; font-weight: 800; cursor: pointer; }
   .details-button span { font-size: 1.2rem; vertical-align: -.08em; }
+  .review-ready { display: flex; align-items: center; justify-content: space-between; min-height: 74px; padding: 8px 8px 8px 12px; background: #eef2f0; border: 1.5px dashed #78908b; border-radius: 11px; }
+  .review-ready p { margin: 0; color: #52677a; font-size: .68rem; font-weight: 800; text-transform: uppercase; }
+  .review-ready strong { display: block; font-size: .8rem; }
+  .review-ready .primary { min-width: 132px; }
   .acknowledgement { grid-template-columns: 23px 1fr; min-height: 44px; align-items: center; padding: 0 2px; font-size: .76rem; }
   .acknowledgement input { width: 21px; min-height: 21px; }
   .primary { min-height: 44px; padding: 8px 12px; border-radius: 9px; font-size: .84rem; }
 
   .calculation-dialog {
     width: min(calc(100% - 20px), 540px);
-    height: min(610px, calc(100dvh - 20px));
+    height: min(700px, calc(100dvh - 20px));
     max-height: calc(100dvh - 20px);
     margin: auto;
     padding: 12px;
@@ -710,22 +720,20 @@
     box-shadow: 0 18px 70px rgba(16, 42, 67, .35);
     overflow: hidden;
   }
-  .calculation-dialog[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto auto; gap: 9px; }
+  .calculation-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; gap: 8px; }
   .calculation-dialog::backdrop { background: rgba(16, 42, 67, .62); }
   .dialog-heading { display: flex; align-items: center; justify-content: space-between; }
   .dialog-heading p { margin: 0; color: #52677a; font-size: .72rem; font-weight: 800; text-transform: uppercase; }
-  .dialog-heading h2 { margin: 0; color: #076d69; font-size: 2rem; line-height: 1; }
+  .dialog-heading h2 { margin: 1px 0 0; color: #102a43; font-size: 1.2rem; line-height: 1.1; }
   .dialog-heading button { width: 44px; min-height: 44px; color: #52677a; background: #fff; border: 1px solid #c7d0cd; border-radius: 50%; font-size: 1.6rem; cursor: pointer; }
-  .equation-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
-  .equation-tabs button { display: grid; min-width: 0; min-height: 50px; place-items: center; align-content: center; padding: 3px; color: #52677a; background: #fff; border: 1px solid #c7d0cd; border-radius: 8px; font-size: .66rem; font-weight: 800; cursor: pointer; }
-  .equation-tabs button span { display: grid; width: 18px; height: 18px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: .58rem; }
-  .equation-tabs button[aria-selected="true"] { color: #fff; background: #087f7a; border-color: #087f7a; }
-  .equation-panel { display: grid; align-content: center; min-height: 0; padding: 12px 6px; text-align: center; background: #fff; border: 1px solid #d8dfdc; border-radius: 12px; overflow: hidden; }
-  .equation-panel > p { margin: 0; color: #087f7a; font-size: .68rem; font-weight: 850; text-transform: uppercase; }
-  .equation-panel h3 { margin: 4px 0 8px; font-size: 1rem; }
+  .equation-list { display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 5px; min-height: 0; overflow: hidden; }
+  .equation-step { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; padding: 5px 7px; text-align: center; background: #fff; border: 1px solid #d8dfdc; border-radius: 10px; overflow: hidden; }
+  .equation-step > div:first-child { display: flex; gap: 6px; align-items: center; justify-content: center; }
+  .equation-step > div:first-child span { display: grid; width: 20px; height: 20px; place-items: center; color: #fff; background: #087f7a; border-radius: 50%; font-size: .66rem; font-weight: 850; }
+  .equation-step h3 { margin: 0; font-size: .76rem; }
   .equation { width: 100%; overflow: hidden; text-align: center; }
-  .equation :global(.katex-display) { margin: .2rem 0; text-align: center; }
-  .equation :global(.katex) { font-size: clamp(.72rem, 3.2vw, 1rem); }
+  .equation :global(.katex-display) { margin: .1rem 0; text-align: center; }
+  .equation :global(.katex) { font-size: clamp(1rem, 4.5vw, 1.2rem); }
   .rounding { margin: 0; text-align: center; font-size: .68rem; }
   .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .dialog-actions button { min-height: 44px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-size: .76rem; font-weight: 800; cursor: pointer; }

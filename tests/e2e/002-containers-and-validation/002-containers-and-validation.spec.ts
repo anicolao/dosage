@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { TestStepHelper } from '../helpers/test-step-helper';
+import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 test('containers, boundaries, and activity units remain safe', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
@@ -9,6 +9,7 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
   );
 
   await page.goto('/');
+  await enterStandardCalculation(page);
   const expected = new Map([
     [10, '2 mL'], [50, '10 mL'], [100, '20 mL'],
     [250, '50 mL'], [500, '100 mL'], [1000, '200 mL']
@@ -19,6 +20,8 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
     await option.click();
     await expect(option).toHaveAttribute('aria-pressed', 'true');
     await expect(option.locator('img')).toHaveJSProperty('complete', true);
+    await expect(page.locator('.result-number')).toHaveCount(0);
+    await completeCalculationReview(page);
     await expect(page.locator('.result-number')).toHaveText(result);
   }
 
@@ -59,22 +62,25 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
   await page.getByLabel('Vial unit', { exact: true }).selectOption('units');
   await page.getByLabel('Amount in vial').fill('1000');
   await page.getByRole('button', { name: '100 mL', exact: true }).click();
+  const activitySelector = page.getByLabel('Ordered-dose unit', { exact: true });
+  await expect(activitySelector).toHaveValue('');
+  await activitySelector.selectOption('units');
   await page.getByLabel('Dose from the medication order', { exact: true }).fill('250');
+  await completeCalculationReview(page);
 
   await steps.step('activity-units', {
     description: 'Activity units stay in their own non-convertible dimension',
     verifications: [
-      { spec: 'A units-labelled vial forces the ordered unit to units', check: async () => {
-        const selector = page.getByLabel('Ordered-dose unit', { exact: true });
-        await expect(selector).toHaveValue('units');
-        await expect(selector.locator('option')).toHaveCount(1);
+      { spec: 'A units-labelled vial offers only an explicitly selected units order', check: async () => {
+        await expect(activitySelector).toHaveValue('units');
+        await expect(activitySelector.locator('option')).toHaveCount(2);
       } },
       { spec: '1000 units in 100 mL for 250 units calculates to 25 mL', check: async () => {
         await expect(page.locator('.result-number')).toHaveText('25 mL');
-        await page.getByRole('button', { name: 'Review calculation' }).click();
-        await expect(page.getByRole('tab')).toHaveCount(3);
-        await expect(page.getByRole('tab', { name: /Units/ })).toHaveCount(0);
-        await page.getByRole('button', { name: 'Close calculation details' }).click();
+        await page.getByRole('button', { name: 'Review again' }).click();
+        await expect(page.getByRole('dialog').locator('math')).toHaveCount(3);
+        await expect(page.getByTestId('conversion-equation')).toHaveCount(0);
+        await page.getByRole('button', { name: 'Go back' }).click();
       } }
     ]
   });

@@ -26,5 +26,5 @@ Every supported final volume calculates deterministically and invalid inputs rem
 
 **Verifications:**
 
-- [x] A units-labelled vial forces the ordered unit to units
+- [x] A units-labelled vial offers only an explicitly selected units order
 - [x] 1000 units in 100 mL for 250 units calculates to 25 mL

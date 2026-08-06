@@ -13,6 +13,23 @@ interface DocStep {
   specs: string[];
 }
 
+export async function enterStandardCalculation(page: Page) {
+  await page.getByLabel(/Medication name/).fill('Example medication');
+  await page.getByLabel('Amount in vial').fill('10');
+  await page.getByLabel('Vial unit', { exact: true }).selectOption('mg');
+  await page.getByLabel(/Vial volume/).fill('1');
+  await page.getByRole('button', { name: '50 mL', exact: true }).click();
+  await page.getByLabel('Ordered-dose unit', { exact: true }).selectOption('mcg');
+  await page.getByLabel('Dose from the medication order', { exact: true }).fill('2000');
+}
+
+export async function completeCalculationReview(page: Page) {
+  await page.getByRole('button', { name: 'Review calculation' }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.getByRole('button', { name: 'Complete review' }).click();
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+}
+
 export class TestStepHelper {
   private count = 0;
   private steps: DocStep[] = [];

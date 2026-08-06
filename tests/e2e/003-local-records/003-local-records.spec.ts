@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { TestStepHelper } from '../helpers/test-step-helper';
+import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 test('favourites and history stay local without carrying an order forward', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
@@ -10,6 +10,7 @@ test('favourites and history stay local without carrying an order forward', asyn
 
   await page.clock.install({ time: new Date('2026-08-06T14:32:00-04:00') });
   await page.goto('/');
+  await enterStandardCalculation(page);
   await page.getByRole('button', { name: 'Save medication as favourite' }).click();
   await page.getByRole('button', { name: /Favourites/ }).click();
 
@@ -30,7 +31,13 @@ test('favourites and history stay local without carrying an order forward', asyn
   await page.getByRole('button', { name: 'Use', exact: true }).click();
   await expect(page.getByLabel('Dose from the medication order', { exact: true })).toHaveValue('');
   await expect(page.locator('[data-testid="calculation-result"]')).toHaveCount(0);
+  await expect(page.getByLabel('Ordered-dose unit', { exact: true })).toHaveValue('');
+  await expect(page.locator('.volume-grid button[aria-pressed="true"]')).toHaveCount(0);
+  await page.getByRole('button', { name: '50 mL', exact: true }).click();
+  await page.getByLabel('Ordered-dose unit', { exact: true }).selectOption('mcg');
   await page.getByLabel('Dose from the medication order', { exact: true }).fill('2000');
+  await expect(page.getByRole('button', { name: 'Save mix on this phone' })).toHaveCount(0);
+  await completeCalculationReview(page);
   const save = page.getByRole('button', { name: 'Save mix on this phone' });
   await expect(save).toBeDisabled();
   await page.getByRole('checkbox').check();

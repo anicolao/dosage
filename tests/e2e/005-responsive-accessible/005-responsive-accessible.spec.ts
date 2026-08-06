@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import { TestStepHelper } from '../helpers/test-step-helper';
+import { enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 test('the calculation remains accessible and responsive', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
@@ -10,6 +10,7 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
   );
 
   await page.goto('/');
+  await enterStandardCalculation(page);
   await steps.step('accessible-layout', {
     description: `The ${testInfo.project.name} layout is operable and exposes mathematical semantics`,
     verifications: [
@@ -28,21 +29,14 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
       } },
       { spec: 'The KaTeX rendering includes accessible MathML', check: async () => {
         await page.getByRole('button', { name: 'Review calculation' }).click();
-        await expect(page.getByRole('tab')).toHaveCount(4);
-        for (const tabName of ['Vial', 'Mixed', 'Units', 'Dose']) {
-          await page.getByRole('tab', { name: new RegExp(tabName) }).click();
-          await expect(page.getByRole('tabpanel').locator('math')).toHaveCount(1);
-        }
-        await expect(page.getByTestId('administration-equation').locator('annotation')).toContainText('V_{\\mathrm{admin}}');
-        const dialogSize = await page.getByRole('dialog').evaluate((dialog) => ({
-          clientHeight: dialog.clientHeight,
-          scrollHeight: dialog.scrollHeight,
-          clientWidth: dialog.clientWidth,
-          scrollWidth: dialog.scrollWidth
-        }));
-        expect(dialogSize.scrollHeight).toBeLessThanOrEqual(dialogSize.clientHeight + 1);
-        expect(dialogSize.scrollWidth).toBeLessThanOrEqual(dialogSize.clientWidth + 1);
-        await page.getByRole('button', { name: 'Close calculation details' }).click();
+        await expect(page.getByRole('dialog').locator('math')).toHaveCount(4);
+        await expect(page.getByTestId('administration-equation').locator('annotation')).toContainText('2{,}000');
+        const overflowing = await page.locator('dialog, .equation-list, .equation-step, .equation').evaluateAll((elements) => elements
+          .filter((element) => element.scrollHeight > element.clientHeight + 1 || element.scrollWidth > element.clientWidth + 1)
+          .map((element) => `${element.className}:${element.scrollWidth}×${element.scrollHeight}/${element.clientWidth}×${element.clientHeight}`));
+        expect(overflowing).toEqual([]);
+        await page.getByRole('button', { name: 'Complete review' }).click();
+        await expect(page.locator('.result-number')).toHaveText('10 mL');
       } },
       { spec: 'Interactive controls provide at least a 44px target, excluding the checkbox inside its larger label', check: async () => {
         const undersized = await page
@@ -87,6 +81,13 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
       .map((panel) => `${panel.tagName}:${panel.scrollWidth}×${panel.scrollHeight}/${panel.clientWidth}×${panel.clientHeight}`));
     expect(clippedPanels).toEqual([]);
     await expect(page.getByRole('button', { name: 'Save mix on this phone' })).toBeInViewport();
+    await page.getByRole('button', { name: 'Review again' }).click();
+    const clippedReview = await page.locator('dialog, .equation-list, .equation-step, .equation').evaluateAll((elements) => elements
+      .filter((element) => element.scrollHeight > element.clientHeight + 1 || element.scrollWidth > element.clientWidth + 1)
+      .map((element) => `${element.className}:${element.scrollWidth}×${element.scrollHeight}/${element.clientWidth}×${element.clientHeight}`));
+    expect(clippedReview).toEqual([]);
+    await expect(page.getByRole('dialog').locator('math')).toHaveCount(4);
+    await page.getByRole('button', { name: 'Go back' }).click();
   }
 
   steps.generateDocs();
