@@ -24,9 +24,25 @@ export async function enterStandardCalculation(page: Page) {
 }
 
 export async function completeCalculationReview(page: Page) {
-  await page.getByRole('button', { name: 'Review calculation' }).click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.getByRole('button', { name: 'Complete review' }).click();
+  const dialog = page.getByRole('dialog');
+  if (!(await dialog.isVisible())) {
+    await page.getByRole('button', { name: 'Review calculation' }).click();
+    await expect(dialog).toBeVisible();
+  }
+
+  const complete = dialog.getByRole('button', { name: 'Complete review' });
+  await expect(complete).toBeDisabled();
+  const checks = dialog.locator('.step-check');
+  const checkCount = await checks.count();
+  expect(checkCount).toBeGreaterThan(0);
+  for (let index = 0; index < checkCount; index += 1) {
+    await expect(checks.nth(index)).toHaveAttribute('aria-pressed', 'false');
+    await checks.nth(index).click();
+    await expect(checks.nth(index)).toHaveAttribute('aria-pressed', 'true');
+    if (index < checkCount - 1) await expect(complete).toBeDisabled();
+  }
+  await expect(complete).toBeEnabled();
+  await complete.click();
   await expect(page.getByRole('dialog')).not.toBeVisible();
 }
 

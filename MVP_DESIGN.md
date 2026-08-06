@@ -10,11 +10,11 @@ Inputs:
 
 - medication display name: optional for calculation, required to save a favourite;
 - medication amount in the vial: positive decimal;
-- vial medication unit: `mg`, `mcg`, or `units`;
-- vial volume: positive decimal mL with no initial default;
+- vial medication unit: `mg`, `mcg`, or `units`, initially `mg`;
+- vial volume: positive decimal mL, initially `1`;
 - final prepared volume: exactly `10`, `50`, `100`, `250`, `500`, or `1000` mL;
 - ordered dose: positive decimal;
-- ordered-dose unit: `mg` or `mcg` for a mass-labelled vial, or `units` for a units-labelled vial.
+- ordered-dose unit: `mg` or `mcg` for a mass-labelled vial, or `units` for a units-labelled vial; initially `mcg`.
 
 Outputs:
 
@@ -68,13 +68,13 @@ Potentially unusual but mathematically valid values receive a non-blocking “ve
 
 ## 3. Primary workflow
 
-1. Open directly to **Mix** with every text, numeric, unit, and final-volume input blank.
+1. Open directly to **Mix** with vial unit `mg`, vial volume `1 mL`, and ordered-dose unit `mcg`; medication name, amount, ordered dose, and final prepared volume remain unset.
 2. Enter a medication name and vial label values, or load a favourite.
 3. Choose a visual final-volume card.
 4. Enter the ordered dose.
 5. Once inputs are complete, open **Review calculation**; the answer remains absent from the calculator.
-6. Inspect the vial concentration, prepared concentration, unit conversion when required, and substituted administration equation together in one no-scroll panel; every formula is presented on one uninterrupted line.
-7. Choose **Complete review** to reveal the calculated mL.
+6. Inspect the vial concentration, prepared concentration, unit conversion when required, and substituted administration equation together in one no-scroll panel; every formula is presented on one uninterrupted line and must be individually checked.
+7. After all visible checks are selected, choose **Complete review** to reveal the calculated mL.
 8. Confirm “I checked the order, vial unit, ordered-dose unit, and final prepared volume.”
 9. Save locally or discard. Changing any critical input revokes review, hides the answer, and clears confirmation.
 
@@ -197,10 +197,10 @@ Default visual tests block service workers for determinism. A separate serial of
 
 | ID | Journey | Essential assertions |
 | --- | --- | --- |
-| 001 | Basic 10 mg / 50 mL / 2000 mcg | all fields initially blank; prepared concentration `0.2 mg/mL = 200 mcg/mL`; all equations visible together; result `10 mL` only after completed review |
+| 001 | Basic 10 mg / 50 mL / 2000 mcg | requested unit/volume defaults; prepared concentration `0.2 mg/mL = 200 mcg/mL`; all equations visible and individually checked; result `10 mL` only after completed review |
 | 002 | Every supported container | exact choices `10, 50, 100, 250, 500, 1000`; correct image, selected state, and calculation |
 | 003 | Blocking validation | blank, zero, negative, malformed, excessive dose, final volume below vial volume, and unsafe-number cases expose no actionable result |
-| 004 | Unit conversion | vial and order units are independent; `2 mg` equals `2000 mcg`; mg↔mcg conversion is visible; mass↔units is impossible; switching either unit resets dose/confirmation |
+| 004 | Unit conversion | vial and order units are independent; `2 mg` equals `2000 mcg`; mg↔mcg conversion is visible; mass↔units is impossible; switching either unit preserves entered numbers but resets review/confirmation |
 | 005 | Favourite lifecycle | save, reload, edit, delete; loading clears dose and confirmation; persists after reload |
 | 006 | History lifecycle | save only after acknowledgement; chronological review; delete one; confirmed clear all; no patient fields |
 | 007 | Privacy | zero unexpected requests across mix, favourite, history, reload, error, and clear flows |

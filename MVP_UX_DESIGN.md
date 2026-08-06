@@ -18,7 +18,7 @@ The header always shows the product name and a visible “On this device” stat
 
 ### 1. Medication
 
-The first section asks for medication name, amount in the vial, vial unit, and vial volume. Field labels remain visible after entry. No text, numeric, unit, or final-volume field has an initial default. Loading a favourite fills only its saved vial-label facts; final volume, ordered-dose unit, ordered dose, review state, and verification remain empty.
+The first section asks for medication name, amount in the vial, vial unit, and vial volume. Field labels remain visible after entry. Vial unit starts at `mg`, vial volume at `1 mL`, and ordered-dose unit at `mcg`; medication name, vial amount, ordered dose, and final prepared volume remain unset. Loading a favourite fills its saved vial-label facts, restores `mcg` as the mass-dose unit, and leaves final volume, ordered dose, review state, and verification empty.
 
 ### 2. Final prepared volume
 
@@ -30,7 +30,7 @@ Copy directly below the cards says: “Choose the total final volume after the m
 
 ### 3. Ordered dose
 
-The label is always “Ordered dose,” with its own unit selector. For a vial in mg or mcg, the order may independently use mg or mcg; a common path is a vial in mg and an order in mcg. For a vial in units, the order must use units. Changing either selector clears the dose and confirmation. There is no suggested value, recent-dose chip, or dose saved in a favourite.
+The label is always “Ordered dose,” with its own unit selector. For a vial in mg or mcg, the order may independently use mg or mcg; a common path is a vial in mg and an order in mcg. For a vial in units, the order must use units. Changing either selector preserves all entered text and numeric values but clears review and confirmation. There is no suggested dose value, recent-dose chip, or dose saved in a favourite.
 
 ### 4. Result and verification
 
@@ -41,7 +41,7 @@ When all inputs are valid, the fixed calculator says “Answer hidden until revi
 3. explicit conversion when required: _Cp mg/mL × 1000 = Cpd mcg/mL_;
 4. full substituted equation: _D ordered-unit ÷ Cpd ordered-unit/mL = Va mL_.
 
-The complete proof fits without document, panel, or equation scrolling. “Go back,” Escape, or close returns without revealing the answer. “Complete review” closes the panel and reveals the administration volume, acknowledgement, and save control. Changing any critical field revokes review and hides the answer again.
+The complete proof fits without document, panel, or equation scrolling. Each card has a left-justified heading, a vertically centred formula, and a grey check button centred on its right edge. “Complete review” remains disabled until every visible step is checked. “Go back,” Escape, or close returns without revealing the answer. Completing review closes the panel and reveals the administration volume, acknowledgement, and save control. Changing any critical field revokes review and hides the answer again.
 
 The save action remains disabled until the clinician checks: “I checked the order, vial unit, ordered-dose unit, and final prepared volume.” Editing any critical value clears that acknowledgement. Saving is not required to use or dismiss a result.
 

@@ -19,7 +19,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - Rendered vial concentration, prepared concentration, conversion factor, and administration volume with locally bundled KaTeX and accessible MathML.
 - Added generated container illustrations, product documentation, safety boundaries, and UX mockups.
 - Added deterministic Playwright coverage with zero-pixel screenshot comparisons.
-- Reworked the calculator into a fixed-height, no-scroll phone layout with blank initial fields, paged saved records, and a simultaneous KaTeX review panel with uninterrupted single-line formulas that gates the answer.
+- Reworked the calculator into a fixed-height, no-scroll phone layout with explicit mg/1 mL/mcg defaults, paged saved records, and a simultaneous KaTeX review panel whose single-line formulas must each be checked before the answer is revealed.
 - Added PR-gated E2E and GitHub Pages preview deployment under `/pr<PR number>/`.
 - Licensed the public project under GNU GPL v3.0.
 
@@ -32,7 +32,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - non-convertible activity-unit handling;
 - favourite and history persistence/deletion;
 - acknowledgement requirements and no dose carry-forward;
-- blank initial fields, explicit unit/container selection, and answer gating until completed review;
+- explicit mg/1 mL/mcg defaults, no final-volume default, value-preserving unit changes, and answer gating until every review step is checked;
 - same-origin GET-only operation with no runtime fetch/XHR/beacon;
 - corrupt-storage recovery without losing calculation capability;
 - WCAG A/AA automated analysis, MathML, labels, focus, 44 px targets, 320 px reflow, phone and desktop visual baselines.

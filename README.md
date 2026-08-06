@@ -16,7 +16,7 @@ The current repository contains:
 
 The calculation review uses locally bundled KaTeX to show dimensional analysis and accessible MathML. No equation, font, or input is fetched from a third party.
 
-The calculator is a fixed-height phone interface with no page or panel scrolling. Every field starts blank, the answer stays hidden until review is completed, and all detailed equations appear together as uninterrupted single-line formulas in one readable review panel. Favourites and history use explicit paging.
+The calculator is a fixed-height phone interface with no page or panel scrolling. It defaults the vial unit to mg, vial volume to 1 mL, and ordered-dose unit to mcg while leaving medication amounts, doses, and final prepared volume unset. The answer stays hidden until every detailed, single-line equation is individually checked and the review is completed. Favourites and history use explicit paging.
 
 ![Actual Playwright preview of the calculation review](./docs/pr-preview.png)
 

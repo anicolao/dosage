@@ -1,15 +1,16 @@
 # Cross-unit calculation
 
-A blank calculator gates its answer behind a simultaneous review of every substituted equation.
+An incomplete calculator gates its answer behind a simultaneous, individually checked review of every substituted equation.
 
-## Every medication, amount, unit, volume, container, and dose begins unselected
+## Only vial unit, vial volume, and ordered-dose unit have safe starting defaults
 
-![Every medication, amount, unit, volume, container, and dose begins unselected](./screenshots/000-blank-calculator-phone.png)
+![Only vial unit, vial volume, and ordered-dose unit have safe starting defaults](./screenshots/000-blank-calculator-phone.png)
 
 **Verifications:**
 
-- [x] All text and numeric fields are blank
-- [x] Neither unit selector nor any final volume has a default
+- [x] Medication name, vial amount, and ordered dose remain blank
+- [x] Vial unit defaults to mg, vial volume to 1 mL, and ordered-dose unit to mcg
+- [x] No final prepared volume is preselected
 - [x] No answer or review action is present for incomplete input
 
 ## All four large single-line equations fit together in one no-scroll review panel
@@ -21,6 +22,7 @@ A blank calculator gates its answer behind a simultaneous review of every substi
 - [x] Vial, preparation, conversion, and administration MathML are simultaneously visible
 - [x] The mg-to-mcg factor and substituted 2000 mcg order remain explicit
 - [x] Every equation is emitted as one uninterrupted KaTeX line
+- [x] Headings are left aligned, formulas vertically centred, and grey checks sit on the right
 - [x] The review sheet and every equation fit without scrolling or clipping
 - [x] The administration answer is still absent from the underlying calculator
 
@@ -40,7 +42,7 @@ A blank calculator gates its answer behind a simultaneous review of every substi
 **Verifications:**
 
 - [x] 2 mg also calculates to 10 mL
-- [x] Changing the unit cleared the previous 2000 mcg value before entry
+- [x] Changing the unit preserved the entered number until it was deliberately edited
 
 ## The reverse mcg-to-mg conversion is equally explicit
 

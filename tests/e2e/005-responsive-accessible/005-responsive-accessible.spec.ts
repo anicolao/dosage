@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import { enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
+import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 test('the calculation remains accessible and responsive', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
@@ -35,7 +35,7 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
           .filter((element) => element.scrollHeight > element.clientHeight + 1 || element.scrollWidth > element.clientWidth + 1)
           .map((element) => `${element.className}:${element.scrollWidth}×${element.scrollHeight}/${element.clientWidth}×${element.clientHeight}`));
         expect(overflowing).toEqual([]);
-        await page.getByRole('button', { name: 'Complete review' }).click();
+        await completeCalculationReview(page);
         await expect(page.locator('.result-number')).toHaveText('10 mL');
       } },
       { spec: 'Interactive controls provide at least a 44px target, excluding the checkbox inside its larger label', check: async () => {

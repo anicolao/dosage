@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test';
-import { enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
+import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 test('cross-unit calculations expose every mathematical step', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
   steps.setMetadata(
     'Cross-unit calculation',
-    'A blank calculator gates its answer behind a simultaneous review of every substituted equation.'
+    'An incomplete calculator gates its answer behind a simultaneous, individually checked review of every substituted equation.'
   );
 
   await page.clock.install({ time: new Date('2026-08-06T18:30:00-04:00') });
@@ -16,17 +16,19 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
   const orderedDose = page.getByLabel('Dose from the medication order', { exact: true });
 
   await steps.step('blank-calculator', {
-    description: 'Every medication, amount, unit, volume, container, and dose begins unselected',
+    description: 'Only vial unit, vial volume, and ordered-dose unit have safe starting defaults',
     verifications: [
-      { spec: 'All text and numeric fields are blank', check: async () => {
+      { spec: 'Medication name, vial amount, and ordered dose remain blank', check: async () => {
         await expect(page.getByLabel(/Medication name/)).toHaveValue('');
         await expect(page.getByLabel('Amount in vial')).toHaveValue('');
-        await expect(page.getByLabel(/Vial volume/)).toHaveValue('');
         await expect(orderedDose).toHaveValue('');
       } },
-      { spec: 'Neither unit selector nor any final volume has a default', check: async () => {
-        await expect(vialUnit).toHaveValue('');
-        await expect(orderedUnit).toHaveValue('');
+      { spec: 'Vial unit defaults to mg, vial volume to 1 mL, and ordered-dose unit to mcg', check: async () => {
+        await expect(vialUnit).toHaveValue('mg');
+        await expect(page.getByLabel(/Vial volume/)).toHaveValue('1');
+        await expect(orderedUnit).toHaveValue('mcg');
+      } },
+      { spec: 'No final prepared volume is preselected', check: async () => {
         await expect(page.locator('.volume-grid button[aria-pressed="true"]')).toHaveCount(0);
       } },
       { spec: 'No answer or review action is present for incomplete input', check: async () => {
@@ -64,6 +66,24 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
           expect(source).not.toContain('\\\\');
         }
       } },
+      { spec: 'Headings are left aligned, formulas vertically centred, and grey checks sit on the right', check: async () => {
+        const layout = await page.locator('.equation-step').evaluateAll((steps) => steps.map((step) => {
+          const card = step.getBoundingClientRect();
+          const heading = step.querySelector('h3')!.getBoundingClientRect();
+          const equation = step.querySelector('.equation')!.getBoundingClientRect();
+          const formula = step.querySelector('.katex')!.getBoundingClientRect();
+          const check = step.querySelector('.step-check')!;
+          const checkRect = check.getBoundingClientRect();
+          return {
+            headingNearLeft: heading.left < card.left + card.width / 2,
+            formulaCentred: Math.abs((formula.top + formula.height / 2) - (equation.top + equation.height / 2)) < 2,
+            checkOnRight: checkRect.left > card.left + card.width / 2,
+            checkColour: getComputedStyle(check).backgroundColor
+          };
+        }));
+        expect(layout.every(({ headingNearLeft, formulaCentred, checkOnRight }) => headingNearLeft && formulaCentred && checkOnRight)).toBe(true);
+        expect(layout.every(({ checkColour }) => checkColour === 'rgb(238, 240, 239)')).toBe(true);
+      } },
       { spec: 'The review sheet and every equation fit without scrolling or clipping', check: async () => {
         const overflowing = await page.locator('dialog, .equation-list, .equation-step, .equation').evaluateAll((elements) => elements
           .filter((element) => element.scrollHeight > element.clientHeight + 1 || element.scrollWidth > element.clientWidth + 1)
@@ -76,7 +96,7 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
     ]
   });
 
-  await page.getByRole('button', { name: 'Complete review' }).click();
+  await completeCalculationReview(page);
   await steps.step('mg-vial-mcg-order', {
     description: 'Completing review reveals the 10 mL administration volume',
     verifications: [
@@ -94,20 +114,23 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
   });
 
   await orderedUnit.selectOption('mg');
-  await expect(orderedDose).toHaveValue('');
+  await expect(page.getByLabel(/Medication name/)).toHaveValue('Example medication');
+  await expect(page.getByLabel('Amount in vial')).toHaveValue('10');
+  await expect(page.getByLabel(/Vial volume/)).toHaveValue('1');
+  await expect(orderedDose).toHaveValue('2000');
   await orderedDose.fill('2');
   await expect(page.locator('.result-number')).toHaveCount(0);
   await page.getByRole('button', { name: 'Review calculation' }).click();
   await expect(page.getByRole('dialog').locator('math')).toHaveCount(3);
   await expect(page.getByTestId('conversion-equation')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Complete review' }).click();
+  await completeCalculationReview(page);
   await steps.step('equivalent-mg-order', {
     description: 'An equivalent order in mg produces the same answer after a fresh review',
     verifications: [
       { spec: '2 mg also calculates to 10 mL', check: async () => {
         await expect(page.locator('.result-number')).toHaveText('10 mL');
       } },
-      { spec: 'Changing the unit cleared the previous 2000 mcg value before entry', check: async () => {
+      { spec: 'Changing the unit preserved the entered number until it was deliberately edited', check: async () => {
         await expect(orderedDose).toHaveValue('2');
       } }
     ]
@@ -115,13 +138,14 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
 
   await page.getByLabel('Amount in vial').fill('10000');
   await vialUnit.selectOption('mcg');
+  await expect(orderedDose).toHaveValue('2');
   await orderedUnit.selectOption('mg');
   await orderedDose.fill('2');
   await expect(page.locator('.result-number')).toHaveCount(0);
   await page.getByRole('button', { name: 'Review calculation' }).click();
   await expect(page.getByTestId('conversion-equation').locator('annotation'))
     .toContainText('\\frac{1\\,\\mathrm{mg}}{1000\\,\\mathrm{mcg}}');
-  await page.getByRole('button', { name: 'Complete review' }).click();
+  await completeCalculationReview(page);
   await steps.step('mcg-vial-mg-order', {
     description: 'The reverse mcg-to-mg conversion is equally explicit',
     verifications: [

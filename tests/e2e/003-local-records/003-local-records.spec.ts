@@ -31,10 +31,9 @@ test('favourites and history stay local without carrying an order forward', asyn
   await page.getByRole('button', { name: 'Use', exact: true }).click();
   await expect(page.getByLabel('Dose from the medication order', { exact: true })).toHaveValue('');
   await expect(page.locator('[data-testid="calculation-result"]')).toHaveCount(0);
-  await expect(page.getByLabel('Ordered-dose unit', { exact: true })).toHaveValue('');
+  await expect(page.getByLabel('Ordered-dose unit', { exact: true })).toHaveValue('mcg');
   await expect(page.locator('.volume-grid button[aria-pressed="true"]')).toHaveCount(0);
   await page.getByRole('button', { name: '50 mL', exact: true }).click();
-  await page.getByLabel('Ordered-dose unit', { exact: true }).selectOption('mcg');
   await page.getByLabel('Dose from the medication order', { exact: true }).fill('2000');
   await expect(page.getByRole('button', { name: 'Save mix on this phone' })).toHaveCount(0);
   await completeCalculationReview(page);

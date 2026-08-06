@@ -60,6 +60,7 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
 
   await page.getByLabel(/Vial volume/).fill('1');
   await page.getByLabel('Vial unit', { exact: true }).selectOption('units');
+  await expect(page.getByLabel('Dose from the medication order', { exact: true })).toHaveValue('2000');
   await page.getByLabel('Amount in vial').fill('1000');
   await page.getByRole('button', { name: '100 mL', exact: true }).click();
   const activitySelector = page.getByLabel('Ordered-dose unit', { exact: true });

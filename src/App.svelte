@@ -13,12 +13,13 @@
   let tab = 'mix';
   let medicationName = '';
   let medicationAmount = '';
-  let vialUnit = '';
-  let vialVolume = '';
+  let vialUnit = 'mg';
+  let vialVolume = '1';
   let finalVolume = null;
   let orderedDose = '';
-  let orderedUnit = '';
+  let orderedUnit = 'mcg';
   let reviewed = false;
+  let checkedSteps = [];
   let acknowledged = false;
   let favourites = [];
   let history = [];
@@ -83,6 +84,7 @@
       expression: `\\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} = ${mathNumber(administrationVolume)}\\,\\mathrm{mL}`
     }
   ] : [];
+  $: allStepsChecked = calculationSteps.length > 0 && calculationSteps.every((step) => checkedSteps.includes(step.id));
 
   onMount(() => {
     try {
@@ -149,20 +151,18 @@
 
   function criticalChange() {
     reviewed = false;
+    checkedSteps = [];
     acknowledged = false;
     notice = '';
   }
 
   function selectVialUnit(event) {
     vialUnit = event.currentTarget.value;
-    orderedUnit = '';
-    orderedDose = '';
     criticalChange();
   }
 
   function selectOrderedUnit(event) {
     orderedUnit = event.currentTarget.value;
-    orderedDose = '';
     criticalChange();
   }
 
@@ -187,11 +187,12 @@
     medicationName = favourite.name;
     medicationAmount = favourite.medicationAmount;
     vialUnit = favourite.vialUnit;
-    orderedUnit = '';
+    orderedUnit = favourite.vialUnit === 'units' ? 'units' : 'mcg';
     vialVolume = favourite.vialVolume;
     finalVolume = null;
     orderedDose = '';
     reviewed = false;
+    checkedSteps = [];
     acknowledged = false;
     notice = 'Favourite loaded. Enter the ordered dose.';
     tab = 'mix';
@@ -245,10 +246,12 @@
   }
 
   function openCalculationDetails() {
+    checkedSteps = [];
     detailDialog?.showModal();
   }
 
   function completeCalculationReview() {
+    if (!allStepsChecked) return;
     reviewed = true;
     acknowledged = false;
     detailDialog?.close();
@@ -256,6 +259,12 @@
 
   function closeCalculationDetails() {
     detailDialog?.close();
+  }
+
+  function toggleCheckedStep(stepId) {
+    checkedSteps = checkedSteps.includes(stepId)
+      ? checkedSteps.filter((id) => id !== stepId)
+      : [...checkedSteps, stepId];
   }
 </script>
 
@@ -408,13 +417,24 @@
             <div class="equation-list" aria-label="Calculation steps">
               {#each calculationSteps as step, index}
                 <section class="equation-step" aria-labelledby={`equation-title-${step.id}`}>
-                  <div>
+                  <div class="equation-heading">
                     <span>{index + 1}</span>
                     <h3 id={`equation-title-${step.id}`}>{step.title}</h3>
                   </div>
                   <div class="equation" data-testid={`${step.id}-equation`}>
                     {@html renderMath(step.expression)}
                   </div>
+                  <button
+                    class="step-check"
+                    class:checked={checkedSteps.includes(step.id)}
+                    type="button"
+                    aria-label={`Check ${step.title}`}
+                    aria-pressed={checkedSteps.includes(step.id)}
+                    data-testid={`check-${step.id}`}
+                    onclick={() => toggleCheckedStep(step.id)}
+                  >
+                    <span aria-hidden="true">✓</span>
+                  </button>
                 </section>
               {/each}
             </div>
@@ -423,7 +443,7 @@
 
             <div class="dialog-actions">
               <button type="button" onclick={closeCalculationDetails}>Go back</button>
-              <button class="primary" type="button" onclick={completeCalculationReview}>Complete review</button>
+              <button class="primary" type="button" onclick={completeCalculationReview} disabled={!allStepsChecked}>Complete review</button>
             </div>
           {/if}
         </dialog>
@@ -727,13 +747,16 @@
   .dialog-heading h2 { margin: 1px 0 0; color: #102a43; font-size: 1.2rem; line-height: 1.1; }
   .dialog-heading button { width: 44px; min-height: 44px; color: #52677a; background: #fff; border: 1px solid #c7d0cd; border-radius: 50%; font-size: 1.6rem; cursor: pointer; }
   .equation-list { display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 5px; min-height: 0; overflow: hidden; }
-  .equation-step { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; padding: 5px 7px; text-align: center; background: #fff; border: 1px solid #d8dfdc; border-radius: 10px; overflow: hidden; }
-  .equation-step > div:first-child { display: flex; gap: 6px; align-items: center; justify-content: center; }
-  .equation-step > div:first-child span { display: grid; width: 20px; height: 20px; place-items: center; color: #fff; background: #087f7a; border-radius: 50%; font-size: .66rem; font-weight: 850; }
+  .equation-step { display: grid; grid-template-columns: minmax(0, 1fr) 44px; grid-template-rows: auto minmax(0, 1fr); column-gap: 6px; min-height: 0; padding: 5px 7px; text-align: center; background: #fff; border: 1px solid #d8dfdc; border-radius: 10px; overflow: hidden; }
+  .equation-heading { display: flex; grid-column: 1; grid-row: 1; gap: 6px; align-items: center; justify-content: flex-start; min-width: 0; text-align: left; }
+  .equation-heading > span { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; color: #fff; background: #087f7a; border-radius: 50%; font-size: .66rem; font-weight: 850; }
   .equation-step h3 { margin: 0; font-size: .76rem; }
-  .equation { width: 100%; overflow: hidden; text-align: center; }
+  .equation { display: grid; grid-column: 1; grid-row: 2; width: 100%; min-height: 0; place-items: center; overflow: hidden; text-align: center; }
   .equation :global(.katex-display) { margin: .1rem 0; text-align: center; }
-  .equation :global(.katex) { font-size: clamp(1rem, 4.5vw, 1.2rem); }
+  .equation :global(.katex) { font-size: clamp(.86rem, 3.7vw, 1.08rem); }
+  .step-check { display: grid; grid-column: 2; grid-row: 1 / 3; align-self: center; justify-self: center; width: 44px; min-height: 44px; place-items: center; color: #7a8784; background: #eef0ef; border: 1.5px solid #aebbb8; border-radius: 50%; cursor: pointer; }
+  .step-check span { font-size: 1.2rem; font-weight: 900; line-height: 1; }
+  .step-check.checked { color: #fff; background: #687674; border-color: #687674; }
   .rounding { margin: 0; text-align: center; font-size: .68rem; }
   .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
   .dialog-actions button { min-height: 44px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-size: .76rem; font-weight: 800; cursor: pointer; }
