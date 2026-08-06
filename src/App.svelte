@@ -4,6 +4,7 @@
   import 'katex/dist/katex.min.css';
 
   const volumes = [10, 50, 100, 250, 500, 1000];
+  const baseUrl = import.meta.env.BASE_URL;
   const storageKeys = {
     favourites: 'dosage.favourites.v2',
     history: 'dosage.history.v2'
@@ -267,7 +268,7 @@
                   aria-pressed={finalVolume === volume}
                   onclick={() => { finalVolume = volume; criticalChange(); }}
                 >
-                  <img src={`/images/container-${volume}ml.png`} alt="" />
+                  <img src={`${baseUrl}images/container-${volume}ml.png`} alt="" />
                   <strong>{volume} mL</strong>
                   {#if finalVolume === volume}<span class="selected-mark" aria-hidden="true">✓</span>{/if}
                 </button>

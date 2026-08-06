@@ -4,6 +4,8 @@
 
 This is an actual Playwright capture of the phone calculation review—not a design rendering.
 
+**Live PR preview:** https://anicolao.github.io/dosage/pr1/
+
 ![Dosage calculation review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/docs/pr-preview.png)
 
 ## What changed

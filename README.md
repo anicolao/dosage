@@ -57,6 +57,8 @@ npm run test:e2e
 
 `npm run test:e2e:update-snapshots` deliberately refreshes the zero-diff visual baselines and their generated scenario walkthroughs.
 
+Pull requests run the full Playwright suite before deploying to `https://anicolao.github.io/dosage/pr<PR number>/`. The workflow preserves other previews on the `gh-pages` branch and updates a bot comment on the PR with its URL.
+
 The prototype has no analytics, account, API, remote font, CDN, or network-writing code. Favourites and history use browser `localStorage`. The current basic build does not yet include an installable service worker; offline-after-install support is an MVP requirement, not a claim about this prototype.
 
 ## Documentation
