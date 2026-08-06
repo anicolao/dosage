@@ -17,6 +17,8 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - Rendered vial concentration, prepared concentration, conversion factor, and administration volume with locally bundled KaTeX and accessible MathML.
 - Added generated container illustrations, product documentation, safety boundaries, and UX mockups.
 - Added deterministic Playwright coverage with zero-pixel screenshot comparisons.
+- Added PR-gated E2E and GitHub Pages preview deployment under `/pr<PR number>/`.
+- Licensed the public project under GNU GPL v3.0.
 
 ## E2E coverage
 
@@ -38,6 +40,7 @@ Each scenario includes a generated README and committed screenshots under [`test
 ```text
 npm run check       # 0 errors, 0 warnings
 npm run build       # production build succeeds
+npm run check:base  # deployment assets stay under the configured Pages path
 npm run test:e2e    # 6/6 Playwright projects pass
 ```
 
