@@ -71,7 +71,10 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
       } },
       { spec: '1000 units in 100 mL for 250 units calculates to 25 mL', check: async () => {
         await expect(page.locator('.result-number')).toHaveText('25 mL');
-        await expect(page.getByTestId('conversion-equation')).toHaveCount(0);
+        await page.getByRole('button', { name: 'Review calculation' }).click();
+        await expect(page.getByRole('tab')).toHaveCount(3);
+        await expect(page.getByRole('tab', { name: /Units/ })).toHaveCount(0);
+        await page.getByRole('button', { name: 'Close calculation details' }).click();
       } }
     ]
   });

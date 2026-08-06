@@ -13,9 +13,18 @@ A vial labelled in mg is safely reconciled with an order written in mcg.
 - [x] The answer is 10 mL
 - [x] KaTeX exposes vial, preparation, conversion, and administration equations
 
+## The dimensional conversion opens as a readable, no-scroll review step
+
+![The dimensional conversion opens as a readable, no-scroll review step](./screenshots/001-unit-conversion-review-phone.png)
+
+**Verifications:**
+
+- [x] Only one focused KaTeX equation is presented at a time
+- [x] The review sheet fits without horizontal or vertical scrolling
+
 ## An equivalent order in mg produces the same answer without a conversion step
 
-![An equivalent order in mg produces the same answer without a conversion step](./screenshots/001-equivalent-mg-order-phone.png)
+![An equivalent order in mg produces the same answer without a conversion step](./screenshots/002-equivalent-mg-order-phone.png)
 
 **Verifications:**
 
@@ -24,7 +33,7 @@ A vial labelled in mg is safely reconciled with an order written in mcg.
 
 ## The reverse mcg-to-mg conversion is equally explicit
 
-![The reverse mcg-to-mg conversion is equally explicit](./screenshots/002-mcg-vial-mg-order-phone.png)
+![The reverse mcg-to-mg conversion is equally explicit](./screenshots/003-mcg-vial-mg-order-phone.png)
 
 **Verifications:**
 

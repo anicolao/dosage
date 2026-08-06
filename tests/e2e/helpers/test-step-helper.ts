@@ -48,6 +48,18 @@ export class TestStepHelper {
       if (root.scrollWidth > window.innerWidth + 1) {
         throw new Error(`page is ${root.scrollWidth}px wide inside a ${window.innerWidth}px viewport`);
       }
+      if (root.scrollHeight > window.innerHeight + 1) {
+        throw new Error(`page is ${root.scrollHeight}px tall inside a ${window.innerHeight}px viewport`);
+      }
+
+      for (const panel of document.querySelectorAll<HTMLElement>('.app-shell, [data-e2e-layout], main > section')) {
+        if (panel.scrollWidth > panel.clientWidth + 1 || panel.scrollHeight > panel.clientHeight + 1) {
+          throw new Error(
+            `${panel.tagName.toLowerCase()}.${panel.className} clips ` +
+            `${panel.scrollWidth}×${panel.scrollHeight}px inside ${panel.clientWidth}×${panel.clientHeight}px`
+          );
+        }
+      }
     });
 
     const index = String(this.count++).padStart(3, '0');

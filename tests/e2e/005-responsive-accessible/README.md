@@ -12,4 +12,4 @@ The critical calculation remains labelled, keyboard-operable, and readable acros
 - [x] Every critical input has an accessible label
 - [x] The KaTeX rendering includes accessible MathML
 - [x] Interactive controls provide at least a 44px target, excluding the checkbox inside its larger label
-- [x] The page has no horizontal overflow
+- [x] The page has no horizontal or vertical scrolling

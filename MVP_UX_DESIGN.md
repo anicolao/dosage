@@ -2,7 +2,7 @@
 
 ## Design objective
 
-Make the correct calculation easy to inspect and a wrong input difficult to overlook. The experience is optimized for a 393×852 phone, one-handed scanning, interruptions, and fast return to context. Speed comes from remembered medication facts and a short linear flow—not from hiding review steps.
+Make the correct calculation easy to inspect and a wrong input difficult to overlook. The experience is optimized for a 393×852 phone, one-handed scanning, interruptions, and fast return to context. The primary calculator fits in the available viewport without document or panel scrolling. Navigation—not swiping through a long form—moves between the calculator, saved records, and equation-review steps.
 
 ## Information architecture
 
@@ -34,13 +34,14 @@ The label is always “Ordered dose,” with its own unit selector. For a vial i
 
 ### 4. Result and verification
 
-When all inputs are valid, the result card shows in this order:
+When all inputs are valid, the fixed calculator shows the calculated administration volume beside a “Review calculation” action. That action opens a modal review sheet with one readable KaTeX equation at a time:
 
-1. **Calculated volume to administer: _x_ mL**
-2. Prepared concentration: _A ÷ Vf = Cp vial-unit/mL_
-3. Explicit conversion when required: _Cp mg/mL × 1000 = Cpd mcg/mL_
-4. Full substituted equation: _D ordered-unit ÷ Cpd ordered-unit/mL = Va mL_
-5. “Use the medication order, product label, pharmacy guidance, and local rounding policy.”
+1. vial concentration: _A ÷ Vv = Cv vial-unit/mL_;
+2. prepared concentration: _A ÷ Vf = Cp vial-unit/mL_;
+3. explicit conversion when required: _Cp mg/mL × 1000 = Cpd mcg/mL_;
+4. full substituted equation: _D ordered-unit ÷ Cpd ordered-unit/mL = Va mL_.
+
+Tabs and Previous/Next controls expose the sequence without scrolling. Each view repeats the result and the local rounding-policy reminder. Closing the sheet returns focus to the review action.
 
 The save action remains disabled until the clinician checks: “I checked the order, vial unit, ordered-dose unit, and final prepared volume.” Editing any critical value clears that acknowledgement. Saving is not required to use or dismiss a result.
 
@@ -88,13 +89,13 @@ No warning is needed when the installed app is healthy offline. The header conti
 
 ## Favourites
 
-A favourite row contains name, medication amount/unit, vial volume, “Use,” edit, and delete. “Use” opens a fresh mix with no ordered dose. Duplicate names are allowed because concentration disambiguates them, but an exact duplicate prompts before saving.
+A favourite card contains name, medication amount/unit, vial volume, “Use,” edit, and delete. One card is shown at a time with Previous/Next paging so saved content never creates a scrolling page. “Use” opens a fresh mix with no ordered dose. Duplicate names are allowed because concentration disambiguates them, but an exact duplicate prompts before saving.
 
 Never use look-alike/sound-alike colour coding or infer a drug identity. Names are user-entered display labels only.
 
 ## History
 
-Each history item shows local date/time, medication label, vial label facts, final volume, ordered dose, prepared concentration, and calculated mL. Newest is first. No patient or order identifier appears.
+Each history card shows local date/time, medication label, vial label facts, final volume, ordered dose, prepared concentration, and calculated mL. Newest is first, with one card at a time and explicit Previous/Next paging. No patient or order identifier appears.
 
 Deletion is available per record. “Clear history” requires a confirmation that states the scope and lack of recovery. Reopening a record is called “Review,” not “Repeat,” and never carries forward acknowledgement.
 
@@ -118,13 +119,14 @@ Deletion is available per record. “Clear history” requires a confirmation th
 - Caution: amber `#9a6700` with icon and text.
 - Blocking error: deep red `#b42318` with icon, summary, and field association.
 - Body type: bundled humanist sans-serif with tabular numerals; no remote fonts.
-- Minimum body size: 16 CSS px; critical result at least 44 px.
+- Entered values and essential instructions use at least 16 CSS px; condensed persistent labels use at least 12 CSS px; the critical result is at least 44 px.
 - Minimum target: 44×44 CSS px with 8 px separation.
 - Cards use borders and spacing, not shadows as the only boundary.
 
 ## Accessibility and interruption recovery
 
 - Meet WCAG 2.2 AA contrast, semantics, reflow, focus, target-size, and error-identification requirements.
+- Keep document and dialog dimensions at or below the viewport at 393×852 and 320×852; E2E tests fail on horizontal or vertical overflow.
 - Use native inputs, radio/button semantics, headings, and an ordered reading sequence.
 - Announce a newly valid or newly invalid result once with a polite live region; do not announce on every keystroke.
 - Keep unit labels programmatically associated with their values.

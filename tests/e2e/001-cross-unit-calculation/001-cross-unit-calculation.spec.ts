@@ -31,16 +31,44 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
         await expect(page.locator('.result-number')).toHaveText('10 mL');
       } },
       { spec: 'KaTeX exposes vial, preparation, conversion, and administration equations', check: async () => {
-        await expect(page.locator('[data-testid="calculation-result"] math')).toHaveCount(4);
+        await page.getByRole('button', { name: 'Review calculation' }).click();
+        await expect(page.getByRole('dialog')).toBeVisible();
+        await expect(page.getByRole('tab')).toHaveCount(4);
+        await page.getByRole('tab', { name: /Units/ }).click();
         await expect(page.getByTestId('conversion-equation').locator('annotation'))
           .toContainText('\\frac{1000\\,\\mathrm{mcg}}{1\\,\\mathrm{mg}}');
+        await page.getByRole('tab', { name: /Dose/ }).click();
         await expect(page.getByTestId('administration-equation').locator('annotation'))
           .toContainText('V_{\\mathrm{admin}}');
         await expect(page.getByTestId('administration-equation').locator('annotation'))
           .toContainText('2{,}000');
+        await page.getByRole('button', { name: 'Close calculation details' }).click();
       } }
     ]
   });
+
+  await page.getByRole('button', { name: 'Review calculation' }).click();
+  await page.getByRole('tab', { name: /Units/ }).click();
+  await steps.step('unit-conversion-review', {
+    description: 'The dimensional conversion opens as a readable, no-scroll review step',
+    verifications: [
+      { spec: 'Only one focused KaTeX equation is presented at a time', check: async () => {
+        await expect(page.getByRole('tabpanel').locator('math')).toHaveCount(1);
+        await expect(page.getByRole('tab', { name: /Units/ })).toHaveAttribute('aria-selected', 'true');
+      } },
+      { spec: 'The review sheet fits without horizontal or vertical scrolling', check: async () => {
+        const size = await page.getByRole('dialog').evaluate((dialog) => ({
+          clientHeight: dialog.clientHeight,
+          scrollHeight: dialog.scrollHeight,
+          clientWidth: dialog.clientWidth,
+          scrollWidth: dialog.scrollWidth
+        }));
+        expect(size.scrollHeight).toBeLessThanOrEqual(size.clientHeight + 1);
+        expect(size.scrollWidth).toBeLessThanOrEqual(size.clientWidth + 1);
+      } }
+    ]
+  });
+  await page.getByRole('button', { name: 'Close calculation details' }).click();
 
   await orderedUnit.selectOption('mg');
   await expect(orderedDose).toHaveValue('');
@@ -50,7 +78,10 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
     verifications: [
       { spec: '2 mg also calculates to 10 mL', check: async () => {
         await expect(page.locator('.result-number')).toHaveText('10 mL');
-        await expect(page.getByTestId('conversion-equation')).toHaveCount(0);
+        await page.getByRole('button', { name: 'Review calculation' }).click();
+        await expect(page.getByRole('tab')).toHaveCount(3);
+        await expect(page.getByRole('tab', { name: /Units/ })).toHaveCount(0);
+        await page.getByRole('button', { name: 'Close calculation details' }).click();
       } },
       { spec: 'Changing the unit cleared the previous 2000 mcg value before entry', check: async () => {
         await expect(orderedDose).toHaveValue('2');
@@ -68,8 +99,11 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
         await expect(page.locator('.result-number')).toHaveText('10 mL');
       } },
       { spec: 'The reverse dimensional factor is visible', check: async () => {
+        await page.getByRole('button', { name: 'Review calculation' }).click();
+        await page.getByRole('tab', { name: /Units/ }).click();
         await expect(page.getByTestId('conversion-equation').locator('annotation'))
           .toContainText('\\frac{1\\,\\mathrm{mg}}{1000\\,\\mathrm{mcg}}');
+        await page.getByRole('button', { name: 'Close calculation details' }).click();
       } }
     ]
   });

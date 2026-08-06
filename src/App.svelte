@@ -23,6 +23,10 @@
   let history = [];
   let storageAvailable = true;
   let notice = '';
+  let detailDialog;
+  let detailStep = 0;
+  let favouritePage = 0;
+  let historyPage = 0;
 
   $: amount = Number(medicationAmount);
   $: vial = Number(vialVolume);
@@ -52,6 +56,35 @@
     ? amountInBaseUnit / unitFactor(orderedUnit) / finalVolume
     : null;
   $: administrationVolume = isValid ? dose / preparedConcentrationInOrderedUnit : null;
+  $: calculationSteps = isValid ? [
+    {
+      id: 'vial',
+      shortLabel: 'Vial',
+      title: 'Vial concentration',
+      expression: `\\begin{aligned} C_v &= \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${mathNumber(vial)}\\,\\mathrm{mL}} \\\\ &= ${concentration(vialConcentration, vialUnit)} \\end{aligned}`
+    },
+    {
+      id: 'prepared',
+      shortLabel: 'Mixed',
+      title: 'Prepared concentration',
+      expression: `\\begin{aligned} C_p &= \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${finalVolume}\\,\\mathrm{mL}} \\\\ &= ${concentration(preparedConcentration, vialUnit)} \\end{aligned}`
+    },
+    ...(vialUnit !== orderedUnit ? [{
+      id: 'conversion',
+      shortLabel: 'Units',
+      title: 'Unit conversion',
+      expression: vialUnit === 'mg'
+        ? `\\begin{aligned} ${concentration(preparedConcentration, vialUnit)} &\\times \\frac{1000\\,${mathUnit('mcg')}}{1\\,${mathUnit('mg')}} \\\\ &= ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{aligned}`
+        : `\\begin{aligned} ${concentration(preparedConcentration, vialUnit)} &\\times \\frac{1\\,${mathUnit('mg')}}{1000\\,${mathUnit('mcg')}} \\\\ &= ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)} \\end{aligned}`
+    }] : []),
+    {
+      id: 'administration',
+      shortLabel: 'Dose',
+      title: 'Volume to administer',
+      expression: `\\begin{aligned} V_{\\mathrm{admin}} &= \\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} \\\\ &= ${mathNumber(administrationVolume)}\\,\\mathrm{mL} \\end{aligned}`
+    }
+  ] : [];
+  $: currentCalculationStep = calculationSteps[Math.min(detailStep, calculationSteps.length - 1)];
 
   onMount(() => {
     try {
@@ -146,6 +179,7 @@
     }, ...favourites];
     if (write(storageKeys.favourites, next)) {
       favourites = next;
+      favouritePage = 0;
       notice = 'Favourite saved on this phone.';
     }
   }
@@ -164,7 +198,10 @@
 
   function deleteFavourite(id) {
     const next = favourites.filter((item) => item.id !== id);
-    if (write(storageKeys.favourites, next)) favourites = next;
+    if (write(storageKeys.favourites, next)) {
+      favourites = next;
+      favouritePage = Math.min(favouritePage, Math.max(0, next.length - 1));
+    }
   }
 
   function saveMix() {
@@ -185,18 +222,34 @@
     }, ...history].slice(0, 100);
     if (write(storageKeys.history, next)) {
       history = next;
+      historyPage = 0;
       notice = 'Mix saved on this phone.';
     }
   }
 
   function deleteHistory(id) {
     const next = history.filter((item) => item.id !== id);
-    if (write(storageKeys.history, next)) history = next;
+    if (write(storageKeys.history, next)) {
+      history = next;
+      historyPage = Math.min(historyPage, Math.max(0, next.length - 1));
+    }
   }
 
   function clearHistory() {
     if (!window.confirm('Clear all mix history from this phone? This cannot be undone.')) return;
-    if (write(storageKeys.history, [])) history = [];
+    if (write(storageKeys.history, [])) {
+      history = [];
+      historyPage = 0;
+    }
+  }
+
+  function openCalculationDetails() {
+    detailStep = 0;
+    detailDialog?.showModal();
+  }
+
+  function closeCalculationDetails() {
+    detailDialog?.close();
   }
 </script>
 
@@ -214,22 +267,24 @@
 
   <div class="prototype-banner" role="note">
     <strong>Prototype — not for patient care.</strong>
-    Verify every value with the order, vial label, pharmacy guidance, and local policy.
+    <span>Verify every value with the order, vial label, pharmacy guidance, and local policy.</span>
   </div>
 
   <main data-e2e-layout>
     {#if tab === 'mix'}
-      <section id="mix" aria-labelledby="mix-heading">
-        <p class="eyebrow">Dilution arithmetic</p>
-        <h1 id="mix-heading">Prepare a dose</h1>
-        <p class="intro">Enter the label and ordered values. This app does not recommend a dose.</p>
+      <section id="mix" class="mix-screen" aria-labelledby="mix-heading">
+        <div class="screen-heading">
+          <p class="eyebrow">Dilution arithmetic</p>
+          <h1 id="mix-heading">Prepare a dose</h1>
+          <p class="intro">Enter the label and ordered values. This app does not recommend a dose.</p>
+        </div>
 
         <form onsubmit={(event) => event.preventDefault()}>
-          <fieldset class="form-section">
-            <legend><span>1</span> Medication vial</legend>
+          <fieldset class="form-section vial-section">
+            <legend><span>1</span> Vial</legend>
 
-            <label>
-              Medication name <small>Do not enter patient information</small>
+            <label class="name-field">
+              <span class="field-label">Medication name <small>· Do not enter patient information</small></span>
               <input bind:value={medicationName} oninput={criticalChange} autocomplete="off" />
             </label>
 
@@ -247,19 +302,18 @@
                 </select>
               </label>
               <label>
-                Vial volume <span class="unit">mL</span>
+                <span>Vial volume <span class="unit">mL</span></span>
                 <input type="number" min="0" step="any" inputmode="decimal" bind:value={vialVolume} oninput={criticalChange} />
               </label>
             </div>
 
-            <button class="text-button" type="button" onclick={saveFavourite} disabled={!storageAvailable || !medicationName.trim()}>
-              ☆ Save medication as favourite
+            <button class="text-button" type="button" aria-label="Save medication as favourite" onclick={saveFavourite} disabled={!storageAvailable || !medicationName.trim()}>
+              <span aria-hidden="true">☆</span> Save favourite
             </button>
           </fieldset>
 
-          <fieldset class="form-section">
-            <legend><span>2</span> Final prepared volume</legend>
-            <p class="helper">Choose the total final volume after medication is added—not the amount of diluent added.</p>
+          <fieldset class="form-section volume-section">
+            <legend><span>2</span> Final prepared volume <small>after medication</small></legend>
             <div class="volume-grid" role="group" aria-label="Final prepared volume">
               {#each volumes as volume}
                 <button
@@ -274,10 +328,10 @@
                 </button>
               {/each}
             </div>
-            <p class="caution">Verify bag overfill and preparation method under local policy.</p>
+            <p class="caution">Verify overfill and preparation method.</p>
           </fieldset>
 
-          <fieldset class="form-section">
+          <fieldset class="form-section dose-section">
             <legend><span>3</span> Ordered dose</legend>
             <div class="dose-grid">
               <label>
@@ -305,46 +359,13 @@
             </div>
           {:else if isValid}
             <section class="result" data-testid="calculation-result" aria-labelledby="result-heading" aria-live="polite">
-              <p id="result-heading">Calculated volume to administer</p>
-              <strong class="result-number">{format(administrationVolume)} <span>mL</span></strong>
-              <dl>
-                <div>
-                  <dt>Vial concentration</dt>
-                  <dd class="equation" data-testid="vial-equation">
-                    {@html renderMath(
-                      `C_v = \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${mathNumber(vial)}\\,\\mathrm{mL}} = ${concentration(vialConcentration, vialUnit)}`
-                    )}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Prepared concentration</dt>
-                  <dd class="equation" data-testid="prepared-equation">
-                    {@html renderMath(
-                      `C_p = \\frac{${mathNumber(amount)}\\,${mathUnit(vialUnit)}}{${finalVolume}\\,\\mathrm{mL}} = ${concentration(preparedConcentration, vialUnit)}`
-                    )}
-                  </dd>
-                </div>
-                {#if vialUnit !== orderedUnit}
-                  <div>
-                    <dt>Unit conversion</dt>
-                    <dd class="equation" data-testid="conversion-equation">
-                      {@html renderMath(vialUnit === 'mg'
-                        ? `${concentration(preparedConcentration, vialUnit)} \\times \\frac{1000\\,${mathUnit('mcg')}}{1\\,${mathUnit('mg')}} = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}`
-                        : `${concentration(preparedConcentration, vialUnit)} \\times \\frac{1\\,${mathUnit('mg')}}{1000\\,${mathUnit('mcg')}} = ${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}`
-                      )}
-                    </dd>
-                  </div>
-                {/if}
-                <div>
-                  <dt>Calculation</dt>
-                  <dd class="equation" data-testid="administration-equation">
-                    {@html renderMath(
-                      `V_{\\mathrm{admin}} = \\frac{${mathNumber(dose)}\\,${mathUnit(orderedUnit)}}{${concentration(preparedConcentrationInOrderedUnit, orderedUnit)}} = ${mathNumber(administrationVolume)}\\,\\mathrm{mL}`
-                    )}
-                  </dd>
-                </div>
-              </dl>
-              <p class="rounding">Use local policy for measurable volume and rounding.</p>
+              <div>
+                <p id="result-heading">Give</p>
+                <strong class="result-number">{format(administrationVolume)} <span>mL</span></strong>
+              </div>
+              <button class="details-button" type="button" onclick={openCalculationDetails}>
+                Review calculation <span aria-hidden="true">›</span>
+              </button>
             </section>
 
             <label class="acknowledgement">
@@ -355,6 +376,51 @@
             <button class="primary" type="button" onclick={saveMix} disabled={!acknowledged || !storageAvailable}>Save mix on this phone</button>
           {/if}
         </form>
+
+        <dialog class="calculation-dialog" aria-labelledby="calculation-dialog-heading" bind:this={detailDialog} oncancel={closeCalculationDetails}>
+          {#if currentCalculationStep}
+            <div class="dialog-heading">
+              <div>
+                <p id="calculation-dialog-heading">Calculation details</p>
+                <h2>{format(administrationVolume)} mL</h2>
+              </div>
+              <button type="button" aria-label="Close calculation details" onclick={closeCalculationDetails}>×</button>
+            </div>
+
+            <div class="equation-tabs" role="tablist" aria-label="Calculation steps">
+              {#each calculationSteps as step, index}
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={detailStep === index}
+                  aria-controls="equation-panel"
+                  onclick={() => detailStep = index}
+                >
+                  <span>{index + 1}</span>{step.shortLabel}
+                </button>
+              {/each}
+            </div>
+
+            <section id="equation-panel" class="equation-panel" role="tabpanel" aria-live="polite">
+              <p>Step {detailStep + 1} of {calculationSteps.length}</p>
+              <h3>{currentCalculationStep.title}</h3>
+              <div class="equation" data-testid={`${currentCalculationStep.id}-equation`}>
+                {@html renderMath(currentCalculationStep.expression)}
+              </div>
+            </section>
+
+            <p class="rounding">Use local policy for measurable volume and rounding.</p>
+
+            <div class="dialog-actions">
+              <button type="button" disabled={detailStep === 0} onclick={() => detailStep -= 1}>Previous</button>
+              {#if detailStep < calculationSteps.length - 1}
+                <button class="primary" type="button" onclick={() => detailStep += 1}>Next step</button>
+              {:else}
+                <button class="primary" type="button" onclick={closeCalculationDetails}>Done</button>
+              {/if}
+            </div>
+          {/if}
+        </dialog>
       </section>
     {:else if tab === 'favourites'}
       <section aria-labelledby="favourites-heading">
@@ -368,8 +434,9 @@
             <p>Save a medication from the Mix screen to reuse its vial details.</p>
           </div>
         {:else}
-          <ul class="saved-list">
-            {#each favourites as favourite}
+          <ul class="saved-list" aria-label="Saved favourites">
+            {#each favourites as favourite, index}
+              {#if index === favouritePage}
               <li>
                 <div>
                   <strong>{favourite.name}</strong>
@@ -380,8 +447,14 @@
                   <button class="danger-text" type="button" aria-label={`Delete ${favourite.name}`} onclick={() => deleteFavourite(favourite.id)}>Delete</button>
                 </div>
               </li>
+              {/if}
             {/each}
           </ul>
+          <div class="pager" aria-label="Favourite pages">
+            <button type="button" disabled={favouritePage === 0} onclick={() => favouritePage -= 1}>Previous</button>
+            <span>{favouritePage + 1} of {favourites.length}</span>
+            <button type="button" disabled={favouritePage === favourites.length - 1} onclick={() => favouritePage += 1}>Next</button>
+          </div>
         {/if}
       </section>
     {:else}
@@ -396,8 +469,9 @@
             <p>Acknowledged calculations will appear here for review.</p>
           </div>
         {:else}
-          <ul class="history-list">
-            {#each history as item}
+          <ul class="history-list" aria-label="Saved mix history">
+            {#each history as item, index}
+              {#if index === historyPage}
               <li>
                 <div class="history-heading">
                   <div>
@@ -415,8 +489,14 @@
                   {/if}
                 </small>
               </li>
+              {/if}
             {/each}
           </ul>
+          <div class="pager" aria-label="History pages">
+            <button type="button" disabled={historyPage === 0} onclick={() => historyPage -= 1}>Previous</button>
+            <span>{historyPage + 1} of {history.length}</span>
+            <button type="button" disabled={historyPage === history.length - 1} onclick={() => historyPage += 1}>Next</button>
+          </div>
           <button class="clear-history" type="button" onclick={clearHistory}>Clear all history</button>
         {/if}
       </section>
@@ -498,7 +578,7 @@
   .text-button, .danger-text, .clear-history { min-height: 44px; padding: 8px 2px; color: #087f7a; background: transparent; border: 0; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
   .text-button { margin-top: 10px; }
   button:disabled { opacity: .45; cursor: not-allowed; }
-  .helper, .caution { margin: -8px 0 16px; color: #52677a; font-size: .88rem; }
+  .caution { margin: -8px 0 16px; color: #52677a; font-size: .88rem; }
   .caution { margin: 14px 0 0; padding-left: 24px; color: #6b4d00; position: relative; }
   .caution::before { content: "!"; position: absolute; left: 0; display: grid; width: 18px; height: 18px; place-items: center; color: #fff; background: #9a6700; border-radius: 50%; font-size: .72rem; font-weight: 900; }
   .volume-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
@@ -509,13 +589,8 @@
   .selected-mark { position: absolute; top: 6px; right: 6px; display: grid; width: 22px; height: 22px; place-items: center; color: #fff; background: #087f7a; border-radius: 50%; font-size: .75rem; }
   .error { display: grid; gap: 3px; padding: 16px; color: #8a1c13; background: #fff2f0; border: 2px solid #b42318; border-radius: 14px; }
   .result { padding: 22px 18px; text-align: center; background: #e8f4f1; border: 2px solid #72aaa5; border-radius: 18px; }
-  .result > p:first-child { margin: 0; color: #185b58; font-weight: 800; }
   .result-number { display: block; margin: 2px 0 18px; color: #076d69; font-size: clamp(3rem, 15vw, 5.2rem); font-variant-numeric: tabular-nums; letter-spacing: -.06em; line-height: 1; }
   .result-number span { font-size: .52em; letter-spacing: -.03em; }
-  dl { display: grid; gap: 11px; margin: 0; text-align: left; }
-  dl div { padding-top: 10px; border-top: 1px solid #aad0cc; }
-  dt { color: #315c59; font-size: .78rem; font-weight: 800; text-transform: uppercase; }
-  dd { margin: 2px 0 0; font-variant-numeric: tabular-nums; font-weight: 650; overflow-wrap: anywhere; }
   .equation { overflow-x: auto; overflow-y: hidden; color: #102a43; }
   .equation :global(.katex-display) { margin: .35rem 0 .15rem; text-align: left; }
   .equation :global(.katex) { font-size: 1.04em; }
@@ -560,5 +635,128 @@
   @media (prefers-reduced-motion: no-preference) {
     button { transition: background-color .16s ease, border-color .16s ease, transform .16s ease; }
     button:active:not(:disabled) { transform: scale(.98); }
+  }
+
+  /* The primary workflow is a fixed-height instrument panel: navigation replaces scrolling. */
+  :global(html), :global(body) { width: 100%; height: 100%; overflow: hidden; }
+  .app-shell {
+    display: grid;
+    grid-template-rows: 46px auto minmax(0, 1fr) 58px;
+    width: min(100%, 760px);
+    height: 100dvh;
+    min-height: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  header { min-height: 0; padding: 0 12px; }
+  .brand { font-size: 1.22rem; }
+  .local-status { gap: 5px; font-size: .75rem; }
+  .local-status span { width: 21px; height: 21px; font-size: .72rem; }
+  .prototype-banner { min-height: 29px; padding: 6px 12px; font-size: .72rem; line-height: 1.25; }
+  .prototype-banner strong { display: inline; }
+  .prototype-banner span { display: none; }
+  main { min-height: 0; padding: 7px 12px; overflow: hidden; }
+  main > section { height: 100%; min-height: 0; overflow: hidden; }
+  .mix-screen { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 4px; }
+  .screen-heading { min-height: 27px; }
+  .screen-heading .eyebrow, .screen-heading .intro { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  h1 { font-size: 1.35rem; line-height: 1.15; letter-spacing: -.02em; }
+  .intro { margin: 4px 0 12px; font-size: .8rem; }
+  form { align-content: start; gap: 5px; min-height: 0; }
+  .form-section { padding: 6px 8px; border-radius: 11px; }
+  legend { gap: 6px; margin-bottom: 4px; font-size: .82rem; line-height: 1; }
+  legend > span { width: 19px; height: 19px; font-size: .66rem; }
+  legend small { margin-left: 2px; color: #52677a; font-size: .72rem; font-weight: 600; }
+  label { gap: 2px; font-size: .74rem; line-height: 1.15; }
+  label small { display: inline; margin-left: 2px; font-size: .68rem; }
+  .field-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  input, select { min-height: 44px; padding: 5px 8px; border-radius: 8px; font-size: .98rem; }
+  .vial-section { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 7px; }
+  .vial-section legend, .vial-section .input-grid { grid-column: 1 / -1; }
+  .name-field { min-width: 0; }
+  .input-grid { grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); gap: 5px; margin-top: 4px; }
+  .input-grid label:last-child { grid-column: auto; }
+  .text-button { align-self: end; min-height: 44px; margin: 0; padding: 4px 3px; font-size: .74rem; white-space: nowrap; }
+  .volume-section { padding-bottom: 5px; }
+  .volume-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3px; }
+  .volume-grid button { min-height: 55px; padding: 2px 1px 3px; border-radius: 8px; }
+  .volume-grid button.selected { border-width: 2px; }
+  .volume-grid img { height: 29px; margin-bottom: 0; }
+  .volume-grid strong { font-size: .66rem; letter-spacing: -.02em; }
+  .selected-mark { top: 2px; right: 2px; width: 15px; height: 15px; font-size: .52rem; }
+  .caution { min-height: 14px; margin: 3px 0 0; padding-left: 17px; overflow: hidden; font-size: .66rem; line-height: 1.25; white-space: nowrap; }
+  .caution::before { width: 13px; height: 13px; font-size: .55rem; }
+  .dose-grid { grid-template-columns: minmax(0, 1fr) 94px; gap: 5px; }
+  .error { min-height: 54px; gap: 1px; padding: 7px 10px; border-width: 1.5px; border-radius: 10px; font-size: .72rem; }
+  .result { display: flex; align-items: center; justify-content: space-between; min-height: 74px; padding: 6px 8px 6px 12px; text-align: left; border-width: 1.5px; border-radius: 11px; }
+  .result > div > p { margin: 0; color: #185b58; font-size: .72rem; font-weight: 800; text-transform: uppercase; }
+  .result-number { margin: 0; font-size: clamp(2.4rem, 12vw, 3.5rem); }
+  .details-button { min-height: 44px; padding: 6px 8px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-size: .76rem; font-weight: 800; cursor: pointer; }
+  .details-button span { font-size: 1.2rem; vertical-align: -.08em; }
+  .acknowledgement { grid-template-columns: 23px 1fr; min-height: 44px; align-items: center; padding: 0 2px; font-size: .76rem; }
+  .acknowledgement input { width: 21px; min-height: 21px; }
+  .primary { min-height: 44px; padding: 8px 12px; border-radius: 9px; font-size: .84rem; }
+
+  .calculation-dialog {
+    width: min(calc(100% - 20px), 540px);
+    height: min(610px, calc(100dvh - 20px));
+    max-height: calc(100dvh - 20px);
+    margin: auto;
+    padding: 12px;
+    color: #102a43;
+    background: #f7f8f5;
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 18px 70px rgba(16, 42, 67, .35);
+    overflow: hidden;
+  }
+  .calculation-dialog[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto auto; gap: 9px; }
+  .calculation-dialog::backdrop { background: rgba(16, 42, 67, .62); }
+  .dialog-heading { display: flex; align-items: center; justify-content: space-between; }
+  .dialog-heading p { margin: 0; color: #52677a; font-size: .72rem; font-weight: 800; text-transform: uppercase; }
+  .dialog-heading h2 { margin: 0; color: #076d69; font-size: 2rem; line-height: 1; }
+  .dialog-heading button { width: 44px; min-height: 44px; color: #52677a; background: #fff; border: 1px solid #c7d0cd; border-radius: 50%; font-size: 1.6rem; cursor: pointer; }
+  .equation-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+  .equation-tabs button { display: grid; min-width: 0; min-height: 50px; place-items: center; align-content: center; padding: 3px; color: #52677a; background: #fff; border: 1px solid #c7d0cd; border-radius: 8px; font-size: .66rem; font-weight: 800; cursor: pointer; }
+  .equation-tabs button span { display: grid; width: 18px; height: 18px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: .58rem; }
+  .equation-tabs button[aria-selected="true"] { color: #fff; background: #087f7a; border-color: #087f7a; }
+  .equation-panel { display: grid; align-content: center; min-height: 0; padding: 12px 6px; text-align: center; background: #fff; border: 1px solid #d8dfdc; border-radius: 12px; overflow: hidden; }
+  .equation-panel > p { margin: 0; color: #087f7a; font-size: .68rem; font-weight: 850; text-transform: uppercase; }
+  .equation-panel h3 { margin: 4px 0 8px; font-size: 1rem; }
+  .equation { width: 100%; overflow: hidden; text-align: center; }
+  .equation :global(.katex-display) { margin: .2rem 0; text-align: center; }
+  .equation :global(.katex) { font-size: clamp(.72rem, 3.2vw, 1rem); }
+  .rounding { margin: 0; text-align: center; font-size: .68rem; }
+  .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .dialog-actions button { min-height: 44px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-size: .76rem; font-weight: 800; cursor: pointer; }
+  .dialog-actions button.primary { color: #fff; background: #087f7a; }
+
+  main > section:not(.mix-screen) { display: flex; flex-direction: column; }
+  main > section:not(.mix-screen) .eyebrow { margin-bottom: 1px; font-size: .68rem; }
+  main > section:not(.mix-screen) h1 { font-size: 1.65rem; }
+  main > section:not(.mix-screen) .intro { flex: 0 0 auto; margin: 3px 0 9px; }
+  .empty-state { min-height: 0; padding: 24px 12px; border-radius: 12px; }
+  .saved-list, .history-list { min-height: 0; gap: 0; }
+  .saved-list li, .history-list li { padding: 12px; border-radius: 12px; }
+  .history-list p { margin: 10px 0 6px; }
+  .pager { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin-top: 8px; }
+  .pager button { min-height: 44px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-weight: 800; cursor: pointer; }
+  .pager button:last-child { justify-self: stretch; }
+  .pager span { color: #52677a; font-size: .75rem; font-weight: 700; }
+  .clear-history { min-height: 44px; margin: 4px auto 0; }
+  .storage-warning, .toast { bottom: 64px; padding: 9px 12px; font-size: .74rem; }
+  nav { position: static; width: 100%; min-height: 0; padding: 3px 7px max(3px, env(safe-area-inset-bottom)); }
+  nav button { min-height: 48px; font-size: .7rem; }
+  nav button span { font-size: 1.12rem; }
+
+  @media (min-width: 600px) {
+    header { padding-inline: 20px; }
+    .prototype-banner { padding-inline: 20px; }
+    .prototype-banner span { display: inline; margin-left: 5px; }
+    main { padding: 9px 20px; }
+    .input-grid { grid-template-columns: minmax(0, 1.4fr) 88px minmax(0, 1fr); }
+    .volume-grid button { min-height: 62px; }
+    .volume-grid img { height: 35px; }
+    .volume-grid strong { font-size: .7rem; }
   }
 </style>

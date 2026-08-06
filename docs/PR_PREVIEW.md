@@ -8,6 +8,8 @@ This is an actual Playwright capture of the phone calculation review—not a des
 
 ![Dosage calculation review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/docs/pr-preview.png)
 
+![No-scroll KaTeX unit-conversion review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/tests/e2e/001-cross-unit-calculation/screenshots/001-unit-conversion-review-phone.png)
+
 ## What changed
 
 - Added a phone-first Svelte SPA for one-vial dilution arithmetic.
@@ -17,6 +19,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - Rendered vial concentration, prepared concentration, conversion factor, and administration volume with locally bundled KaTeX and accessible MathML.
 - Added generated container illustrations, product documentation, safety boundaries, and UX mockups.
 - Added deterministic Playwright coverage with zero-pixel screenshot comparisons.
+- Reworked the calculator into a fixed-height, no-scroll phone layout with compact inputs, paged saved records, and a step-by-step KaTeX review sheet.
 - Added PR-gated E2E and GitHub Pages preview deployment under `/pr<PR number>/`.
 - Licensed the public project under GNU GPL v3.0.
 
@@ -32,6 +35,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - same-origin GET-only operation with no runtime fetch/XHR/beacon;
 - corrupt-storage recovery without losing calculation capability;
 - WCAG A/AA automated analysis, MathML, labels, focus, 44 px targets, 320 px reflow, phone and desktop visual baselines.
+- zero document/dialog overflow at 393×852, 320×852, and desktop viewports.
 
 Each scenario includes a generated README and committed screenshots under [`tests/e2e`](https://github.com/anicolao/dosage/tree/agent/initial-dosage-spa/tests/e2e).
 
