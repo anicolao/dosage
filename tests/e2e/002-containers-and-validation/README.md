@@ -9,6 +9,7 @@ Every supported final volume calculates deterministically and invalid inputs rem
 **Verifications:**
 
 - [x] Only 10, 50, 100, 250, 500, and 1000 mL are offered
+- [x] The flexible 500 mL bag is visibly wider than every other IV bag
 - [x] At 1000 mL final volume the calculated volume is 200 mL
 
 ## An order exceeding the one-vial contents is blocked

@@ -10,6 +10,10 @@ This is an actual Playwright capture of the phone calculation review—not a des
 
 ![No-scroll simultaneous KaTeX review](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/tests/e2e/001-cross-unit-calculation/screenshots/001-simultaneous-calculation-review-phone.png)
 
+![Regenerated flexible IV bags](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/tests/e2e/002-containers-and-validation/screenshots/000-all-supported-containers-phone.png)
+
+![Filled favourite star on the main screen](https://github.com/anicolao/dosage/raw/refs/heads/agent/initial-dosage-spa/tests/e2e/003-local-records/screenshots/000-favourite-saved-phone.png)
+
 ## What changed
 
 - Added a phone-first Svelte SPA for one-vial dilution arithmetic.
@@ -18,6 +22,8 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - Blocked conversion between mass and activity units.
 - Rendered vial concentration, prepared concentration, conversion factor, and administration volume with locally bundled KaTeX and accessible MathML.
 - Added generated container illustrations, product documentation, safety boundaries, and UX mockups.
+- Regenerated the IV icon family from the supplied bag reference: every bag now has flexible seams, a concave top, and twin ports, while the 500 mL silhouette is measurably wider than the other bags.
+- Added a main-screen favourite toggle whose star fills gold, changes label, and exposes `aria-pressed="true"` whenever the current vial facts are saved.
 - Added deterministic Playwright coverage with zero-pixel screenshot comparisons.
 - Reworked the calculator into a fixed-height, no-scroll phone layout with explicit mg/1 mL/mcg defaults, paged saved records, and a simultaneous KaTeX review panel whose single-line formulas must each be checked before the answer is revealed.
 - Added PR-gated E2E and GitHub Pages preview deployment under `/pr<PR number>/`.
@@ -28,9 +34,10 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - mg vial → mcg order and reverse mcg vial → mg order;
 - equivalent-dose invariants and detailed KaTeX equations;
 - all 10/50/100/250/500/1000 mL containers;
+- pixel-level verification that the 500 mL IV-bag silhouette is wider than every other bag icon;
 - excessive-dose and impossible-final-volume blocking;
 - non-convertible activity-unit handling;
-- favourite and history persistence/deletion;
+- favourite and history persistence/deletion, including the filled-star main-screen state after save and reload;
 - acknowledgement requirements and no dose carry-forward;
 - explicit mg/1 mL/mcg defaults, no final-volume default, value-preserving unit changes, and answer gating until every review step is checked;
 - same-origin GET-only operation with no runtime fetch/XHR/beacon;

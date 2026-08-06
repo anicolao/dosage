@@ -12,23 +12,28 @@ test('favourites and history stay local without carrying an order forward', asyn
   await page.goto('/');
   await enterStandardCalculation(page);
   await page.getByRole('button', { name: 'Save medication as favourite' }).click();
-  await page.getByRole('button', { name: /Favourites/ }).click();
-
+  const favouriteToggle = page.getByRole('button', { name: 'Remove medication from favourites' });
   await steps.step('favourite-saved', {
-    description: 'A favourite stores only vial-label facts',
+    description: 'The main screen marks saved vial facts with a filled favourite star',
     verifications: [
-      { spec: 'The medication name and 10 mg in 1 mL appear', check: async () => {
-        await expect(page.locator('.saved-list li')).toHaveCount(1);
-        await expect(page.locator('.saved-list li')).toContainText('Example medication');
-        await expect(page.locator('.saved-list li')).toContainText('10 mg in 1 mL');
+      { spec: 'The star is filled and exposes a pressed state', check: async () => {
+        await expect(favouriteToggle).toHaveAttribute('aria-pressed', 'true');
+        await expect(favouriteToggle).toContainText('★');
       } },
-      { spec: 'No ordered dose appears in the favourite', check: async () => {
-        await expect(page.locator('.saved-list')).not.toContainText('2000 mcg');
+      { spec: 'The accessible label offers to remove the saved favourite', check: async () => {
+        await expect(favouriteToggle).toHaveAccessibleName('Remove medication from favourites');
       } }
     ]
   });
 
+  await page.getByRole('button', { name: /Favourites/ }).click();
+  await expect(page.locator('.saved-list li')).toHaveCount(1);
+  await expect(page.locator('.saved-list li')).toContainText('Example medication');
+  await expect(page.locator('.saved-list li')).toContainText('10 mg in 1 mL');
+  await expect(page.locator('.saved-list')).not.toContainText('2000 mcg');
+
   await page.getByRole('button', { name: 'Use', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Remove medication from favourites' })).toHaveAttribute('aria-pressed', 'true');
   await expect(page.getByLabel('Dose from the medication order', { exact: true })).toHaveValue('');
   await expect(page.locator('[data-testid="calculation-result"]')).toHaveCount(0);
   await expect(page.getByLabel('Ordered-dose unit', { exact: true })).toHaveValue('mcg');

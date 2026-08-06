@@ -2,14 +2,14 @@
 
 Medication label facts can be reused, while ordered doses and confirmations must be entered again.
 
-## A favourite stores only vial-label facts
+## The main screen marks saved vial facts with a filled favourite star
 
-![A favourite stores only vial-label facts](./screenshots/000-favourite-saved-phone.png)
+![The main screen marks saved vial facts with a filled favourite star](./screenshots/000-favourite-saved-phone.png)
 
 **Verifications:**
 
-- [x] The medication name and 10 mg in 1 mL appear
-- [x] No ordered dose appears in the favourite
+- [x] The star is filled and exposes a pressed state
+- [x] The accessible label offers to remove the saved favourite
 
 ## An acknowledged calculation is reviewable in local history
 

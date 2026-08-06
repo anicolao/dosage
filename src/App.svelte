@@ -85,6 +85,12 @@
     }
   ] : [];
   $: allStepsChecked = calculationSteps.length > 0 && calculationSteps.every((step) => checkedSteps.includes(step.id));
+  $: currentFavourite = favourites.find((favourite) =>
+    favourite.name?.trim().toLocaleLowerCase() === medicationName.trim().toLocaleLowerCase() &&
+    String(favourite.medicationAmount) === String(medicationAmount) &&
+    favourite.vialUnit === vialUnit &&
+    String(favourite.vialVolume) === String(vialVolume)
+  );
 
   onMount(() => {
     try {
@@ -167,7 +173,7 @@
   }
 
   function saveFavourite() {
-    if (!storageAvailable || !medicationName.trim() || !Number.isFinite(amount) || amount <= 0 || !Number.isFinite(vial) || vial <= 0) return;
+    if (currentFavourite || !storageAvailable || !medicationName.trim() || !Number.isFinite(amount) || amount <= 0 || !Number.isFinite(vial) || vial <= 0) return;
     const next = [{
       id: crypto.randomUUID(),
       name: medicationName.trim(),
@@ -180,6 +186,20 @@
       favourites = next;
       favouritePage = 0;
       notice = 'Favourite saved on this phone.';
+    }
+  }
+
+  function toggleFavourite() {
+    if (!currentFavourite) {
+      saveFavourite();
+      return;
+    }
+
+    const next = favourites.filter((item) => item.id !== currentFavourite.id);
+    if (write(storageKeys.favourites, next)) {
+      favourites = next;
+      favouritePage = Math.min(favouritePage, Math.max(0, next.length - 1));
+      notice = 'Favourite removed from this phone.';
     }
   }
 
@@ -323,8 +343,17 @@
               </label>
             </div>
 
-            <button class="text-button" type="button" aria-label="Save medication as favourite" onclick={saveFavourite} disabled={!storageAvailable || !medicationName.trim() || !medicationAmount || !vialUnit || !vialVolume}>
-              <span aria-hidden="true">☆</span> Save favourite
+            <button
+              class="text-button favourite-button"
+              class:favourited={Boolean(currentFavourite)}
+              type="button"
+              aria-label={currentFavourite ? 'Remove medication from favourites' : 'Save medication as favourite'}
+              aria-pressed={Boolean(currentFavourite)}
+              onclick={toggleFavourite}
+              disabled={!storageAvailable || !medicationName.trim() || !medicationAmount || !vialUnit || !vialVolume}
+            >
+              <span class="favourite-star" aria-hidden="true">{currentFavourite ? '★' : '☆'}</span>
+              {currentFavourite ? 'Favourite' : 'Save favourite'}
             </button>
           </fieldset>
 
@@ -603,6 +632,9 @@
   .unit { color: #087f7a; font-weight: 800; }
   .text-button, .danger-text, .clear-history { min-height: 44px; padding: 8px 2px; color: #087f7a; background: transparent; border: 0; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
   .text-button { margin-top: 10px; }
+  .favourite-button { border-radius: 9px; }
+  .favourite-button.favourited { padding-inline: 8px; color: #6b4d00; background: #fff3cd; text-decoration: none; }
+  .favourite-star { color: #9a6700; font-size: 1.2em; line-height: 1; }
   button:disabled { opacity: .45; cursor: not-allowed; }
   .caution { margin: -8px 0 16px; color: #52677a; font-size: .88rem; }
   .caution { margin: 14px 0 0; padding-left: 24px; color: #6b4d00; position: relative; }

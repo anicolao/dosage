@@ -33,6 +33,35 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
         expect(await page.locator('.volume-grid button strong').allTextContents())
           .toEqual(['10 mL', '50 mL', '100 mL', '250 mL', '500 mL', '1000 mL']);
       } },
+      { spec: 'The flexible 500 mL bag is visibly wider than every other IV bag', check: async () => {
+        const silhouettes = await page.locator('.volume-grid button').evaluateAll((buttons) => buttons.slice(1).map((button) => {
+          const image = button.querySelector('img');
+          const label = button.querySelector('strong')?.textContent?.trim() ?? '';
+          if (!(image instanceof HTMLImageElement)) throw new Error(`Missing image for ${label}`);
+          const canvas = document.createElement('canvas');
+          canvas.width = image.naturalWidth;
+          canvas.height = image.naturalHeight;
+          const context = canvas.getContext('2d');
+          if (!context) throw new Error('Canvas unavailable');
+          context.drawImage(image, 0, 0);
+          const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+          let minimumX = canvas.width;
+          let maximumX = -1;
+          for (let y = 0; y < canvas.height; y += 1) {
+            for (let x = 0; x < canvas.width; x += 1) {
+              const offset = (y * canvas.width + x) * 4;
+              if (pixels[offset] < 220 || pixels[offset + 1] < 220 || pixels[offset + 2] < 220) {
+                minimumX = Math.min(minimumX, x);
+                maximumX = Math.max(maximumX, x);
+              }
+            }
+          }
+          return { label, width: maximumX - minimumX + 1 };
+        }));
+        const fiveHundred = silhouettes.find(({ label }) => label === '500 mL');
+        const otherWidths = silhouettes.filter(({ label }) => label !== '500 mL').map(({ width }) => width);
+        expect(fiveHundred?.width).toBeGreaterThan(Math.max(...otherWidths) + 15);
+      } },
       { spec: 'At 1000 mL final volume the calculated volume is 200 mL', check: async () => {
         await expect(page.locator('.result-number')).toHaveText('200 mL');
       } }
