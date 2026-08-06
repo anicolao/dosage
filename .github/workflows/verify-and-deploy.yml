@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      e2e_only:
+        description: Run PR verification without deploying
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -43,8 +49,9 @@ jobs:
     name: GitHub Pages preview
     needs: e2e
     if: >-
-      github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.full_name == github.repository
+      inputs.e2e_only != true &&
+      (github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
