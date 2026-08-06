@@ -3,6 +3,13 @@ name: Verify and deploy
 on:
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      e2e_only:
+        description: Run PR verification without deploying
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: read
