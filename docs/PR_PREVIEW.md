@@ -29,7 +29,7 @@ This is an actual Playwright capture of the phone calculation review—not a des
 - corrupt-storage recovery without losing calculation capability;
 - WCAG A/AA automated analysis, MathML, labels, focus, 44 px targets, 320 px reflow, phone and desktop visual baselines.
 
-Each scenario includes a generated README and committed screenshots under [`tests/e2e`](../tests/e2e).
+Each scenario includes a generated README and committed screenshots under [`tests/e2e`](https://github.com/anicolao/dosage/tree/agent/initial-dosage-spa/tests/e2e).
 
 ## Validation
 
