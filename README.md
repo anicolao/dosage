@@ -78,3 +78,7 @@ The planned test harness combines [food’s unified screenshot/documentation ste
 ## Regulatory and safety note
 
 Intended use determines whether clinical software is regulated. Before any clinical deployment, obtain qualified regulatory advice in every target jurisdiction and complete formal risk management, verification, validation, and representative-user usability testing. Current reference points include Health Canada’s [SaMD definition and classification guidance](https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance-document.html), the FDA’s [Clinical Decision Support Software FAQ](https://www.fda.gov/medical-devices/software-medical-device-samd/clinical-decision-support-software-frequently-asked-questions-faqs), and its [human-factors guidance](https://www.fda.gov/regulatory-information/search-fda-guidance-documents/applying-human-factors-and-usability-engineering-medical-devices).
+
+## License
+
+This project is licensed under the [GNU General Public License v3.0](./LICENSE).
