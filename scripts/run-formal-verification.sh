@@ -15,8 +15,8 @@ trap cleanup_formal_vectors EXIT
 lean --version | grep -Fq 'version 4.30.0'
 lake --version | grep -Fq 'Lake version 5.0.0'
 
-if rg -n '^\s*(sorry|axiom\s)' "$formal_project_dir" -g '*.lean'; then
-  echo 'Formal verification rejected: sorry or a user-defined axiom is present.' >&2
+if rg -n '^\s*(sorry\b|admit\b|axiom\s)' "$formal_project_dir" -g '*.lean'; then
+  echo 'Formal verification rejected: sorry, admit, or a user-defined axiom is present.' >&2
   exit 1
 fi
 

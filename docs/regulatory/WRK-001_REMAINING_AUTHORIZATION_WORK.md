@@ -32,7 +32,8 @@ The branch contains the following review inputs and technical scaffolding:
   exact-ratio model, named proofs and canonical seed vectors;
 - `npm run test:formal`, isolated `nix flake check`, and a separate green,
   least-privilege formal CI job; and
-- an explicit source audit rejecting `sorry` and user-defined Lean axioms.
+- an explicit source audit rejecting `sorry`, `admit` and user-defined Lean
+  axioms.
 
 These are drafts or technical observations. No named legal manufacturer,
 clinical approver, independent verifier, quality authority or regulatory owner

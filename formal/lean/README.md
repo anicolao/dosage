@@ -38,8 +38,9 @@ installation. The Lake manifest currently has no third-party Lean packages.
 | `Dosage.Properties` | Machine-checked examples, including the `0.0000001 mL` regression, and visible `#print axioms` output for the named theorems. |
 | `Dosage.ReferenceCli` | Versioned canonical exact-ratio seed vectors for later differential conformance. |
 
-There are no `sorry` declarations or user-defined axioms. The build prints the
-axiom dependencies of the reviewed theorems. Some proofs created using Lean's
+There are no `sorry`/`admit` declarations or user-defined axioms. The build
+rejects any such source and prints the axiom dependencies of the reviewed
+theorems. Some proofs created using Lean's
 standard simplifier/extensional equality report `propext`, `Quot.sound`, and
 `Classical.choice`; several arithmetic/safety theorems report no axioms. These
 are part of the declared Lean proof boundary and require independent review.
