@@ -1,4 +1,4 @@
-import Dosage
+import Dosage.ReferenceCli
 
-def main : IO Unit :=
-  IO.println Dosage.formalModelVersion
+def main (args : List String) : IO UInt32 :=
+  Dosage.ReferenceCli.main args

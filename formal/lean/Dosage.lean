@@ -1,9 +1,10 @@
-/-!
-The Dosage formal reference model.
+import Dosage.Decimal
+import Dosage.Units
+import Dosage.Calculation
+import Dosage.Rounding
+import Dosage.Properties
 
-The initial scaffold pins the compiler and build system. Subsequent modules
-define the executable arithmetic model and its proof obligations.
--/
+/-! The Dosage executable formal reference model and proof obligations. -/
 
 namespace Dosage
 
