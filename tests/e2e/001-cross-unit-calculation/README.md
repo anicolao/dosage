@@ -12,6 +12,7 @@ An incomplete calculator gates its answer behind a simultaneous, individually ch
 - [x] Vial unit defaults to mg, vial volume to 1 mL, and ordered-dose unit to mcg
 - [x] No final prepared volume is preselected
 - [x] No answer or review action is present for incomplete input
+- [x] The build is visibly identified as a non-clinical prototype and tells crawlers not to index it
 
 ## All four large single-line equations fit together in one no-scroll review panel
 

@@ -325,7 +325,7 @@
   </header>
 
   <div class="prototype-banner" role="note">
-    <strong>Prototype — not for patient care.</strong>
+    <strong>Prototype only — not for patient care.</strong>
     <span>Verify every value with the order, vial label, pharmacy guidance, and local policy.</span>
   </div>
 
