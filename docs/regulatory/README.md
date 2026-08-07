@@ -34,6 +34,13 @@ permission for patient care, or completion of any authorization gate.
 | `ARC-001_ARCHITECTURE_AND_DATA_FLOW.md` | Draft | Describe components, trust boundaries and data flow. |
 | `TRC-001_TRACEABILITY_MATRIX.csv` | Initial/open | Link preliminary hazards to requirements and planned evidence. |
 | `GATE-001_PRODUCT_DEFINITION.md` | Open | Record the decisions and approvals required to freeze G1. |
+| `CALC-001_NUMERIC_SPECIFICATION.md` | Draft/blocking | Propose numeric grammar, exact arithmetic, formula, display and corpus decisions. |
+| `RMF-001_PRELIMINARY_RISK_MANAGEMENT.md` | Draft/blocking | Define the preliminary method, hazards, controls and risk-decision gaps. |
+| `STO-001_LOCAL_DATA_SPECIFICATION.md` | Draft/blocking | Propose local schemas, recomputation, migration, retention and recovery. |
+| `SEC-001_SECURITY_AND_PRIVACY_PLAN.md` | Draft/blocking | Propose network, delivery, supply-chain, lifecycle and privacy controls. |
+| `DEV-001_TOOLING_DECISION.md` | Draft/blocking | Propose TypeScript/test tooling and the npm/Nix provisioning boundary. |
+| `VVP-001_VERIFICATION_PLAN.md` | Draft/blocking | Define prospective verification, evidence, independence and anomaly rules. |
+| `GATE-002_SAFETY_REQUIREMENTS.md` | Open | Reconcile Step 2 records and list every decision required to approve G2. |
 
 G1 records are drafted for review, but no G1 record may imply that G0 is closed
 while `GATE-000_CONTROLLED_PROTOTYPE.md` remains open. G2 specifications must
