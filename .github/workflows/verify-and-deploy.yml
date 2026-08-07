@@ -1,18 +1,24 @@
 name: Verify and deploy
 
 on:
-  pull_request:
+  push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
     inputs:
       e2e_only:
         description: Run PR verification without deploying
         required: false
-        default: true
+        default: false
         type: boolean
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   e2e:
@@ -38,3 +44,76 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+  deploy:
+    name: GitHub Pages preview
+    needs: e2e
+    if: >-
+      inputs.e2e_only != true &&
+      (github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Determine deployment path
+        id: deployment
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "base=/dosage/pr${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+            echo "destination=pr${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=/dosage" >> "$GITHUB_OUTPUT"
+            echo "destination=" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Build static SPA for GitHub Pages
+        run: npm run build
+        env:
+          PUBLIC_BASE_PATH: ${{ steps.deployment.outputs.base }}
+      - name: Verify deployment base paths
+        run: npm run check:base
+        env:
+          PUBLIC_BASE_PATH: ${{ steps.deployment.outputs.base }}
+      - name: Deploy static SPA
+        uses: peaceiris/actions-gh-pages@v4.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          destination_dir: ${{ steps.deployment.outputs.destination }}
+          keep_files: true
+      - name: Comment with PR preview
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- dosage-pr-preview -->';
+            const previewUrl = `https://anicolao.github.io/dosage/pr${context.issue.number}/`;
+            const body = `${marker}\n🚀 Preview deployed to: ${previewUrl}`;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+            const existing = comments.find((comment) =>
+              comment.user.login === 'github-actions[bot]' && comment.body.includes(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body
+              });
+            }

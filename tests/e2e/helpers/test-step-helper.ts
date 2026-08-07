@@ -1,0 +1,121 @@
+import { expect, type Page, type TestInfo } from '@playwright/test';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+
+interface Verification {
+  spec: string;
+  check: () => Promise<void>;
+}
+
+interface DocStep {
+  title: string;
+  image: string;
+  specs: string[];
+}
+
+export async function enterStandardCalculation(page: Page) {
+  await page.getByLabel(/Medication name/).fill('Example medication');
+  await page.getByLabel('Amount in vial').fill('10');
+  await page.getByLabel('Vial unit', { exact: true }).selectOption('mg');
+  await page.getByLabel(/Vial volume/).fill('1');
+  await page.getByRole('button', { name: '50 mL', exact: true }).click();
+  await page.getByLabel('Ordered-dose unit', { exact: true }).selectOption('mcg');
+  await page.getByLabel('Dose from the medication order', { exact: true }).fill('2000');
+}
+
+export async function completeCalculationReview(page: Page) {
+  const dialog = page.getByRole('dialog');
+  if (!(await dialog.isVisible())) {
+    await page.getByRole('button', { name: 'Review calculation' }).click();
+    await expect(dialog).toBeVisible();
+  }
+
+  const complete = dialog.getByRole('button', { name: 'Complete review' });
+  await expect(complete).toBeDisabled();
+  const checks = dialog.locator('.step-check');
+  const checkCount = await checks.count();
+  expect(checkCount).toBeGreaterThan(0);
+  for (let index = 0; index < checkCount; index += 1) {
+    await expect(checks.nth(index)).toHaveAttribute('aria-pressed', 'false');
+    await checks.nth(index).click();
+    await expect(checks.nth(index)).toHaveAttribute('aria-pressed', 'true');
+    if (index < checkCount - 1) await expect(complete).toBeDisabled();
+  }
+  await expect(complete).toBeEnabled();
+  await complete.click();
+  await expect(page.getByRole('dialog')).not.toBeVisible();
+}
+
+export class TestStepHelper {
+  private count = 0;
+  private steps: DocStep[] = [];
+  private title = '';
+  private description = '';
+
+  constructor(
+    private page: Page,
+    private testInfo: TestInfo
+  ) {}
+
+  setMetadata(title: string, description: string) {
+    this.title = title;
+    this.description = description;
+  }
+
+  async step(id: string, options: { description: string; verifications: Verification[] }) {
+    for (const verification of options.verifications) await verification.check();
+
+    await expect(this.page.locator('[data-status="local"]')).toBeVisible();
+    await this.page.mouse.move(0, 0);
+    await this.page.evaluate(async () => {
+      await document.fonts.ready;
+      const images = Array.from(document.images);
+      await Promise.all(images.map((image) => image.complete
+        ? Promise.resolve()
+        : new Promise<void>((resolve) => {
+            image.addEventListener('load', () => resolve(), { once: true });
+            image.addEventListener('error', () => resolve(), { once: true });
+          })));
+
+      const root = document.documentElement;
+      if (root.scrollWidth > window.innerWidth + 1) {
+        throw new Error(`page is ${root.scrollWidth}px wide inside a ${window.innerWidth}px viewport`);
+      }
+      if (root.scrollHeight > window.innerHeight + 1) {
+        throw new Error(`page is ${root.scrollHeight}px tall inside a ${window.innerHeight}px viewport`);
+      }
+
+      for (const panel of document.querySelectorAll<HTMLElement>('.app-shell, [data-e2e-layout], main > section')) {
+        if (panel.scrollWidth > panel.clientWidth + 1 || panel.scrollHeight > panel.clientHeight + 1) {
+          throw new Error(
+            `${panel.tagName.toLowerCase()}.${panel.className} clips ` +
+            `${panel.scrollWidth}×${panel.scrollHeight}px inside ${panel.clientWidth}×${panel.clientHeight}px`
+          );
+        }
+      }
+    });
+
+    const index = String(this.count++).padStart(3, '0');
+    const filename = `${index}-${id}-${this.testInfo.project.name}.png`;
+    await expect(this.page).toHaveScreenshot(filename);
+    this.steps.push({
+      title: options.description,
+      image: `./screenshots/${filename}`,
+      specs: options.verifications.map(({ spec }) => spec)
+    });
+  }
+
+  generateDocs() {
+    if (process.env.UPDATE_E2E_DOCS !== '1' || this.testInfo.project.name !== 'phone') return;
+
+    let content = `# ${this.title}\n\n${this.description}\n\n`;
+    for (const step of this.steps) {
+      content += `## ${step.title}\n\n![${step.title}](${step.image})\n\n`;
+      content += `**Verifications:**\n\n${step.specs.map((spec) => `- [x] ${spec}`).join('\n')}\n\n`;
+    }
+    fs.writeFileSync(
+      path.join(path.dirname(this.testInfo.file), 'README.md'),
+      `${content.trimEnd()}\n`
+    );
+  }
+}
