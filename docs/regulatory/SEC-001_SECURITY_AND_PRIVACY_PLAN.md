@@ -124,7 +124,7 @@ misconfigured host/institution and non-malicious corruption or update failure.
 | Threat | Safety/privacy consequence | Required design/verification |
 | --- | --- | --- |
 | Modified source, package, action or artifact | wrong but plausible calculation or label | protected review, locks/SBOM, SHA pins, provenance/digest, independent calculation verification |
-| Script/content injection | result/UI manipulation or record disclosure | restrictive CSP, no remote runtime dependency, output safety, built-artifact and penetration testing |
+| Script/content injection | result/UI manipulation or record disclosure | restrictive CSP, no remote runtime dependency, output safety and qualified built-artifact security testing; penetration testing if required by the approved risk decision |
 | Unexpected outbound channel | clinical-context disclosure | connect deny policy, API-constructor instrumentation, request allowlist and source/artifact inspection |
 | Crafted local record | unsafe restored result, crash or persistent injection | STO-001 exact schema, no trusted derived data, safe rendering, record-level quarantine/fuzz tests |
 | Partial/mixed cache update | equations/engine/IFU from different releases | atomic version manifest, full validation before activation, compatible DB migration, two-release testing |
@@ -323,10 +323,14 @@ stop-use or channel restriction requires documented benefit-risk and
 effectiveness verification.
 
 Monitor the SBOM, supported browsers/OS, security guidance and hosting/build
-services at an approved frequency and before every release. Penetration testing
-shall cover CSP bypass/content injection, local-record tampering, service-worker
-scope/cache poisoning/update failure, base-path separation and deployment/
-supply-chain boundaries, with retest after correction.
+services at an approved frequency and before every release. An independent
+penetration test is proposed for the later clinical-release program and is not
+automatically a prerequisite to the classification question. Before G6,
+security and quality shall either require it earlier based on risk or approve a
+documented classification-stage deferral. When performed, its scope shall cover
+CSP bypass/content injection, local-record tampering, service-worker scope/cache
+poisoning/update failure, base-path separation and deployment/supply-chain
+boundaries, with retest after correction.
 
 ## 9. Security incident, complaint and breach integration
 
@@ -396,16 +400,16 @@ security/privacy evidence is:
 | Service worker | Manifest/digest inspection; incomplete/corrupt update; two-release activation; open-client behavior; DB compatibility; rollback; recall simulation; cache/database eviction and recovery |
 | Supply chain | Validated SBOM, licences/sources, vulnerability scan, dependency-review record, SHA-pinned actions, least-privilege/fork test and secret/static-analysis reports |
 | Provenance | Two clean builds, artifact comparison, digest/signature/attestation verification, displayed revision and deployed digest reconciliation |
-| Threat controls | Approved threat-model review, malformed-record/input fuzzing, independent penetration test and remediation retest |
+| Threat controls | Approved threat-model review, malformed-record/input fuzzing and qualified independent security review/negative testing; independent penetration test and remediation retest if required before classification, otherwise a signed risk-based deferral to clinical-release work |
 | Privacy | Data-flow inventory, PIA/TRA, hosting/log/config evidence, retention/deletion/device-loss tests and English/French notice review |
 | Operations | Vulnerability/incident/rollback/recall tabletop with version/institution identification, communication, fallback and effectiveness checks |
 
 Run network/offline tests in Chromium and WebKit plus the approved managed iOS
 Safari and Android/Chromium combinations. Test a non-root release path. Any
 unexpected network call, asset mismatch, unexplained build difference, unsafe
-rollback, record disclosure, critical/high vulnerability or penetration-test
-finding blocks G6/G7 until controlled disposition. `npm audit` alone is not a
-cybersecurity conclusion.
+rollback, record disclosure, critical/high vulnerability, or any
+penetration-test finding when a test is performed blocks G6/G7 until controlled
+disposition. `npm audit` alone is not a cybersecurity conclusion.
 
 Every control and result shall map through TRC-001 to RMF-001 hazards HZ-004,
 HZ-008 through HZ-010, HZ-012 through HZ-014 and any newly identified hazards.
@@ -425,6 +429,7 @@ this plan is not that report.
 | SBOM format/tool and vulnerability sources | CycloneDX or SPDX from locked build | Security/quality/IP counsel | Open |
 | Registry/Nix/Node/action allowlists | Locked, reviewed sources | Software/security/quality | Open |
 | Vulnerability targets/disclosure contact | Section 8 proposal | Security/quality/manufacturer | Open |
+| Penetration-test timing | Perform before classification if risk requires; otherwise approve a specific deferral to later clinical-release work | Security/quality/manufacturer | Open; must be reconciled before G6 |
 | App-layer encryption and managed-device controls | Decide per institutional threat model; do not rely on same-origin key | Privacy/security/institution | Open |
 | Hosting logs/data roles/retention | Minimize and contract per institution/jurisdiction | Privacy/legal/institution | Open |
 | Privacy/breach/incident procedures | Integrated operating processes | Privacy/quality/regulatory | Open |
