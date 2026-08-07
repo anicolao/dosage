@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, tick } from 'svelte';
   import katex from 'katex';
   import 'katex/dist/katex.min.css';
 
@@ -253,6 +253,24 @@
       historyPage = 0;
       notice = 'Mix saved on this phone.';
     }
+  }
+
+  async function reviewHistory(item) {
+    medicationName = item.medicationName;
+    medicationAmount = item.medicationAmount;
+    vialUnit = item.vialUnit;
+    vialVolume = item.vialVolume;
+    finalVolume = item.finalVolume;
+    orderedDose = item.orderedDose;
+    orderedUnit = item.orderedUnit;
+    reviewed = false;
+    checkedSteps = [];
+    acknowledged = false;
+    notice = 'Saved mix loaded for review. Recheck every step.';
+    tab = 'mix';
+
+    await tick();
+    openCalculationDetails();
   }
 
   function deleteHistory(id) {
@@ -539,7 +557,10 @@
                     <time datetime={item.createdAt}>{new Date(item.createdAt).toLocaleString('en-CA', { dateStyle: 'medium', timeStyle: 'short' })}</time>
                     <strong>{item.medicationName}</strong>
                   </div>
-                  <button class="danger-text" type="button" aria-label={`Delete mix for ${item.medicationName}`} onclick={() => deleteHistory(item.id)}>Delete</button>
+                  <div class="row-actions">
+                    <button type="button" aria-label={`Review mix for ${item.medicationName}`} onclick={() => reviewHistory(item)}>Review</button>
+                    <button class="danger-text" type="button" aria-label={`Delete mix for ${item.medicationName}`} onclick={() => deleteHistory(item.id)}>Delete</button>
+                  </div>
                 </div>
                 <p>{item.medicationAmount} {item.vialUnit} in {item.vialVolume} mL vial → {item.finalVolume} mL final</p>
                 <strong class="history-result">{item.orderedDose} {item.orderedUnit} → {format(item.administrationVolume)} mL</strong>

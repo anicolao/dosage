@@ -11,14 +11,15 @@ Medication label facts can be reused, while ordered doses and confirmations must
 - [x] The star is filled and exposes a pressed state
 - [x] The accessible label offers to remove the saved favourite
 
-## An acknowledged calculation is reviewable in local history
+## A saved calculation reopens directly in mandatory review
 
-![An acknowledged calculation is reviewable in local history](./screenshots/001-mix-saved-phone.png)
+![A saved calculation reopens directly in mandatory review](./screenshots/001-mix-saved-phone.png)
 
 **Verifications:**
 
 - [x] The original vial and order units are preserved
 - [x] The converted prepared concentration is retained
+- [x] Review restores the inputs but not verification or acknowledgement
 
 ## Local records can be removed without affecting the calculator
 

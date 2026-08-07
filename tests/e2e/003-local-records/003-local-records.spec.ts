@@ -49,7 +49,7 @@ test('favourites and history stay local without carrying an order forward', asyn
   await page.getByRole('button', { name: /History/ }).click();
 
   await steps.step('mix-saved', {
-    description: 'An acknowledged calculation is reviewable in local history',
+    description: 'A saved calculation reopens directly in mandatory review',
     verifications: [
       { spec: 'The original vial and order units are preserved', check: async () => {
         await expect(page.locator('.history-list li')).toContainText('10 mg in 1 mL vial → 50 mL final');
@@ -57,6 +57,23 @@ test('favourites and history stay local without carrying an order forward', asyn
       } },
       { spec: 'The converted prepared concentration is retained', check: async () => {
         await expect(page.locator('.history-list li')).toContainText('0.2 mg/mL = 200 mcg/mL');
+      } },
+      { spec: 'Review restores the inputs but not verification or acknowledgement', check: async () => {
+        await page.getByRole('button', { name: 'Review mix for Example medication' }).click();
+        const dialog = page.getByRole('dialog');
+        await expect(dialog).toBeVisible();
+        await expect(page.getByRole('button', { name: /Mix/ })).toHaveAttribute('aria-current', 'page');
+        await expect(page.getByLabel(/Medication name/)).toHaveValue('Example medication');
+        await expect(page.getByLabel('Amount in vial')).toHaveValue('10');
+        await expect(page.getByLabel('Vial unit', { exact: true })).toHaveValue('mg');
+        await expect(page.getByLabel(/Vial volume/)).toHaveValue('1');
+        await expect(page.getByRole('button', { name: '50 mL', exact: true })).toHaveAttribute('aria-pressed', 'true');
+        await expect(page.getByLabel('Dose from the medication order', { exact: true })).toHaveValue('2000');
+        await expect(page.getByLabel('Ordered-dose unit', { exact: true })).toHaveValue('mcg');
+        await expect(dialog.locator('.step-check')).toHaveCount(4);
+        await expect(dialog.locator('.step-check[aria-pressed="true"]')).toHaveCount(0);
+        await expect(dialog.getByRole('button', { name: 'Complete review' })).toBeDisabled();
+        await expect(page.locator('[data-testid="calculation-result"]')).toHaveCount(0);
       } }
     ]
   });
