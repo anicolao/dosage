@@ -1,8 +1,16 @@
 # MVP design
 
+Document status: target design requirements. Except where a paragraph says
+“current” or “implements,” these statements are planned release controls rather
+than verified behaviour. Controlled approval and traceability are maintained in
+`docs/regulatory/`.
+
 ## 1. Release boundary
 
-The MVP is an installable, phone-first Svelte PWA that performs one-vial dilution arithmetic fully on-device. The repository currently contains a basic SPA prototype; clinical deployment is explicitly out of scope until the release gates in this document are met.
+The MVP target is an installable, phone-first Svelte PWA that performs one-vial
+dilution arithmetic fully on-device. The repository currently contains an
+installable SPA prototype with an offline app-shell cache; clinical deployment
+is explicitly out of scope until the release gates in this document are met.
 
 ### Supported calculation
 
@@ -136,7 +144,11 @@ Required controls:
 
 “Works offline” means a previously installed/loaded production release completes all supported flows after restart in airplane mode. A first visit without the app shell already present cannot work offline and must not be described otherwise.
 
-The current production build implements that app-shell cache and exercises an offline close/reopen, calculation, save, reload, and history-review path in a dedicated service-worker-enabled browser project. Browser storage eviction, update/rollback behaviour across two distinct releases, and the full supported iOS/device matrix still require controlled verification before clinical use.
+The current prototype build implements that app-shell cache and exercises an
+offline close/reopen, calculation, save, reload, and history-review path in a
+dedicated service-worker-enabled browser project. Browser storage eviction,
+update/rollback behaviour across two distinct releases, and the full supported
+iOS/device matrix still require controlled verification before clinical use.
 
 ## 6. Safety and regulatory work products
 

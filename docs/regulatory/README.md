@@ -26,6 +26,15 @@ permission for patient care, or completion of any authorization gate.
 | `FND-001_OPEN_FINDINGS.csv` | Draft/open | Track review findings to verified disposition. |
 | `IP-000_CONTRIBUTOR_AND_ASSET_INVENTORY.md` | Draft/open | Establish the initial authorship and asset inventory for counsel. |
 | `GATE-000_CONTROLLED_PROTOTYPE.md` | Open | Record the evidence and approvals required to close G0. |
+| `REG-001_PRODUCT_DEFINITION.md` | Draft | Define the bounded classification reference product. |
+| `REG-002_INTENDED_USE_AND_CLAIMS.md` | Draft | Control intended use, limitations, warning and claims. |
+| `REG-003_CLASSIFICATION_QUESTION.md` | Draft | Frame the four-factor analysis and fallback questions. |
+| `IP-001_OWNERSHIP_AND_LICENSING.md` | Draft/blocking | Prepare the rights and GPL analysis for counsel. |
+| `SYS-001_SYSTEM_REQUIREMENTS.md` | Draft | Number proposed user, safety and lifecycle requirements. |
+| `ARC-001_ARCHITECTURE_AND_DATA_FLOW.md` | Draft | Describe components, trust boundaries and data flow. |
+| `TRC-001_TRACEABILITY_MATRIX.csv` | Initial/open | Link preliminary hazards to requirements and planned evidence. |
+| `GATE-001_PRODUCT_DEFINITION.md` | Open | Record the decisions and approvals required to freeze G1. |
 
-The next controlled-document phase is G1. No G1 record may imply that G0 is
-closed while `GATE-000_CONTROLLED_PROTOTYPE.md` remains open.
+G1 records are drafted for review, but no G1 record may imply that G0 is closed
+while `GATE-000_CONTROLLED_PROTOTYPE.md` remains open. G2 specifications must
+not be approved until both gates are legitimately closed.

@@ -1,5 +1,10 @@
 # Product vision
 
+Document status: proposed product direction and release criteria. This is not a
+description of a validated or authorized clinical release. Current implemented
+behaviour is identified in `README.md`; controlled requirements and evidence
+live under `docs/regulatory/`.
+
 ## North star
 
 Dosage helps a clinician under time pressure turn a known vial concentration and an already-authorized medication order into a transparent, reviewable dilution calculation—without sending sensitive information off the phone.
@@ -51,7 +56,7 @@ Dosage MVP does not:
 
 - prescribe, recommend, range-check, or infer a dose;
 - contain a drug database, monograph, compatibility advice, infusion rate, route, stability, or reconstitution instructions;
-- convert between mg and mcg inside a calculation;
+- accept activity or other units outside the closed `mg`/`mcg` set;
 - calculate weight-based, body-surface-area, multi-vial, multi-step, or continuous-infusion dosing;
 - integrate with an EHR, barcode scanner, camera, pharmacy system, or cloud service;
 - claim that a labelled bag volume equals its actual final prepared volume;
