@@ -97,10 +97,7 @@ export class TestStepHelper {
 
     const index = String(this.count++).padStart(3, '0');
     const filename = `${index}-${id}-${this.testInfo.project.name}.png`;
-    await expect(this.page).toHaveScreenshot(filename, {
-      mask: [this.page.getByTestId('build-identifier')],
-      maskColor: '#f7f8f5'
-    });
+    await expect(this.page).toHaveScreenshot(filename);
     this.steps.push({
       title: options.description,
       image: `./screenshots/${filename}`,
