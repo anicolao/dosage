@@ -10,8 +10,9 @@
     "preview:e2e": "vite preview --host 127.0.0.1 --port 4176 --strictPort",
     "check": "svelte-check",
     "check:base": "node scripts/verify-base-paths.mjs",
-    "test:e2e": "npm run build && playwright test",
-    "test:e2e:update-snapshots": "npm run build && UPDATE_E2E_DOCS=1 playwright test --update-snapshots"
+    "build:e2e": "DOSAGE_GIT_HASH=e2eha5h vite build",
+    "test:e2e": "npm run build:e2e && playwright test",
+    "test:e2e:update-snapshots": "npm run build:e2e && UPDATE_E2E_DOCS=1 playwright test --update-snapshots"
   },
   "dependencies": {
     "katex": "^0.18.1",

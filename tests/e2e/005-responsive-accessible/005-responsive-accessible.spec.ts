@@ -1,13 +1,12 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
 const packageVersion = JSON.parse(
   readFileSync(new URL('../../../package.json', import.meta.url), 'utf8')
 ).version;
-const gitHash = execFileSync('git', ['rev-parse', '--short=7', 'HEAD'], { encoding: 'utf8' }).trim();
+const e2eGitHash = 'e2eha5h';
 
 test('the calculation remains accessible and responsive', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
@@ -21,7 +20,7 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
   for (const destination of ['Mix', 'Favourites', 'History']) {
     await page.getByRole('button', { name: destination, exact: true }).click();
     await expect(buildIdentifier).toBeVisible();
-    await expect(buildIdentifier).toHaveText(`v${packageVersion} · ${gitHash}`);
+    await expect(buildIdentifier).toHaveText(`v${packageVersion} · ${e2eGitHash}`);
   }
   await page.getByRole('button', { name: 'Mix', exact: true }).click();
   await enterStandardCalculation(page);
@@ -44,7 +43,7 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
       { spec: 'Every screen shows the package version and source revision in the persistent header', check: async () => {
         await expect(buildIdentifier).toHaveAttribute(
           'aria-label',
-          `Dosage version ${packageVersion}, revision ${gitHash}`
+          `Dosage version ${packageVersion}, revision ${e2eGitHash}`
         );
       } },
       { spec: 'The KaTeX rendering includes accessible MathML', check: async () => {
