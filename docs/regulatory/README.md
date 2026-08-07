@@ -41,6 +41,7 @@ permission for patient care, or completion of any authorization gate.
 | `DEV-001_TOOLING_DECISION.md` | Draft/blocking | Propose TypeScript/test tooling and the npm/Nix provisioning boundary. |
 | `VVP-001_VERIFICATION_PLAN.md` | Draft/blocking | Define prospective verification, evidence, independence and anomaly rules. |
 | `GATE-002_SAFETY_REQUIREMENTS.md` | Open | Reconcile Step 2 records and list every decision required to approve G2. |
+| `QMS-001_CHANGE_ANOMALY_AND_RELEASE_CONTROL.md` | Draft/blocking | Propose classification-build change, anomaly, verification-run and release controls; clinical post-market procedures remain open. |
 | `classification-request/README.md` | Draft/not submission ready | Index the controlled `00`–`09` classification-request source templates. |
 | `classification-request/GATE-009_DOSSIER_AUDIT.md` | Open | Require an independent exact-package audit and manufacturer approval before sending. |
 | `classification-request/COR-001_CLASSIFICATION_CORRESPONDENCE_LOG.md` | Draft/open | Control submission-day routing, delivery evidence and Health Canada correspondence. |
