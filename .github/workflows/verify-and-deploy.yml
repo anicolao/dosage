@@ -55,6 +55,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -67,13 +69,16 @@ jobs:
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "base=/dosage/pr${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
             echo "destination=pr${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+            echo "revision=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
           else
             echo "base=/dosage" >> "$GITHUB_OUTPUT"
             echo "destination=" >> "$GITHUB_OUTPUT"
+            echo "revision=${{ github.sha }}" >> "$GITHUB_OUTPUT"
           fi
       - name: Build static SPA for GitHub Pages
         run: npm run build
         env:
+          DOSAGE_GIT_HASH: ${{ steps.deployment.outputs.revision }}
           PUBLIC_BASE_PATH: ${{ steps.deployment.outputs.base }}
       - name: Verify deployment base paths
         run: npm run check:base
