@@ -45,6 +45,8 @@ permission for patient care, or completion of any authorization gate.
 | `HUM-001_REQUIRED_ROLES_AND_DECISIONS.md` | Draft/open | Order the named human, clinical, legal, quality and independent decisions needed to close G0–G10. |
 | `GATE-003_CALCULATION_IMPLEMENTATION.md` | Open | Define exact calculation-engine implementation, verification, independence and anomaly evidence required at G3. |
 | `GATE-004_TRUSTED_STATE_BOUNDARIES.md` | Open | Define exact storage, migration, recomputation, privacy and state-transition evidence required at G4. |
+| `GATE-005_REPRESENTATIVE_INTERFACE.md` | Open | Define interface, accessibility, representative-nurse, screenshot and review evidence required at G5. |
+| `GATE-006_CONTROLLED_REFERENCE_BUILD.md` | Open | Define security, SBOM, provenance, CI, offline lifecycle and delivery-boundary evidence required at G6. |
 | `classification-request/README.md` | Draft/not submission ready | Index the controlled `00`–`09` classification-request source templates. |
 | `classification-request/GATE-009_DOSSIER_AUDIT.md` | Open | Require an independent exact-package audit and manufacturer approval before sending. |
 | `classification-request/COR-001_CLASSIFICATION_CORRESPONDENCE_LOG.md` | Draft/open | Control submission-day routing, delivery evidence and Health Canada correspondence. |
