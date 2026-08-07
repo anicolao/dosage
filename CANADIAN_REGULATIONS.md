@@ -67,7 +67,7 @@ approval are separate from Health Canada licensing.
 Dosage is a local Svelte web application. A user manually enters:
 
 - the medication name, optionally;
-- the quantity and unit printed on a vial (`mg`, `mcg`, or `units`);
+- the quantity and supported unit printed on a vial (`mg` or `mcg`);
 - vial volume;
 - a selected final prepared volume; and
 - an already-prescribed dose and unit.
@@ -413,7 +413,7 @@ not coerced to zero or infinity.
 The risk file must consider at least:
 
 - wrong vial quantity, unit, vial volume, final volume or ordered dose;
-- mg/mcg thousand-fold error and mass/activity incompatibility;
+- mg/mcg thousand-fold error and acceptance of unsupported activity units;
 - decimal, exponent, locale and copy/paste interpretation;
 - underflow, overflow, floating-point loss and unsafe rounding;
 - stale review state after an input changes;

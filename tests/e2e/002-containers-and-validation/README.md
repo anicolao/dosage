@@ -22,11 +22,11 @@ Every supported final volume calculates deterministically and invalid inputs rem
 - [x] The one-vial error is visible
 - [x] No actionable result or save control remains
 
-## Activity units stay in their own non-convertible dimension
+## Only mg and mcg medication units are available
 
-![Activity units stay in their own non-convertible dimension](./screenshots/002-activity-units-phone.png)
+![Only mg and mcg medication units are available](./screenshots/002-mass-units-only-phone.png)
 
 **Verifications:**
 
-- [x] A units-labelled vial offers only an explicitly selected units order
-- [x] 1000 units in 100 mL for 250 units calculates to 25 mL
+- [x] Both unit selectors offer only mg and mcg
+- [x] Legacy activity-unit favourites and history cannot repopulate the calculator

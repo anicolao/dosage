@@ -30,7 +30,7 @@ Copy directly below the cards says: “Choose the total final volume after the m
 
 ### 3. Ordered dose
 
-The label is always “Ordered dose,” with its own unit selector. For a vial in mg or mcg, the order may independently use mg or mcg; a common path is a vial in mg and an order in mcg. For a vial in units, the order must use units. Changing either selector preserves all entered text and numeric values but clears review and confirmation. There is no suggested dose value, recent-dose chip, or dose saved in a favourite.
+The label is always “Ordered dose,” with its own unit selector. The vial and order may independently use mg or mcg; a common path is a vial in mg and an order in mcg. No activity-unit option is supported. Changing either selector preserves all entered text and numeric values but clears review and confirmation. There is no suggested dose value, recent-dose chip, or dose saved in a favourite.
 
 ### 4. Result and verification
 
