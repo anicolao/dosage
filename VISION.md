@@ -42,7 +42,7 @@ Favourites reduce re-entry of medication facts, never the review of a patient-sp
 Dosage MVP does:
 
 - perform deterministic arithmetic from clinician-provided inputs;
-- support a vial labelled in mg, mcg, or units and an independently selected ordered-dose unit, with explicit mg↔mcg conversion and no conversion between mass and units;
+- support a vial labelled in mg or mcg and an independently selected ordered-dose unit, with explicit mg↔mcg conversion;
 - represent final volumes of 10, 50, 100, 250, 500, and 1000 mL;
 - store favourites and non-patient calculation history on the device;
 - expose enough detail for an independent manual calculation.
@@ -61,7 +61,7 @@ Dosage MVP does not:
 
 1. **The order comes from elsewhere.** Copy says “ordered dose,” never “recommended dose.”
 2. **Final volume is explicit.** The UI never calls a bag size “diluent volume” or silently adds the vial volume.
-3. **Units do not disappear.** Vial and ordered-dose units are selected separately. Compatible mg↔mcg conversion is shown in the equation; incompatible mass↔units combinations are blocked. mL is always visible on volume values.
+3. **Units do not disappear.** Vial and ordered-dose units are selected separately. The supported mg↔mcg conversion is shown in the equation, and unsupported units are not accepted. mL is always visible on volume values.
 4. **No hidden rounding.** The unrounded calculation is retained. Display precision is disclosed and values that demand local rounding judgment are flagged.
 5. **Recall never bypasses review.** Loading a favourite clears the ordered dose and acknowledgement.
 6. **History is an audit aid, not a chart.** Reusing a record returns to an editable, unconfirmed form.

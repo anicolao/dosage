@@ -55,8 +55,7 @@ the following enforced scope:
   quantity/unit, vial volume, user-selected final prepared volume and manually
   entered already-authorized dose/unit;
 - supported preparation: one vial, one final prepared volume, one ordered dose;
-- units: `mg`, `mcg` and `units`, with explicit mg↔mcg conversion and no
-  mass↔activity conversion;
+- units: `mg` and `mcg`, with explicit mg↔mcg conversion;
 - output: the substituted concentration, conversion and administration-volume
   equations, followed by the calculated mL only after independent review;
 - no dose, medication, concentration, route, rate or final-volume selection or
@@ -347,8 +346,8 @@ The pharmacy lead must approve, before implementation:
    the safety argument. Select a bounded fixed-point or independently evaluated
    decimal implementation and document its precision, rounding and failure
    behaviour.
-4. Unit dimensions and exact scale ratios: mg↔mcg is `1000`; `units` cannot be
-   converted to mass.
+4. The closed unit set and exact scale ratio: only mg and mcg are accepted, and
+   mg↔mcg is `1000`.
 5. Order of operations chosen to avoid overflow-prone intermediates.
 6. Blocking rules for blank, malformed, zero, negative, underflow, overflow,
    excessive precision, incompatible unit, final volume below vial volume,
@@ -376,7 +375,7 @@ The verification plan must include all cases in `MVP_DESIGN.md`, plus at least:
 - the reproduced overflow case using `1e308` or its rejected decimal form;
 - values immediately below/at/above every input and result bound;
 - exact mg/mcg equivalents in both directions;
-- mass/activity mismatch and unknown units;
+- rejected activity and unknown units, including legacy saved records;
 - final volume below/equal to/above vial volume;
 - dose below/equal to/above available medication;
 - values requiring no rounding and every permitted rounding boundary;

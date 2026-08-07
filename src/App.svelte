@@ -4,6 +4,7 @@
   import 'katex/dist/katex.min.css';
 
   const volumes = [10, 50, 100, 250, 500, 1000];
+  const medicationUnits = ['mg', 'mcg'];
   const favouritesPerPage = 6;
   const baseUrl = import.meta.env.BASE_URL;
   const appVersion = import.meta.env.VITE_APP_VERSION;
@@ -36,9 +37,8 @@
   $: vial = Number(vialVolume);
   $: dose = Number(orderedDose);
   $: hasRequiredValues =
-    medicationAmount !== '' && vialUnit !== '' && vialVolume !== '' &&
-    finalVolume !== null && orderedDose !== '' && orderedUnit !== '';
-  $: compatibleDimensions = hasRequiredValues && unitDimension(vialUnit) === unitDimension(orderedUnit);
+    medicationAmount !== '' && medicationUnits.includes(vialUnit) && vialVolume !== '' &&
+    finalVolume !== null && orderedDose !== '' && medicationUnits.includes(orderedUnit);
   $: amountInBaseUnit = amount * unitFactor(vialUnit);
   $: availableInOrderedUnit = amountInBaseUnit / unitFactor(orderedUnit);
   $: validNumbers =
@@ -49,8 +49,6 @@
     ? ''
     : !validNumbers
       ? 'Enter positive numbers for vial amount, vial volume, and ordered dose.'
-      : !compatibleDimensions
-        ? 'Vial and ordered-dose units are not compatible.'
       : vial > finalVolume
         ? 'Final prepared volume cannot be smaller than the vial volume.'
         : dose > availableInOrderedUnit
@@ -102,8 +100,10 @@
 
   onMount(() => {
     try {
-      favourites = read(storageKeys.favourites);
-      history = read(storageKeys.history);
+      favourites = read(storageKeys.favourites)
+        .filter((favourite) => medicationUnits.includes(favourite?.vialUnit));
+      history = read(storageKeys.history)
+        .filter((item) => medicationUnits.includes(item?.vialUnit) && medicationUnits.includes(item?.orderedUnit));
       localStorage.setItem('dosage.storage-check', '1');
       localStorage.removeItem('dosage.storage-check');
     } catch {
@@ -153,14 +153,10 @@
     });
   }
 
-  function unitDimension(unit) {
-    if (unit === 'units') return 'activity';
-    if (unit === 'mg' || unit === 'mcg') return 'mass';
-    return null;
-  }
-
   function unitFactor(unit) {
-    return unit === 'mg' ? 1000 : 1;
+    if (unit === 'mg') return 1000;
+    if (unit === 'mcg') return 1;
+    return Number.NaN;
   }
 
   function criticalChange() {
@@ -215,7 +211,7 @@
     medicationName = favourite.name;
     medicationAmount = favourite.medicationAmount;
     vialUnit = favourite.vialUnit;
-    orderedUnit = favourite.vialUnit === 'units' ? 'units' : 'mcg';
+    orderedUnit = 'mcg';
     vialVolume = favourite.vialVolume;
     finalVolume = null;
     orderedDose = '';
@@ -362,7 +358,6 @@
                   <option value="" disabled>Select</option>
                   <option value="mg">mg</option>
                   <option value="mcg">mcg</option>
-                  <option value="units">units</option>
                 </select>
               </label>
               <label>
@@ -415,12 +410,8 @@
                 Ordered-dose unit
                 <select aria-label="Ordered-dose unit" value={orderedUnit} onchange={selectOrderedUnit}>
                   <option value="" disabled>Select</option>
-                  {#if vialUnit === 'units'}
-                    <option value="units">units</option>
-                  {:else}
-                    <option value="mcg">mcg</option>
-                    <option value="mg">mg</option>
-                  {/if}
+                  <option value="mcg">mcg</option>
+                  <option value="mg">mg</option>
                 </select>
               </label>
             </div>

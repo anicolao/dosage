@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { completeCalculationReview, enterStandardCalculation, TestStepHelper } from '../helpers/test-step-helper';
 
-test('containers, boundaries, and activity units remain safe', async ({ page }, testInfo) => {
+test('containers, boundaries, and supported units remain safe', async ({ page }, testInfo) => {
   const steps = new TestStepHelper(page, testInfo);
   steps.setMetadata(
     'Containers and validation',
@@ -107,29 +107,55 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
   await expect(page.getByRole('alert')).toContainText('cannot be smaller than the vial volume');
 
   await page.getByLabel(/Vial volume/).fill('1');
-  await page.getByLabel('Vial unit', { exact: true }).selectOption('units');
-  await expect(page.getByLabel('Dose from the medication order', { exact: true })).toHaveValue('2000');
-  await page.getByLabel('Amount in vial').fill('1000');
-  await page.getByRole('button', { name: '100 mL', exact: true }).click();
-  const activitySelector = page.getByLabel('Ordered-dose unit', { exact: true });
-  await expect(activitySelector).toHaveValue('');
-  await activitySelector.selectOption('units');
-  await page.getByLabel('Dose from the medication order', { exact: true }).fill('250');
-  await completeCalculationReview(page);
+  await page.evaluate(() => {
+    localStorage.setItem('dosage.favourites.v2', JSON.stringify([{
+      id: 'legacy-activity-favourite',
+      name: 'Legacy activity medication',
+      medicationAmount: '1000',
+      vialUnit: 'units',
+      vialVolume: '1'
+    }]));
+    localStorage.setItem('dosage.history.v2', JSON.stringify([{
+      id: 'legacy-activity-history',
+      medicationName: 'Legacy activity medication',
+      medicationAmount: '1000',
+      vialUnit: 'units',
+      vialVolume: '1',
+      finalVolume: 100,
+      orderedDose: '250',
+      orderedUnit: 'units',
+      administrationVolume: 25
+    }]));
+  });
+  await page.reload();
 
-  await steps.step('activity-units', {
-    description: 'Activity units stay in their own non-convertible dimension',
+  await steps.step('mass-units-only', {
+    description: 'Only mg and mcg medication units are available',
     verifications: [
-      { spec: 'A units-labelled vial offers only an explicitly selected units order', check: async () => {
-        await expect(activitySelector).toHaveValue('units');
-        await expect(activitySelector.locator('option')).toHaveCount(2);
+      { spec: 'Both unit selectors offer only mg and mcg', check: async () => {
+        const vialOptions = await page.getByLabel('Vial unit', { exact: true }).locator('option').evaluateAll(
+          (options) => options.map((option) => ({ value: option.value, label: option.textContent }))
+        );
+        const orderedOptions = await page.getByLabel('Ordered-dose unit', { exact: true }).locator('option').evaluateAll(
+          (options) => options.map((option) => ({ value: option.value, label: option.textContent }))
+        );
+        expect(vialOptions).toEqual([
+          { value: '', label: 'Select' },
+          { value: 'mg', label: 'mg' },
+          { value: 'mcg', label: 'mcg' }
+        ]);
+        expect(orderedOptions).toEqual([
+          { value: '', label: 'Select' },
+          { value: 'mcg', label: 'mcg' },
+          { value: 'mg', label: 'mg' }
+        ]);
       } },
-      { spec: '1000 units in 100 mL for 250 units calculates to 25 mL', check: async () => {
-        await expect(page.locator('.result-number')).toHaveText('25 mL');
-        await page.getByRole('button', { name: 'Review again' }).click();
-        await expect(page.getByRole('dialog').locator('math')).toHaveCount(3);
-        await expect(page.getByTestId('conversion-equation')).toHaveCount(0);
-        await page.getByRole('button', { name: 'Go back' }).click();
+      { spec: 'Legacy activity-unit favourites and history cannot repopulate the calculator', check: async () => {
+        await page.getByRole('button', { name: /Favourites/ }).click();
+        await expect(page.getByText('No favourites yet')).toBeVisible();
+        await page.getByRole('button', { name: /History/ }).click();
+        await expect(page.getByText('No saved mixes')).toBeVisible();
+        await page.getByRole('button', { name: /Mix/ }).click();
       } }
     ]
   });

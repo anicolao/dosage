@@ -10,11 +10,11 @@ Inputs:
 
 - medication display name: optional for calculation, required to save a favourite;
 - medication amount in the vial: positive decimal;
-- vial medication unit: `mg`, `mcg`, or `units`, initially `mg`;
+- vial medication unit: `mg` or `mcg`, initially `mg`;
 - vial volume: positive decimal mL, initially `1`;
 - final prepared volume: exactly `10`, `50`, `100`, `250`, `500`, or `1000` mL;
 - ordered dose: positive decimal;
-- ordered-dose unit: `mg` or `mcg` for a mass-labelled vial, or `units` for a units-labelled vial; initially `mcg`.
+- ordered-dose unit: `mg` or `mcg`, initially `mcg`.
 
 Outputs:
 
@@ -35,7 +35,7 @@ Let:
 - `Vf` = final prepared volume in mL;
 - `D` = ordered dose;
 - `Ud` = ordered-dose unit;
-- `S(u)` = scale from unit `u` to the base unit (`S(mcg)=1`, `S(mg)=1000`; `units` is a separate dimension).
+- `S(u)` = scale from unit `u` to the base unit (`S(mcg)=1`, `S(mg)=1000`).
 
 Then:
 
@@ -46,7 +46,7 @@ prepared concentration in ordered units Cpd = (A × S(Ua) / S(Ud)) / Vf
 volume to administer Va = D / Cpd
 ```
 
-For mass, mg and mcg are compatible and conversion is shown explicitly. `units` is not a mass unit and cannot be converted to or from mg/mcg. A units-labelled vial therefore requires an ordered dose in units.
+Mg and mcg are compatible and conversion is shown explicitly. Activity units are outside the supported product scope and must not be accepted from the UI or restored records.
 
 `Vv` is shown for label verification and vial concentration. It does not change `Cp` when `Vf` is explicitly the total final volume.
 
@@ -57,7 +57,7 @@ Implementation stores numeric input strings as entered and computes with JavaScr
 No actionable result is shown when:
 
 - any required number is blank, non-numeric, infinite, zero, or negative;
-- vial and ordered-dose units have incompatible dimensions;
+- either medication unit is outside the supported `mg`/`mcg` set;
 - exponential notation, comma decimals, or more than the approved precision is entered;
 - the ordered dose exceeds the total medication amount available from one vial;
 - the calculated administration volume exceeds the final prepared volume;
@@ -90,7 +90,7 @@ No patient field exists.
 id                  random local identifier
 name                user-entered medication display name
 medicationAmount    original decimal string
-vialUnit            mg | mcg | units
+vialUnit            mg | mcg
 vialVolumeMl        original decimal string
 createdAt           local ISO timestamp
 updatedAt           local ISO timestamp
@@ -103,11 +103,11 @@ schemaVersion       integer
 id                  random local identifier
 medicationName      optional display name
 medicationAmount    original decimal string
-vialUnit            mg | mcg | units
+vialUnit            mg | mcg
 vialVolumeMl        original decimal string
 finalVolumeMl       supported integer
 orderedDose         original decimal string
-orderedUnit         mg | mcg | units
+orderedUnit         mg | mcg
 preparedConcentrationInVialUnit computed decimal string
 preparedConcentrationInOrderedUnit computed decimal string
 administrationVolumeMl computed decimal string
@@ -200,7 +200,7 @@ Default visual tests block service workers for determinism. A separate serial of
 | 001 | Basic 10 mg / 50 mL / 2000 mcg | requested unit/volume defaults; prepared concentration `0.2 mg/mL = 200 mcg/mL`; all equations visible and individually checked; result `10 mL` only after completed review |
 | 002 | Every supported container | exact choices `10, 50, 100, 250, 500, 1000`; correct image, selected state, and calculation |
 | 003 | Blocking validation | blank, zero, negative, malformed, excessive dose, final volume below vial volume, and unsafe-number cases expose no actionable result |
-| 004 | Unit conversion | vial and order units are independent; `2 mg` equals `2000 mcg`; mg↔mcg conversion is visible; mass↔units is impossible; switching either unit preserves entered numbers but resets review/confirmation |
+| 004 | Unit conversion | vial and order units are independent; `2 mg` equals `2000 mcg`; mg↔mcg conversion is visible; only mg and mcg are offered or restored; switching either unit preserves entered numbers but resets review/confirmation |
 | 005 | Favourite lifecycle | save, reload, edit, delete; loading clears dose and confirmation; persists after reload |
 | 006 | History lifecycle | save only after acknowledgement; chronological review; delete one; confirmed clear all; no patient fields |
 | 007 | Privacy | zero unexpected requests across mix, favourite, history, reload, error, and clear flows |
@@ -220,7 +220,6 @@ Default visual tests block service workers for determinism. A separate serial of
 | 10 mg in 1 mL | 1000 mL | 2000 mcg | 0.01 mg/mL = 10 mcg/mL | 200 mL |
 | 500 mcg in 1 mL | 50 mL | 125 mcg | 10 mcg/mL | 12.5 mL |
 | 0.5 mg in 1 mL | 50 mL | 125 mcg | 0.01 mg/mL = 10 mcg/mL | 12.5 mL |
-| 1000 units in 2 mL | 100 mL | 250 units | 10 units/mL | 25 mL |
 
 The calculation module also needs property tests: for valid positive inputs, `Va × Cpd = D` within the defined decimal tolerance; doubling `D` doubles `Va`; equivalent doses expressed in mg and mcg produce the same `Va`; changing `Vv` alone does not change `Va` when `Vf` remains an explicit final volume.
 
