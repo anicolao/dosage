@@ -11,6 +11,7 @@
     "check": "svelte-check",
     "check:base": "node scripts/verify-base-paths.mjs",
     "build:e2e": "DOSAGE_GIT_HASH=e2eha5h vite build",
+    "test:formal": "nix develop --command bash scripts/run-formal-verification.sh",
     "test:e2e": "npm run build:e2e && playwright test",
     "test:e2e:update-snapshots": "npm run build:e2e && UPDATE_E2E_DOCS=1 playwright test --update-snapshots"
   },

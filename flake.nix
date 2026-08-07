@@ -35,9 +35,11 @@
         {
           default = pkgs.mkShell {
             packages = [
+              pkgs.diffutils
               pkgs.git
               pkgs.lean4
               pkgs.nodejs_24
+              pkgs.ripgrep
             ];
           };
         }
@@ -53,7 +55,11 @@
             pkgs.runCommand "dosage-formal-verification"
               {
                 nativeBuildInputs = [
+                  pkgs.bash
+                  pkgs.diffutils
                   pkgs.lean4
+                  pkgs.nodejs_24
+                  pkgs.ripgrep
                   pkgs.stdenv.cc
                 ];
                 src = self;
@@ -62,8 +68,8 @@
                 cp -R "$src" source
                 chmod -R u+w source
                 export HOME="$TMPDIR"
-                cd source/formal/lean
-                lake build
+                cd source
+                bash scripts/run-formal-verification.sh
                 touch "$out"
               '';
         }
