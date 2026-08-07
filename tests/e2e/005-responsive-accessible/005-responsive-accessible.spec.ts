@@ -21,6 +21,9 @@ test('the calculation remains accessible and responsive', async ({ page }, testI
     await page.getByRole('button', { name: destination, exact: true }).click();
     await expect(buildIdentifier).toBeVisible();
     await expect(buildIdentifier).toHaveText(`v${packageVersion} · ${e2eGitHash}`);
+    if (destination !== 'Mix') {
+      await expect(page.getByText('Stored on this device only', { exact: true })).toBeVisible();
+    }
   }
   await page.getByRole('button', { name: 'Mix', exact: true }).click();
   await enterStandardCalculation(page);
