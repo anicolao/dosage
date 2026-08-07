@@ -82,4 +82,3 @@ change that may affect the result. Record impact assessment, assign a new
 source/build/artifact identity, rerun all affected verification, retain prior
 and new evidence, update TRC-001/VVR-001, and obtain fresh approvals. A green
 ordinary CI run does not reclose this gate.
-

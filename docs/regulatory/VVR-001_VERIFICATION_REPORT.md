@@ -139,4 +139,3 @@ Any post-G7 code, dependency, configuration, test/oracle or safety-label change
 requires impact assessment, a new source/artifact identity, rerun of all
 affected verification, updated TRC-001/VVR-001, and reopening G7 when evidence
 may be affected.
-
