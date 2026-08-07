@@ -340,9 +340,13 @@ Practical rules:
   practical. Adding Mathlib or another proof library requires a specific
   benefit, pinned revision and review of the larger maintenance surface.
 
-The current repository contains neither Nix definitions nor formal-tool
-configuration. This plan does not authorize installing or committing those
-dependencies before `DEV-001_TOOLING_DECISION.md` is approved.
+The authorization branch now contains `flake.nix`/`flake.lock`, a Lean 4.30.0
+Lake project, executable reference model, proof modules, canonical vectors and
+`npm run test:formal`. They were added by explicit product-owner direction and
+run in an isolated Nix check and CI job. This technical implementation does not
+approve DEV-001 or CALC-001, close G2/CE5, or establish TypeScript conformance.
+Clinical bounds/rounding, independent formal review and the pure TypeScript
+engine/differential suite remain open.
 
 ## 9. Implementation sequence and gates
 
@@ -397,6 +401,11 @@ Exit: unit, integration, storage and browser tests pass with no bypass of the
 review gate.
 
 ### CE5 — Add the Lean reference and proofs
+
+**Implementation status:** Technically implemented for the specification-
+independent core on the authorization branch. Regulatory/quality approval,
+clinical parameterization, independent review and TypeScript differential
+conformance remain open, so the CE5 exit is not achieved.
 
 - Add the Nix-provided Lean/Lake toolchain and pinned project configuration.
 - Implement executable definitions and proof obligations.

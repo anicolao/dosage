@@ -150,7 +150,7 @@ refactor is added to RMF-001, SYS-001 and TRC-001 before gate closure.
 | DEV-001 tools/packages/configuration | Compatibility, licences/security, exact locks and signatures | Open |
 | Independent oracle/verifier | Named independent person and approved corpus source | Open |
 | Property counts/seeds/generator boundaries | Fixed in VVP-001/DEV-001 | Open |
-| Formal CE5 scope | Explicit approve/defer decision; no silent substitution for testing | Open |
+| Formal CE5 scope | Review the implemented Nix/Lean model, axioms and vectors; approve/revise scope and add TypeScript differential evidence | Technical core present; approval and conformance open |
 
 These decisions are expected to close at G2. If any remains open when this
 record is presented, G3 is automatically rejected without weighing other

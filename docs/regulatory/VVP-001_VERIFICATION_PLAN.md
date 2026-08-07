@@ -99,8 +99,8 @@ G3, G4, G5 and G6 must be closed. The run uses:
 | Non-root build | supported through `PUBLIC_BASE_PATH` | `PUBLIC_BASE_PATH=/dosage/classification npm run build` then matching `check:base` |
 | E2E | `npm run test:e2e` builds with `e2eha5h` and runs Playwright | Retain for test-fixture runs; add a separate version-bound reference-build path for G7 |
 | Dependency audit | `npm audit` available but not in scripts/CI | Run with report captured and approved severity/disposition policy |
-| Formal proofs | Not configured | `npm run test:formal` inside approved pinned Nix/Lean environment |
-| Differential | Not configured | `npm run test:formal:conformance` against versioned canonical vectors |
+| Formal proofs | `npm run test:formal` now builds Lean 4.30.0 proofs, audits source for `sorry`/user axioms and locks canonical vectors through Nix | Retain after independent boundary/tool/axiom/corpus review; capture immutable reports |
+| Differential | Lean vectors exist; no pure TypeScript engine or differential command | Add `npm run test:formal:conformance` after the G3 TypeScript engine exists |
 
 The Step 7 minimum sequence is:
 
@@ -117,8 +117,9 @@ npm run test:e2e
 npm audit
 ```
 
-Add the coverage, formal and differential commands when their approved controls
-exist. `e2eha5h` is an obviously test-oriented fixture and cannot identify the
+Add the coverage and differential commands when their approved controls exist;
+the implemented formal command remains exploratory until G2/CE5 approval.
+`e2eha5h` is an obviously test-oriented fixture and cannot identify the
 classification artifact; G7 must bind an additional E2E run to the actual
 source revision without masking or normalizing it.
 
@@ -270,7 +271,9 @@ classification strategy or risk analysis requires it earlier.
 
 ## 11. Formal and differential verification
 
-If CE5 is approved, the Lean job must:
+The authorization branch now implements the following Lean-job mechanics, but
+CE5 remains open until the formal scope and evidence are independently approved.
+The controlled Lean job must:
 
 - use the committed `lean-toolchain`, Lake manifest and pinned Nix environment;
 - compile the executable definitions and all named proof obligations;

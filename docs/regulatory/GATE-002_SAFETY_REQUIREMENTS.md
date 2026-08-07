@@ -36,7 +36,7 @@ as executed evidence.
 | Positive-never-zero | CALC/RMF/VVP make this a blocking invariant/regression | Display thresholds/rounding and implementation pending |
 | Local data | STO treats source inputs as authoritative and derived output as recomputed | Favourites/history and migration/retention decisions pending |
 | Network/offline | SEC defines deny-by-default runtime and atomic digest-bound app-shell lifecycle | Host/device policy and implementation evidence pending |
-| Dependency provisioning | DEV/SEC use `package.json` plus lockfile for JavaScript and Nix/immutable images for system/native/formal tools | Exact versions, Nix definition and compatibility spike pending |
+| Dependency provisioning | JavaScript remains under `package.json`/lockfile; a locked Nix shell and Lean 4.30.0 formal build now execute locally/CI | Formal spike present; Node exact pin, licences/security, tool/corpus independence and G2 approval pending |
 | Verification commands | DEV/VVP define proposed commands and identify every currently hypothetical command | Scripts/config/dependencies are intentionally not installed before approval |
 | Risk traceability | TRC-001 names the preliminary RMF controls and planned verification | Initial/incomplete; must close at G7 |
 

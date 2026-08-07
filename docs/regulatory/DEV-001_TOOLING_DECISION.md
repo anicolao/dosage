@@ -26,8 +26,11 @@ The repository currently has:
 - Node 24 in GitHub Actions and a version 3 `package-lock.json`;
 - no `tsconfig.json`, safety-critical TypeScript domain module, Vitest,
   fast-check, unit-test script, coverage tool, lint script or formatting script;
-- no Nix definition or pinned non-JavaScript development environment; and
-- no Lean, Lake or Rocq configuration.
+- a technically working but unapproved `flake.nix`/`flake.lock` development and
+  verification environment with Nix-provided Node 24 and Lean 4.30.0/Lake 5.0.0;
+- a Lean/Lake reference project, proof modules, canonical seed vectors,
+  `npm run test:formal` and a separate formal CI job; and
+- no Rocq configuration or TypeScript/Lean differential runner.
 
 Consequently, `npm run test:unit` and `npm test` in Steps 3 and 7 are currently
 hypothetical. Existing Playwright results cannot substitute for domain-unit and
@@ -180,14 +183,15 @@ suite and disable shuffle/retry for a controlled run.
 | `test:unit:coverage` | Controlled Vitest run with V8 text, JSON and LCOV reports. |
 | `test` | Explicit alias to `npm run test:unit`; it must not rely on npm's missing-script default. |
 | `test:e2e` | Preserve the explicit `e2eha5h` fixture build and run Playwright; fixture results are not release-build identity evidence. |
-| `test:formal` | When CE5 is approved, invoke the pinned Nix/Lean environment without a global Lean installation. |
-| `test:formal:conformance` | When CE5 is approved, produce canonical reference vectors and compare the TypeScript engine to them. |
+| `test:formal` | Currently invokes the pinned Nix/Lean environment, rejects `sorry`/user-defined axioms, builds proofs and checks canonical vector output; approval and independent review remain pending. |
+| `test:formal:conformance` | Add after the pure TypeScript engine exists; compare its canonical decisions/results with the locked Lean vectors and generated cases. |
 
-The two formal-script strings are deliberately not added to the baseline JSON
-above: their repository entry points do not exist, and inventing commands now
-would create the same hypothetical-command gap that this record is intended to
-close. CE5 must amend DEV-001 with the exact, executable Nix/Lake/conformance
-commands before adding either script.
+`test:formal` was added by explicit product-owner direction and is executable;
+it is no longer hypothetical. `test:formal:conformance` remains deliberately
+absent because no pure TypeScript calculation engine exists to compare. Calling
+the current Lean-vector self-consistency check “TypeScript conformance” would
+overstate the evidence. G2/CE5 still require approval of the formal boundary,
+toolchain/licences, axioms, corpus independence and controlled evidence.
 
 `test:unit` must exit non-zero for a failed assertion, unhandled rejection,
 unexpected console error, missing expected test file or report-write failure.
@@ -298,11 +302,13 @@ JavaScript dependency manager and does not authorize checking `node_modules`
 or generated formal binaries into source control.
 
 The compatibility spike shall also propose and test `package.json` metadata.
-The current environment's Node `24.13.0` and npm `11.6.2` are candidates, not
-approved versions. The target shall declare Node 24 compatibility (excluding an
-untested future major) and an exact `packageManager` npm version that matches
-the pinned Nix/CI environment. CI shall fail clearly when the controlled major
-version is not in use; metadata alone is not the version-provisioning control.
+The flake currently resolves Node `24.18.1` and Lean `4.30.0`; only the Lean
+version has an explicit flake assertion. These are implemented candidates, not
+approved versions. The target shall declare Node 24 compatibility (excluding
+an untested future major), add an exact Node assertion and `packageManager` npm
+version that match the pinned Nix/CI environment, and record the resulting
+licence/security evidence. CI shall fail clearly when the controlled versions
+are not in use; metadata alone is not the version-provisioning control.
 
 ## 12. Oracle independence and change control
 
@@ -325,10 +331,12 @@ lockfile or relevant script require:
 
 ## 13. Approval prerequisites and signatures
 
-Before approval, attach: the compatibility-spike commit; exact lockfile diff;
+Before approval, attach: the compatibility-spike commits; exact lockfile diff;
 package licence/vulnerability review; proposed `tsconfig`, Vitest and lint
 configuration; sample JUnit/coverage/property-replay evidence; Nix/toolchain
-proposal; and VVP-001 cross-review. G2 remains open until those artifacts and
+and formal proof/axiom/vector review; and VVP-001 cross-review. The Nix/Lean
+spike now passes locally and in its isolated flake check, but it has not been
+independently approved. G2 remains open until all artifacts and
 CALC-001/RMF-001 are approved.
 
 | Role | Name | Decision | Date/signature |
