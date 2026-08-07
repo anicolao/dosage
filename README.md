@@ -61,7 +61,15 @@ npm run test:e2e
 
 Pull requests run the full Playwright suite before deploying to `https://anicolao.github.io/dosage/pr<PR number>/`. The workflow preserves other previews on the `gh-pages` branch and updates a bot comment on the PR with its URL.
 
-The prototype has no analytics, account, API, remote font, CDN, or network-writing code. Favourites and history use browser `localStorage`. The current basic build does not yet include an installable service worker; offline-after-install support is an MVP requirement, not a claim about this prototype.
+The prototype has no analytics, account, API, remote font, CDN, or network-writing code. Favourites and history use browser `localStorage`. Production builds include a web app manifest and a versioned service worker that caches the complete static app shell, not user records. After one successful online load finishes installing that cache, the app can be reopened, used, reloaded, and reviewed without a network. A first visit while offline cannot work.
+
+## Install and use offline
+
+Open the deployed HTTPS URL once while online and wait for the page to finish loading. On iPhone or iPad, use Safari’s Share menu, choose **Add to Home Screen**, enable **Open as Web App**, and tap **Add**. Apple requires this user-confirmed flow; the page cannot install itself directly from a URL. The current steps are maintained in [Apple’s iPhone guide](https://support.apple.com/guide/iphone/iphea86e5236/ios).
+
+Other supported browsers may show an install action in their address bar or menu when they accept the manifest. Installation is optional: an online visit also prepares the cached app shell for later offline use in that browser, subject to browser storage eviction and managed-device policy.
+
+For institution-managed Apple devices, an administrator can instead deploy the URL and icon as a full-screen [MDM Web Clip](https://developer.apple.com/documentation/devicemanagement/webclip). That removes the need for each nurse to perform the Share-menu steps, but it requires the organization’s device-management enrollment and approval process.
 
 ## Documentation
 

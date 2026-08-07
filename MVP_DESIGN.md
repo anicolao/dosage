@@ -129,12 +129,14 @@ Required controls:
 - no analytics, telemetry, advertising, remote logging, cloud sync, or user account;
 - no remote font, CDN, URL preview, external image, or runtime package fetch;
 - restrictive CSP with `default-src 'self'`, no `connect-src` destinations, and only the minimum directives needed by the compiled app;
-- service worker caches versioned app-shell assets, not user data;
+- the generated service worker precaches versioned app-shell assets, not user data, and retains the active release until the replacement cache installs successfully;
 - update UI never destroys or migrates data without a tested, reversible migration;
 - exports, sharing, clipboard copy, camera, barcode scanning, and OS notifications are out of MVP scope;
 - privacy tests instrument `fetch`, XHR, WebSocket, `sendBeacon`, and browser requests and fail on use.
 
 “Works offline” means a previously installed/loaded production release completes all supported flows after restart in airplane mode. A first visit without the app shell already present cannot work offline and must not be described otherwise.
+
+The current production build implements that app-shell cache and exercises an offline close/reopen, calculation, save, reload, and history-review path in a dedicated service-worker-enabled browser project. Browser storage eviction, update/rollback behaviour across two distinct releases, and the full supported iOS/device matrix still require controlled verification before clinical use.
 
 ## 6. Safety and regulatory work products
 

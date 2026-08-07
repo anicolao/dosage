@@ -31,12 +31,22 @@ export default defineConfig({
   projects: [
     {
       name: 'phone',
+      testIgnore: '**/006-installable-offline/*.spec.ts',
       use: { browserName: 'chromium', viewport: { width: 393, height: 852 } }
     },
     {
       name: 'desktop',
       testMatch: '**/005-responsive-accessible/*.spec.ts',
       use: { browserName: 'chromium', viewport: { width: 1280, height: 1000 } }
+    },
+    {
+      name: 'offline',
+      testMatch: '**/006-installable-offline/*.spec.ts',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 393, height: 852 },
+        serviceWorkers: 'allow'
+      }
     }
   ],
   webServer: {
