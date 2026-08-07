@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "dosage-app-dosage-pr7-";
-const CACHE_NAME = "dosage-app-dosage-pr7-0.1.0-98c541e";
+const CACHE_NAME = "dosage-app-dosage-pr7-0.1.0-91c1b98";
 const APP_SHELL = [
   "./",
   "./assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
@@ -61,7 +61,7 @@ const APP_SHELL = [
   "./assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
   "./assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
   "./assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
-  "./assets/index-B989FqHD.js",
+  "./assets/index-BduQ-VRG.js",
   "./assets/index-C8IkmCE3.css",
   "./icons/apple-touch-icon.png",
   "./icons/dosage-192.png",
