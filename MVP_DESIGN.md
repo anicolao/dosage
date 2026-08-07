@@ -78,7 +78,7 @@ Potentially unusual but mathematically valid values receive a non-blocking “ve
 8. Confirm “I checked the order, vial unit, ordered-dose unit, and final prepared volume.”
 9. Save locally or discard. Changing any critical input revokes review, hides the answer, and clears confirmation.
 
-Loading a favourite never restores a previous ordered dose. Loading a history item may restore values for review, but returns to an unconfirmed form with the dose visually marked for re-entry in the preferred implementation.
+Loading a favourite never restores a previous ordered dose. Reviewing a history item restores its saved calculation inputs, returns to Mix, and immediately opens the calculation-review dialog. Every equation check, result-revealed state, and acknowledgement starts cleared, so a saved result cannot bypass the current review gate.
 
 ## 4. Local data design
 

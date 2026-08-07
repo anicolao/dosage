@@ -7,7 +7,7 @@ Dosage is a phone-first, local-only dilution calculator for clinicians preparing
 The current repository contains:
 
 - a basic Svelte SPA with a working dilution calculation;
-- locally stored medication favourites and calculation history;
+- locally stored medication favourites and calculation history, with saved mixes reopening directly in equation review;
 - generated illustrations for the 10 mL syringe and 50/100/250/500/1000 mL bags;
 - product, MVP, and UX design documents;
 - an explicit future E2E strategy based on `../food` and `../games/jaipur`.

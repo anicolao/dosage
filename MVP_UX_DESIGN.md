@@ -101,7 +101,7 @@ Never use look-alike/sound-alike colour coding or infer a drug identity. Names a
 
 Each history card shows local date/time, medication label, vial label facts, final volume, ordered dose, prepared concentration, and calculated mL. Newest is first, with one card at a time and explicit Previous/Next paging. No patient or order identifier appears.
 
-Deletion is available per record. “Clear history” requires a confirmation that states the scope and lack of recovery. Reopening a record is called “Review,” not “Repeat,” and never carries forward acknowledgement.
+Each record provides “Review” and “Delete.” Review restores the saved calculation inputs, returns to Mix, and immediately opens the equation panel with every step unchecked. The answer stays hidden and the prior acknowledgement is never carried forward. “Clear history” requires a confirmation that states the scope and lack of recovery. Reopening is always called “Review,” not “Repeat.”
 
 ## Content rules
 
