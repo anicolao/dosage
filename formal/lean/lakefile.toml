@@ -1,0 +1,10 @@
+name = "dosage"
+version = "0.1.0"
+defaultTargets = ["Dosage", "dosage-reference"]
+
+[[lean_lib]]
+name = "Dosage"
+
+[[lean_exe]]
+name = "dosage-reference"
+root = "Main"
