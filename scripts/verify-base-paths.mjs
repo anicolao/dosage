@@ -19,7 +19,7 @@ const visit = (directory) => {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const entryPath = path.join(directory, entry.name);
     if (entry.isDirectory()) visit(entryPath);
-    else if (/\.(?:html|js|css)$/.test(entry.name)) files.push(entryPath);
+    else if (/\.(?:html|js|css|webmanifest)$/.test(entry.name)) files.push(entryPath);
   }
 };
 visit(distDirectory);
@@ -40,6 +40,22 @@ if (failures.length > 0) {
 const index = fs.readFileSync(indexPath, 'utf8');
 if (!index.includes(`${base}assets/`)) {
   throw new Error(`dist/index.html does not reference assets under ${base}`);
+}
+if (!index.includes(`${base}manifest.webmanifest`)) {
+  throw new Error(`dist/index.html does not reference the manifest under ${base}`);
+}
+
+const serviceWorkerPath = path.join(distDirectory, 'service-worker.js');
+if (!fs.existsSync(serviceWorkerPath)) {
+  throw new Error('dist/service-worker.js does not exist');
+}
+const serviceWorker = fs.readFileSync(serviceWorkerPath, 'utf8');
+if (serviceWorker.includes('"/')) {
+  throw new Error('dist/service-worker.js contains a root-absolute precache path');
+}
+const scopeName = base.replace(/^\/+|\/+$/g, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+if (!serviceWorker.includes(`dosage-app-${scopeName}-`)) {
+  throw new Error(`dist/service-worker.js cache is not namespaced to ${base}`);
 }
 
 console.log(`Verified deployment assets remain under ${base}`);

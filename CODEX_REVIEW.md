@@ -175,20 +175,21 @@ Correct the sentence and review all normative documents for one source of truth.
 
 ### H5. CSP, offline installation, migrations, and recovery remain release blockers
 
+> Status update (2026-08-07): the repository now includes a manifest, generated versioned app-shell service worker, install icons, base-path checks, and a dedicated offline close/reopen calculation-and-history test. CSP, schema migration, multi-release update/rollback, eviction recovery, and the intended iOS/device matrix remain open.
+
 Relevant code: `index.html`, `package.json`, `playwright.config.ts:13`  
 Relevant requirements: `MVP_DESIGN.md:121-137`, `190-194`, `227-236`
 
 These are mostly acknowledged prototype gaps, but they should remain explicit blockers:
 
 - no Content Security Policy is shipped;
-- no service worker or installable PWA manifest exists;
-- default tests explicitly block service workers;
-- no offline restart/update scenario exists;
+- default visual tests deliberately block service workers, while the dedicated offline project enables them;
+- no multi-release update/rollback, storage-eviction, or intended-iOS-matrix scenario exists;
 - there is no IndexedDB schema/migration/transaction layer;
 - malformed JSON disables persistence instead of quarantining the affected record and recovering valid records; and
-- no bundled offline recovery page exists.
+- no bundled recovery path exists for a failed cache installation or evicted app shell.
 
-The README correctly avoids claiming offline support, but its “Privacy promise” says the shipped MVP must enforce a restrictive CSP. Keep wording precise so the current prototype is never mistaken for that shipped MVP.
+The README now limits the offline claim to a successfully installed app shell and names the remaining eviction/device caveats. Its “Privacy promise” also says the shipped MVP must enforce a restrictive CSP, which is still absent. Keep wording precise so the current prototype is never mistaken for a clinically validated release.
 
 ## Medium-priority findings
 

@@ -68,9 +68,9 @@ the following enforced scope:
 - no cloud service, account, analytics, telemetry, crash upload or AI/ML;
 - local-only optional favourites and history, after the storage remediations in
   this plan; and
-- no installed-offline/PWA claim in this reference version. Offline
-  installation and update behaviour will be assessed as a later controlled
-  change if retained as a clinical requirement.
+- installable PWA operation after one successful online app-shell installation,
+  with no first-visit-offline claim and with controlled cache, update, rollback
+  and storage-eviction behaviour included in verification.
 
 Before this scope is approved, the clinical owners must decide and record
 whether the first product excludes paediatrics/neonates, emergency/resuscitation,
@@ -262,10 +262,11 @@ Actions required while producing them:
 6. Define the exact supported browser/device matrix. At minimum, include the
    managed iOS/Safari and Android/Chromium combinations intended for the first
    institutional evaluation.
-7. Decide the availability claim. For this reference build, state that offline
-   installation is not supported and do not add a service worker. If offline use
-   is essential to the intended purpose, stop and bring its cache/update/
-   rollback requirements into this plan before G1.
+7. Approve the availability claim. This plan assumes the reference build is an
+   installable PWA that works offline only after one successful online app-shell
+   installation. Define cache integrity, update activation, rollback, storage
+   eviction, recovery and supported-device requirements before G1; do not imply
+   that a first visit works offline.
 8. Complete `IP-001_OWNERSHIP_AND_LICENSING.md`. For every contemplated
    download, hosted deployment, institutional installation or modified build,
    record whether GPL conveyance occurs and the corresponding source, notice,
@@ -574,9 +575,10 @@ only person who determines expected values.
    the repository.
 9. Produce a deterministic production build with version/build identifier,
    dependency lock, build instructions and cryptographic hash.
-10. Keep service workers disabled in this reference build because no offline
-    claim is made. Verify that the dossier and UI do not imply offline-after-
-    install support.
+10. Generate a version-bound app-shell cache, retain the active release until a
+    replacement cache installs completely, and verify offline restart, update,
+    rollback, storage eviction and recovery on the approved device/browser
+    matrix. The service worker must never cache or transmit user records.
 11. Document that GitHub Pages is a prototype demonstration channel, not the
     proposed controlled clinical distribution channel.
 
@@ -608,6 +610,8 @@ Expand the E2E suite before G7 to cover:
 - storage schema, migration, quarantine, retention and duplicate-save handling;
 - exact zero-network behaviour across success, error, deletion, history review
   and reload;
+- manifest/install metadata plus offline close/reopen, calculation, save,
+  reload, history review, update, rollback and storage-eviction recovery;
 - accessibility states, keyboard path and focus return; and
 - prototype warning, version identifier and intended-use/limitation access.
 
@@ -713,9 +717,10 @@ Ask Health Canada to respond to these questions for this one frozen version:
    to answer those questions?
 
 Do not ask Health Canada to classify several future feature sets in the same
-request. List planned integrations, drug logic, critical-care use, AI, cloud and
-offline installation only as excluded future changes that will receive a new
-assessment.
+request. List planned integrations, drug logic, critical-care use, AI and cloud
+only as excluded future changes that will receive a new assessment. Describe
+offline-after-install operation as part of the frozen reference build and its
+verified availability model.
 
 ### 6.3 Cover email template
 
@@ -824,7 +829,6 @@ met. They remain mandatory clinical-release work where applicable:
 - summative bilingual human-factors validation;
 - full clinical evaluation and any required ITA/REB study;
 - independent penetration test and production vulnerability-response operation;
-- installable offline/service-worker/update/rollback validation, if claimed;
 - final bilingual e-label/IFU/training/support content;
 - controlled clinical distribution, customer/version registry and recall test;
 - complaint, incident, CAPA and post-market operations;
@@ -917,7 +921,7 @@ Canada's classification direction is evaluated.
 | Coarse corruption handling | Step 4; per-key/per-record isolation and recovery tests. |
 | Accessibility checks too narrow | Step 5 and Step 7; state, keyboard, focus, screen-reader and viewport evidence. |
 | No CSP and incomplete network enforcement | Step 6; CSP, exact allowlist and all-API network tests. |
-| No offline installed use | Explicitly excluded at G1/G6; implement only through later controlled change if claimed. |
+| Offline installation/update path requires controlled evidence | Steps 1, 6 and 7; approved availability claim, version-bound cache design, offline/update/rollback/eviction tests and recovery evidence. |
 | CI has excessive permissions/deployment races | Step 6; least privilege, pinned actions, serialized deployment and fork base-path checks. |
 | Single component/overlapping CSS | Steps 3 and 5; domain extraction, screen components and consolidated styles. |
 | Unused asset/full KaTeX payload | Step 6; remove unused asset, risk-assess font subsetting without losing MathML. |
@@ -965,8 +969,9 @@ The package is ready to send only when every item below is true:
   `package.json`, lock/configuration files and CI; none of the verification
   commands is hypothetical.
 - [ ] Reproduced zero/overflow defects and every critical/high review finding
-  applicable to the reference scope are closed with regression evidence; the
-  offline/PWA finding is explicitly excluded by the approved availability claim.
+  applicable to the reference scope are closed with regression evidence;
+  offline/PWA installation, update, rollback and eviction behaviour meets the
+  approved availability claim.
 - [ ] Saved data cannot introduce an unvalidated or stale calculation.
 - [ ] Required portrait, landscape, tablet and 200% text states are usable.
 - [ ] Exact formulas and the result are independently reviewable by

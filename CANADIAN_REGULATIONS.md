@@ -750,7 +750,7 @@ and intended use without extending the licence through marketing.
 | Saved data | Local-only and no patient field are good. Records are not schema-validated, derived history values are trusted, retention is not implemented and storage is unencrypted. | **Block.** Minimize, validate, migrate, retain/delete safely and approve managed-device controls. |
 | Human factors/accessibility | Answer gating and equation visibility are promising. Layout clips at 200% text and phone landscape; no representative-user validation exists. | **Block.** Fix reflow and complete formative/summative bilingual validation. |
 | Cybersecurity | Small dependency set, local KaTeX and no telemetry/backend reduce exposure. No production CSP, SBOM, threat model, signed release, vulnerability process or penetration test exists. | **Block.** Implement lifecycle security package. |
-| Offline/availability | No installable production service worker or validated offline restart/update path. | **Block** if offline use is claimed or required. Define availability/downtime model and validate it. |
+| Offline/availability | An installable manifest, generated versioned app-shell service worker and Chromium offline restart journey now exist. Update/rollback, eviction/recovery and the intended iOS/device matrix are not yet validated. | **Block** clinical use until the availability model and full controlled verification are complete. |
 | QMS | No ISO 13485/MDSAP QMS, controlled procedures, CAPA, audit or management review. | **Block for regulated Class II/III; material procurement block even if excluded.** |
 | Clinical evidence | No analytical-validation report, clinical evaluation or nurse usability study. | **Block.** Generate evidence for exact intended use. |
 | Labelling/language | English prototype warning and README exist. No controlled e-label/IFU or French interface/training. | **Block.** Fully bilingual, version-controlled product information. |
@@ -831,7 +831,7 @@ verified; no unresolved critical/high defect; production candidate is frozen.
   device matrix.
 - Implement the privacy-minimized storage/retention design and institution MDM
   requirements.
-- Implement production CSP, offline/update architecture if claimed, SBOM,
+- Implement production CSP, complete controlled offline/update/rollback validation, SBOM,
   release provenance, vulnerability controls and safe rollback.
 - Establish deterministic builds and a controlled release repository separate
   from public prototype previews.
