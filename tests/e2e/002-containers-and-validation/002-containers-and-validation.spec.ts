@@ -33,6 +33,25 @@ test('containers, boundaries, and activity units remain safe', async ({ page }, 
         expect(await page.locator('.volume-grid button strong').allTextContents())
           .toEqual(['10 mL', '50 mL', '100 mL', '250 mL', '500 mL', '1000 mL']);
       } },
+      { spec: 'The syringe image has transparent corners instead of a rectangular background', check: async () => {
+        const alpha = await page.getByRole('button', { name: '10 mL', exact: true }).locator('img').evaluate((image) => {
+          if (!(image instanceof HTMLImageElement)) throw new Error('Missing syringe image');
+          const canvas = document.createElement('canvas');
+          canvas.width = image.naturalWidth;
+          canvas.height = image.naturalHeight;
+          const context = canvas.getContext('2d');
+          if (!context) throw new Error('Canvas unavailable');
+          context.drawImage(image, 0, 0);
+          const corners = [
+            context.getImageData(0, 0, 1, 1).data[3],
+            context.getImageData(canvas.width - 1, 0, 1, 1).data[3],
+            context.getImageData(0, canvas.height - 1, 1, 1).data[3],
+            context.getImageData(canvas.width - 1, canvas.height - 1, 1, 1).data[3]
+          ];
+          return corners;
+        });
+        expect(alpha).toEqual([0, 0, 0, 0]);
+      } },
       { spec: 'The flexible 500 mL bag is visibly wider than every other IV bag', check: async () => {
         const silhouettes = await page.locator('.volume-grid button').evaluateAll((buttons) => buttons.slice(1).map((button) => {
           const image = button.querySelector('img');

@@ -81,5 +81,47 @@ test('favourites and history stay local without carrying an order forward', asyn
     ]
   });
 
+  const favouriteFixtures = Array.from({ length: 7 }, (_, index) => ({
+    id: `favourite-${index + 1}`,
+    name: `Saved medication ${index + 1}`,
+    medicationAmount: String(index + 1),
+    vialUnit: 'mg',
+    vialVolume: '1',
+    createdAt: new Date().toISOString()
+  }));
+  await page.evaluate((fixtures) => {
+    localStorage.setItem('dosage.favourites.v2', JSON.stringify(fixtures));
+  }, favouriteFixtures);
+  await page.reload();
+  await page.getByRole('button', { name: /Favourites/ }).click();
+
+  await steps.step('full-favourites-page', {
+    description: 'A favourites page uses the available space before offering pagination',
+    verifications: [
+      { spec: 'The first page shows six saved medications at once', check: async () => {
+        await expect(page.locator('.saved-list li')).toHaveCount(6);
+        await expect(page.locator('.saved-list')).toContainText('Saved medication 1');
+        await expect(page.locator('.saved-list')).toContainText('Saved medication 6');
+      } },
+      { spec: 'Paging reports two pages for seven favourites', check: async () => {
+        await expect(page.getByLabel('Favourite pages')).toContainText('Page 1 of 2');
+      } }
+    ]
+  });
+
+  await page.setViewportSize({ width: 320, height: 852 });
+  const narrowLayout = await page.evaluate(() => ({
+    width: document.documentElement.scrollWidth,
+    height: document.documentElement.scrollHeight,
+    viewportWidth: innerWidth,
+    viewportHeight: innerHeight
+  }));
+  expect(narrowLayout.width).toBeLessThanOrEqual(narrowLayout.viewportWidth + 1);
+  expect(narrowLayout.height).toBeLessThanOrEqual(narrowLayout.viewportHeight + 1);
+  await page.getByRole('button', { name: 'Next' }).click();
+  await expect(page.locator('.saved-list li')).toHaveCount(1);
+  await expect(page.locator('.saved-list')).toContainText('Saved medication 7');
+  await expect(page.getByLabel('Favourite pages')).toContainText('Page 2 of 2');
+
   steps.generateDocs();
 });

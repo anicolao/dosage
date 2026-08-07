@@ -4,6 +4,7 @@
   import 'katex/dist/katex.min.css';
 
   const volumes = [10, 50, 100, 250, 500, 1000];
+  const favouritesPerPage = 6;
   const baseUrl = import.meta.env.BASE_URL;
   const storageKeys = {
     favourites: 'dosage.favourites.v2',
@@ -90,6 +91,11 @@
     String(favourite.medicationAmount) === String(medicationAmount) &&
     favourite.vialUnit === vialUnit &&
     String(favourite.vialVolume) === String(vialVolume)
+  );
+  $: favouritePageCount = Math.max(1, Math.ceil(favourites.length / favouritesPerPage));
+  $: visibleFavourites = favourites.slice(
+    favouritePage * favouritesPerPage,
+    (favouritePage + 1) * favouritesPerPage
   );
 
   onMount(() => {
@@ -198,7 +204,7 @@
     const next = favourites.filter((item) => item.id !== currentFavourite.id);
     if (write(storageKeys.favourites, next)) {
       favourites = next;
-      favouritePage = Math.min(favouritePage, Math.max(0, next.length - 1));
+      favouritePage = Math.min(favouritePage, Math.max(0, Math.ceil(next.length / favouritesPerPage) - 1));
       notice = 'Favourite removed from this phone.';
     }
   }
@@ -222,7 +228,7 @@
     const next = favourites.filter((item) => item.id !== id);
     if (write(storageKeys.favourites, next)) {
       favourites = next;
-      favouritePage = Math.min(favouritePage, Math.max(0, next.length - 1));
+      favouritePage = Math.min(favouritePage, Math.max(0, Math.ceil(next.length / favouritesPerPage) - 1));
     }
   }
 
@@ -490,8 +496,7 @@
           </div>
         {:else}
           <ul class="saved-list" aria-label="Saved favourites">
-            {#each favourites as favourite, index}
-              {#if index === favouritePage}
+            {#each visibleFavourites as favourite}
               <li>
                 <div>
                   <strong>{favourite.name}</strong>
@@ -502,14 +507,15 @@
                   <button class="danger-text" type="button" aria-label={`Delete ${favourite.name}`} onclick={() => deleteFavourite(favourite.id)}>Delete</button>
                 </div>
               </li>
-              {/if}
             {/each}
           </ul>
-          <div class="pager" aria-label="Favourite pages">
-            <button type="button" disabled={favouritePage === 0} onclick={() => favouritePage -= 1}>Previous</button>
-            <span>{favouritePage + 1} of {favourites.length}</span>
-            <button type="button" disabled={favouritePage === favourites.length - 1} onclick={() => favouritePage += 1}>Next</button>
-          </div>
+          {#if favouritePageCount > 1}
+            <div class="pager" aria-label="Favourite pages">
+              <button type="button" disabled={favouritePage === 0} onclick={() => favouritePage -= 1}>Previous</button>
+              <span>Page {favouritePage + 1} of {favouritePageCount}</span>
+              <button type="button" disabled={favouritePage === favouritePageCount - 1} onclick={() => favouritePage += 1}>Next</button>
+            </div>
+          {/if}
         {/if}
       </section>
     {:else}
@@ -800,7 +806,10 @@
   main > section:not(.mix-screen) .intro { flex: 0 0 auto; margin: 3px 0 9px; }
   .empty-state { min-height: 0; padding: 24px 12px; border-radius: 12px; }
   .saved-list, .history-list { min-height: 0; gap: 0; }
+  .saved-list { gap: 5px; }
   .saved-list li, .history-list li { padding: 12px; border-radius: 12px; }
+  .saved-list li > div:first-child { min-width: 0; }
+  .saved-list strong, .saved-list li > div:first-child span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .history-list p { margin: 10px 0 6px; }
   .pager { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; margin-top: 8px; }
   .pager button { min-height: 44px; color: #076d69; background: #fff; border: 1px solid #72aaa5; border-radius: 9px; font-weight: 800; cursor: pointer; }

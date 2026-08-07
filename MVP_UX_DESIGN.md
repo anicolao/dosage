@@ -22,7 +22,7 @@ The first section asks for medication name, amount in the vial, vial unit, and v
 
 ### 2. Final prepared volume
 
-Six image cards show a 10 mL syringe and 50/100/250/500/1000 mL flexible IV bags. The bag illustrations use soft side seams, a shallow concave top, and two bottom ports instead of a rigid bottle silhouette. The 500 mL bag is intentionally broader than the 50, 100, 250, and 1000 mL bags, matching the supplied real-container reference. The selected card has a high-contrast border, tinted background, check state, and `aria-pressed="true"`; selection never relies on colour alone.
+Six image cards show a 10 mL syringe and 50/100/250/500/1000 mL flexible IV bags. Every icon uses a transparent or visually transparent background so no rectangular image tile appears inside its card. The bag illustrations use soft side seams, a shallow concave top, and two bottom ports instead of a rigid bottle silhouette. The 500 mL bag is intentionally broader than the 50, 100, 250, and 1000 mL bags, matching the supplied real-container reference. The selected card has a high-contrast border, tinted background, check state, and `aria-pressed="true"`; selection never relies on colour alone.
 
 ![Generated illustration of the supported dilution containers](./static/images/dilution-containers.png)
 
@@ -93,7 +93,7 @@ No warning is needed when the installed app is healthy offline. The header conti
 
 ## Favourites
 
-A favourite card contains name, medication amount/unit, vial volume, “Use,” edit, and delete. One card is shown at a time with Previous/Next paging so saved content never creates a scrolling page. “Use” opens a fresh mix with no ordered dose. On the calculator, an empty star becomes filled gold as soon as the current medication name and vial facts are saved; its accessible pressed state and label communicate the same status without relying on colour. Pressing the filled star removes that favourite. Duplicate names are allowed because concentration disambiguates them, while the star prevents an exact duplicate.
+A favourite card contains name, medication amount/unit, vial volume, “Use,” edit, and delete. Up to six compact cards fill the available phone panel before Previous/Next paging appears; one to six records need no paging controls and the page never scrolls. “Use” opens a fresh mix with no ordered dose. On the calculator, an empty star becomes filled gold as soon as the current medication name and vial facts are saved; its accessible pressed state and label communicate the same status without relying on colour. Pressing the filled star removes that favourite. Duplicate names are allowed because concentration disambiguates them, while the star prevents an exact duplicate.
 
 Never use look-alike/sound-alike colour coding or infer a drug identity. Names are user-entered display labels only.
 

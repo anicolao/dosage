@@ -28,3 +28,12 @@ Medication label facts can be reused, while ordered doses and confirmations must
 
 - [x] The favourite is deleted
 - [x] Mix remains available as the primary navigation destination
+
+## A favourites page uses the available space before offering pagination
+
+![A favourites page uses the available space before offering pagination](./screenshots/003-full-favourites-page-phone.png)
+
+**Verifications:**
+
+- [x] The first page shows six saved medications at once
+- [x] Paging reports two pages for seven favourites

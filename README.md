@@ -16,7 +16,7 @@ The current repository contains:
 
 The calculation review uses locally bundled KaTeX to show dimensional analysis and accessible MathML. No equation, font, or input is fetched from a third party.
 
-The calculator is a fixed-height phone interface with no page or panel scrolling. It defaults the vial unit to mg, vial volume to 1 mL, and ordered-dose unit to mcg while leaving medication amounts, doses, and final prepared volume unset. The answer stays hidden until every detailed, single-line equation is individually checked and the review is completed. Its flexible IV-bag illustrations preserve the distinct real-world silhouettes, including a visibly broader 500 mL bag. Saving the entered vial facts as a favourite immediately fills the main-screen star; favourites and history use explicit paging.
+The calculator is a fixed-height phone interface with no page or panel scrolling. It defaults the vial unit to mg, vial volume to 1 mL, and ordered-dose unit to mcg while leaving medication amounts, doses, and final prepared volume unset. The answer stays hidden until every detailed, single-line equation is individually checked and the review is completed. Its transparent syringe and flexible IV-bag illustrations preserve the distinct real-world silhouettes, including a visibly broader 500 mL bag. Saving the entered vial facts as a favourite immediately fills the main-screen star; the favourites screen fills each page with up to six records before showing paging controls.
 
 ![Actual Playwright preview of the calculation review](./docs/pr-preview.png)
 
