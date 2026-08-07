@@ -47,6 +47,9 @@ permission for patient care, or completion of any authorization gate.
 | `GATE-004_TRUSTED_STATE_BOUNDARIES.md` | Open | Define exact storage, migration, recomputation, privacy and state-transition evidence required at G4. |
 | `GATE-005_REPRESENTATIVE_INTERFACE.md` | Open | Define interface, accessibility, representative-nurse, screenshot and review evidence required at G5. |
 | `GATE-006_CONTROLLED_REFERENCE_BUILD.md` | Open | Define security, SBOM, provenance, CI, offline lifecycle and delivery-boundary evidence required at G6. |
+| `VVR-001_VERIFICATION_REPORT.md` | Draft/not executed | Provide the exact-build result, environment, evidence, anomaly, traceability and independent-review structure for G7. |
+| `GATE-007_VERIFIED_REFERENCE_BUILD.md` | Open | Define controlled-run, evidence-archive, traceability and verification approvals required at G7. |
+| `GATE-008_DOSSIER_BASELINE.md` | Open | Define the immutable source/artifact/evidence/bilingual-label freeze required at G8. |
 | `classification-request/README.md` | Draft/not submission ready | Index the controlled `00`–`09` classification-request source templates. |
 | `classification-request/GATE-009_DOSSIER_AUDIT.md` | Open | Require an independent exact-package audit and manufacturer approval before sending. |
 | `classification-request/COR-001_CLASSIFICATION_CORRESPONDENCE_LOG.md` | Draft/open | Control submission-day routing, delivery evidence and Health Canada correspondence. |
