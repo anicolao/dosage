@@ -6,6 +6,8 @@
   const volumes = [10, 50, 100, 250, 500, 1000];
   const favouritesPerPage = 6;
   const baseUrl = import.meta.env.BASE_URL;
+  const appVersion = import.meta.env.VITE_APP_VERSION;
+  const gitHash = import.meta.env.VITE_GIT_HASH;
   const storageKeys = {
     favourites: 'dosage.favourites.v2',
     history: 'dosage.history.v2'
@@ -318,7 +320,14 @@
 
 <div class="app-shell" data-status="local">
   <header>
-    <a class="brand" href="#mix" onclick={() => tab = 'mix'}>Dosage</a>
+    <div class="brand-block">
+      <a class="brand" href="#mix" onclick={() => tab = 'mix'}>Dosage</a>
+      <span
+        class="build-identifier"
+        data-testid="build-identifier"
+        aria-label={`Dosage version ${appVersion}, revision ${gitHash}`}
+      >v{appVersion} · {gitHash}</span>
+    </div>
     <span class="local-status" aria-label="Data stays on this device">
       <span aria-hidden="true">✓</span> On this device
     </span>
@@ -635,7 +644,9 @@
     padding: 0 20px;
     border-bottom: 1px solid #d8dfdc;
   }
+  .brand-block { display: grid; align-content: center; line-height: 1.05; }
   .brand { color: #102a43; font-size: 1.45rem; font-weight: 800; text-decoration: none; }
+  .build-identifier { color: #52677a; font-size: .68rem; font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
   .local-status { display: inline-flex; gap: 7px; align-items: center; color: #087f7a; font-size: .88rem; font-weight: 700; }
   .local-status span { display: grid; width: 24px; height: 24px; place-items: center; border: 2px solid currentColor; border-radius: 50%; }
   .prototype-banner { padding: 10px 20px; color: #5f3b00; background: #fff3cd; border-bottom: 1px solid #ead49b; font-size: .85rem; }
@@ -735,6 +746,7 @@
   }
   header { min-height: 0; padding: 0 12px; }
   .brand { font-size: 1.22rem; }
+  .build-identifier { font-size: .61rem; }
   .local-status { gap: 5px; font-size: .75rem; }
   .local-status span { width: 21px; height: 21px; font-size: .72rem; }
   .prototype-banner { min-height: 29px; padding: 6px 12px; font-size: .72rem; line-height: 1.25; }
