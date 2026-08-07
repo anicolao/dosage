@@ -43,6 +43,7 @@ permission for patient care, or completion of any authorization gate.
 | `GATE-002_SAFETY_REQUIREMENTS.md` | Open | Reconcile Step 2 records and list every decision required to approve G2. |
 | `QMS-001_CHANGE_ANOMALY_AND_RELEASE_CONTROL.md` | Draft/blocking | Propose classification-build change, anomaly, verification-run and release controls; clinical post-market procedures remain open. |
 | `HUM-001_REQUIRED_ROLES_AND_DECISIONS.md` | Draft/open | Order the named human, clinical, legal, quality and independent decisions needed to close G0–G10. |
+| `WRK-001_REMAINING_AUTHORIZATION_WORK.md` | Draft/open | Consolidate every remaining gate, formal-conformance, dossier and clinical-release work item after the Lean implementation. |
 | `GATE-003_CALCULATION_IMPLEMENTATION.md` | Open | Define exact calculation-engine implementation, verification, independence and anomaly evidence required at G3. |
 | `GATE-004_TRUSTED_STATE_BOUNDARIES.md` | Open | Define exact storage, migration, recomputation, privacy and state-transition evidence required at G4. |
 | `GATE-005_REPRESENTATIVE_INTERFACE.md` | Open | Define interface, accessibility, representative-nurse, screenshot and review evidence required at G5. |
