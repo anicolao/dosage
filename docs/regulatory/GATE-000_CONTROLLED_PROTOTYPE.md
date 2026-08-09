@@ -25,14 +25,17 @@ commercial distribution.
 | Review findings controlled | `FND-001_OPEN_FINDINGS.csv` | Open register created; no finding is quality-closed |
 | Classification reference work isolated | Branch `agent/authorization-plan`; draft PR #7 | Present; branch policy/owner approval pending |
 | Distribution and access inventoried | `DST-001_PROTOTYPE_DISTRIBUTION.md` | Draft; stale-preview inventory open |
-| Contributors and assets inventoried | `IP-000_CONTRIBUTOR_AND_ASSET_INVENTORY.md` | Draft; evidence gaps open |
+| Legal manufacturer identity and signatory authority | `G0-01_LEGAL_MANUFACTURER_IDENTITY_AND_SIGNATORY_AUTHORITY.md` | Controlled template present; identity, evidence and signatures missing |
+| Quality/software authority and competence | `G0-02_ROLE_AUTHORITY_AND_COMPETENCE.md` | Controlled template present; appointments, assessments, evidence and signatures missing |
+| Contributors and assets inventoried | `IP-000_CONTRIBUTOR_AND_ASSET_INVENTORY.md`; `G0-03_CONTRIBUTOR_AND_ASSET_PROVENANCE.md` | Initial inventory and controlled completion template present; reconciliation, evidence and signatures missing |
 | Manufacturer rights and GPL obligations reviewed | Counsel conclusion in IP-000/IP-001 | Not started; blocking |
 
 ## Blocking actions
 
-- Identify the legal manufacturer and assign each required role.
-- Obtain contributor/provenance evidence and IP/commercialization counsel's
-  written conclusion.
+- Complete and approve G0-01-FRM for the legal manufacturer and signatory.
+- Complete and approve both role packets in G0-02-FRM.
+- Complete and approve G0-03-FRM, then obtain IP/commercialization counsel's
+  separate G0-04 written conclusion.
 - Review the public deployment inventory and approve its retention controls.
 - Review every finding's preliminary severity, owner and disposition.
 - Record successful CI/deployment evidence for the exact gate candidate commit.

@@ -62,9 +62,9 @@ exploratory until the controlling inputs are approved.
 
 | ID | Remaining action | Accountable role/evidence | Status |
 | --- | --- | --- | --- |
-| G0-01 | Identify the legal manufacturer, legal name/address and authorized signatory. | Manufacturer legal record | Unassigned/blocking |
-| G0-02 | Assign quality and software leads with documented authority and competence. | Role/competence records | Unassigned/blocking |
-| G0-03 | Complete contributor identity, employment/contractor, copied/generated asset and copyright provenance gaps in IP-000. | Contributors, repository owner, counsel | Open |
+| G0-01 | Complete and approve `G0-01_LEGAL_MANUFACTURER_IDENTITY_AND_SIGNATORY_AUTHORITY.md` with official identity, designation and signatory-authority evidence. | Authorized manufacturer officer, independent identity/authority reviewer, quality lead | Template present; names/evidence/signatures blocking |
+| G0-02 | Complete both quality/software packets in `G0-02_ROLE_AUTHORITY_AND_COMPETENCE.md`, including appointments, authority, competence assessment, independence and training gaps. | Manufacturer officer, appointees, independent competence assessors, quality record reviewer | Template present; roles/evidence/signatures blocking |
+| G0-03 | Complete and approve `G0-03_CONTRIBUTOR_AND_ASSET_PROVENANCE.md`; reconcile IP-000 identities, employment/contractor rights basis, history, copied/generated assets and third-party boundaries. | Contributors/rights holders, repository owner, software, quality, counsel, manufacturer | Template present; factual reconciliation/evidence/signatures open |
 | G0-04 | Obtain IP/commercialization counsel's written conclusion on title/licence basis, GPL-3.0 obligations and manufacturer authority to modify, distribute, correct and recall. | Counsel opinion tied to exact product/distribution models | Not started/blocking |
 | G0-05 | Review every public/stale preview and approve access, retention, warning and non-clinical presentation controls. | DST-001; quality/software approval | Draft/open |
 | G0-06 | Assign every FND-001 finding owner/severity/disposition and confirm no item is closed by code or CI alone. | Quality-reviewed finding register | Open |

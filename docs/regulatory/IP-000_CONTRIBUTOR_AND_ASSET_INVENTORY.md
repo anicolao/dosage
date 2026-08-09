@@ -66,8 +66,12 @@ repository. The proposed legal manufacturer is also not identified.
 | Asset generation/source files and applicable tool terms | Software lead/IP counsel | Open |
 | Trademark/product-name search and conclusion | IP counsel | Open |
 
+Use `G0-03_CONTRIBUTOR_AND_ASSET_PROVENANCE.md` as the controlled completion,
+evidence-reconciliation and signature record for the factual requests above.
+Its approval does not replace counsel's separate G0-04/IP-001 conclusion.
+
 ## Approval
 
-Counsel conclusion: **Pending.** This record cannot support G0 or G1 approval
-until the questions and evidence requests above are resolved or given an
-approved risk disposition.
+Counsel conclusion: **Pending.** This initial inventory and the unexecuted
+G0-03 template cannot support G0 or G1 approval until the questions and evidence
+requests above are resolved and the separate counsel conclusion is signed.

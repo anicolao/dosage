@@ -58,13 +58,15 @@ reviewer to reassess and either reaffirm or replace the earlier decision.
 
 ### Packet A — close G0 before any downstream approval
 
-1. Name the legal manufacturer, quality lead and software lead.
+1. Complete and approve `G0-01_LEGAL_MANUFACTURER_IDENTITY_AND_SIGNATORY_AUTHORITY.md`
+   and both role packets in `G0-02_ROLE_AUTHORITY_AND_COMPETENCE.md`.
 2. Confirm the exact legacy/current prototype baselines and unchanged source
    reviews in BASE-001.
 3. Review prototype URLs/access/retention and containment in DST-001.
 4. Assign every FND-001 finding an accountable owner and approve its initial
    severity/disposition without marking unverified findings closed.
-5. Complete contributor/asset provenance evidence in IP-000.
+5. Complete contributor/asset provenance evidence in IP-000 and approve
+   `G0-03_CONTRIBUTOR_AND_ASSET_PROVENANCE.md`.
 6. Obtain counsel's written preliminary conclusion that the manufacturer has a
    sufficient rights/licence basis and authority to correct/distribute/recall.
 7. Record exact candidate-commit CI/deployment evidence and sign GATE-000.

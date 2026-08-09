@@ -25,6 +25,9 @@ permission for patient care, or completion of any authorization gate.
 | `DST-001_PROTOTYPE_DISTRIBUTION.md` | Draft | Inventory public prototype access and distribution controls. |
 | `FND-001_OPEN_FINDINGS.csv` | Draft/open | Track review findings to verified disposition. |
 | `IP-000_CONTRIBUTOR_AND_ASSET_INVENTORY.md` | Draft/open | Establish the initial authorship and asset inventory for counsel. |
+| `G0-01_LEGAL_MANUFACTURER_IDENTITY_AND_SIGNATORY_AUTHORITY.md` | Template/unexecuted | Record official manufacturer identity, responsibility and attributable signatory authority for G0-01. |
+| `G0-02_ROLE_AUTHORITY_AND_COMPETENCE.md` | Template/unexecuted | Appoint and assess the quality and software leads, including authority, competence and independence evidence for G0-02. |
+| `G0-03_CONTRIBUTOR_AND_ASSET_PROVENANCE.md` | Template/unexecuted | Reconcile contributors, history, source, assets and factual rights-basis evidence for G0-03 and later counsel review. |
 | `GATE-000_CONTROLLED_PROTOTYPE.md` | Open | Record the evidence and approvals required to close G0. |
 | `REG-001_PRODUCT_DEFINITION.md` | Draft | Define the bounded classification reference product. |
 | `REG-002_INTENDED_USE_AND_CLAIMS.md` | Draft | Control intended use, limitations, warning and claims. |
