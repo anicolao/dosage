@@ -1,25 +1,26 @@
 # Classification-support request source package
 
-> **DRAFT — NOT SUBMISSION READY.** These Markdown files are controlled source
-> templates, not submitted documents and not evidence of Health Canada approval,
-> clearance, authorization or classification. Do not convert or send them until
-> G8 is frozen and G9 is signed.
+> **LEGACY PROSE SCAFFOLD — DO NOT EXECUTE OR SEND.** The structured sources in
+> `../records/data/submission/` and generated review copies in
+> `../completed/submission/` supersede these files for the exact-prototype early
+> inquiry. This directory remains as design-history input until formally
+> archived or reconciled.
+
+> The contents below document the earlier proposed `0.2.0-classification` plan.
+> They are not current fillable sources, submitted documents, evidence of
+> approval, or a prerequisite to IQ-002.
 
 ## Package control
 
 | Field | Value |
 | --- | --- |
-| Legal manufacturer | `[TBD — legal name and address]` |
-| Regulatory contact | `[TBD — name, role, controlled mailbox, phone]` |
-| Reference version | `0.2.0-classification` (proposed; not frozen) |
-| Source commit / build / artifact digest | `[TBD AT G8]` |
-| English approval / French review | `[TBD — named approvers and dates]` |
-| Regulatory-counsel review and current citations | `[TBD — verify on approval and submission dates]` |
-| Manufacturer signature / G9 approval | `[TBD]` |
+| Historical status | Superseded proposal; never approved or sent |
+| Historical reference version | `0.2.0-classification` (proposed only) |
+| Current execution source | `../records/data/submission/` |
+| Current generated review package | `../completed/submission/` |
 
-The attachments summarize, rather than replace, the controlled records in
-`docs/regulatory/`. If a summary disagrees with an approved source record, the
-source record controls and the attachment must be corrected before G9.
+The manifest below is retained only to explain the design-history relationship
+between the old files. It does not define the current attachment set.
 
 ## Manifest
 
@@ -36,12 +37,11 @@ source record controls and the attachment must be corrected before G9.
 | `08_FALLBACK_CLASSIFICATION.md` | `08_FALLBACK_CLASSIFICATION.pdf` | REG-003, RMF-001 | Counsel-approved current rule/significance analysis |
 | `09_VERSION_AND_CHANGE_SUMMARY.md` | `09_VERSION_AND_CHANGE_SUMMARY.pdf` | BASE-001, FND-001, G8 release record | Frozen hashes, defect dispositions, archived evidence |
 
-`GATE-009_DOSSIER_AUDIT.md` controls the independent audit.
-`COR-001_CLASSIFICATION_CORRESPONDENCE_LOG.md` controls routing and later
-correspondence. The PDF names above are outputs to be generated only from
-approved sources; no PDF is present in this directory.
+For the current early inquiry, `IQ-002` controls the independent package audit
+and release and `COR-002` controls routing and correspondence. No PDF is present
+in this legacy directory.
 
-## Assembly rules
+## Historical assembly rules — superseded
 
 1. Replace every bracketed placeholder from controlled evidence; never infer a
    name, signature, date, build hash, translation or legal conclusion.
@@ -50,4 +50,5 @@ approved sources; no PDF is present in this directory.
 3. Preserve criterion 3 as an explicit Health Canada determination request.
 4. Verify current Health Canada instructions and legal pin-cites on submission
    day, including the known 2026-12-14 FRM-0292 transition.
-5. Send only after the legal manufacturer signs the cover letter and G9 record.
+5. Do not execute these rules; use the structured record instructions in
+   `../records/README.md`.

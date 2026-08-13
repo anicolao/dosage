@@ -8,11 +8,12 @@
 
 | Field | Value |
 | --- | --- |
-| Status date | 2026-08-07 |
-| Product | Proposed Dosage `0.2.0-classification` reference product |
+| Status date | 2026-08-13 |
+| Product | Exact current prototype `0.1.0` at `6b53fde87ff9b193b3c24f7bd93549746b4d6471`; same feature scope for later release |
 | Record owner | Quality lead (unassigned) |
 | Source plan | `AUTHORIZATION_PLAN.md` |
-| Gate state | G0–G9 open; G10 not entered |
+| Inquiry state | INQ-000, IQ-001, IQ-002 and COR-002 open; SUB-000–SUB-009 incomplete |
+| Clinical-release gate state | G0–G9 open; G10 not entered |
 | Formal status | Nix/Lean core and CI implemented; independent approval and TypeScript conformance open |
 
 ## 1. Work completed technically but not approved
@@ -33,13 +34,39 @@ The branch contains the following review inputs and technical scaffolding:
 - `npm run test:formal`, isolated `nix flake check`, and a separate green,
   least-privilege formal CI job; and
 - an explicit source audit rejecting `sorry`, `admit` and user-defined Lean
-  axioms.
+  axioms;
+- schema-validated YAML sources and deterministic generated Markdown/hash
+  manifests for every G0–G10 gate, G0-01–G0-04 support record, early inquiry
+  gate/correspondence record and SUB-000–SUB-009 attachment; and
+- CI enforcement that generated regulatory documents cannot drift from their
+  YAML sources and templates.
 
 These are drafts or technical observations. No named legal manufacturer,
 clinical approver, independent verifier, quality authority or regulatory owner
 has signed them. Green CI is not gate approval.
 
-## 2. Critical path and stop rule
+## 2. Two critical paths and stop rules
+
+The shortest credible classification path describes the current implementation
+exactly and asks for direction before the full clinical-release programme:
+
+```text
+G0-01 manufacturer/signatory + accountable role appointments
+  → INQ-000 exact source/artifact/function/limitation baseline
+    → IQ-001 clinical facts and classification analysis
+      → SUB-000–SUB-009 generated package
+        → IQ-002 independent audit/manufacturer release
+          → send once and control COR-002
+```
+
+Full G0–G10 closure is not a prerequisite to IQ-002. The inquiry package must
+say that the prototype is unvalidated and unavailable for patient care, disclose
+known defects, and avoid calling planned controls implemented. No new feature,
+clinical logic, integration, cloud function, AI or automation may be added to
+the inquiry baseline. A code change requires impact assessment and normally a
+new INQ-000 baseline/package revision.
+
+The separate clinical-release path remains:
 
 ```text
 G0 people/rights/containment approval
@@ -52,11 +79,27 @@ G0 people/rights/containment approval
               → send once and control acknowledgement at G10
 ```
 
-The next authorized activity is human review and closure of G0, followed by G1
-and G2. Under the current plan, the remaining product implementation must not
-be represented as controlled G3+ work until those dependencies close. Drafting
-test cases, reviews and evidence structures may continue, but their results are
-exploratory until the controlling inputs are approved.
+The next inquiry activity is to fill G0-01, the role appointments, INQ-000 and
+IQ-001 with actual identities, evidence and attributable approvals. The next
+clinical-release activity is human review and closure of G0, followed by G1 and
+G2. Remaining implementation must not be represented as controlled G3+ work
+until those dependencies close. Drafting tests, reviews and evidence structures
+may continue, but their results are exploratory until the inputs are approved.
+
+## 2.1 Early inquiry records still to complete
+
+| ID | Remaining action | Required approval/evidence | Status |
+| --- | --- | --- | --- |
+| INQ-000 | Fill deployment/artifact URL and digest, reproduce every actual function, capture controlled screenshots, confirm current localStorage/service-worker/network facts, and disclose every known limitation. | Software factual review, quality review, manufacturer approval | YAML/generated draft; values and approvals open |
+| IQ-001 | Approve actual user/setting/purpose, formula source/worked example, immediate-use consequences, criterion analysis, published comparator and fallback rule/class position. | Regulatory, pharmacy, nursing, software, independent calculation reviewer, manufacturer | YAML/generated draft; decisions/evidence/approvals open |
+| SUB-000–009 | Replace all `MISSING` values; generate the exact cover, product, workflow, architecture, calculation, risk, actual-label, exclusion, fallback and package-boundary records. | Attachment-specific reviewers plus quality consistency review | Ten YAML/generated drafts; not ready |
+| IQ-002 | Audit source/artifact/screenshots/claims/hashes/routing as one immutable package and authorize the exact outgoing set. | Independent auditor, regulatory lead, quality lead, manufacturer signatory | YAML/generated draft; not entered |
+| COR-002 | Verify submission-day route, send only the IQ-002 package once, preserve delivery/acknowledgement/reference and control every response. | Regulatory lead and quality record review | YAML/generated draft; not entered |
+
+Use `npm run regulatory:build` while filling records,
+`npm run regulatory:ready -- --record RECORD-ID` as the mechanical completion
+check, and `npm run regulatory:commit -- "message"` to commit only YAML and
+generated outputs. Git provenance supplements but does not replace signatures.
 
 ## 3. G0 — Controlled prototype
 
@@ -77,7 +120,7 @@ exploratory until the controlling inputs are approved.
 | --- | --- | --- | --- |
 | G1-01 | Close G0. | Signed GATE-000 | Blocking |
 | G1-02 | Approve intended users, care settings, patient/medication/preparation scope, final-volume meaning and all enforceable exclusions. | Regulatory, pharmacy, nursing/HF, manufacturer | Open |
-| G1-03 | Decide whether favourites and history ship; remove all code/data/claims if either is excluded. | Product/manufacturer, nursing/HF, privacy | Open |
+| G1-03 | Formalize the current favourites/history feature and local-only claim exactly; do not add cloud sync, identity or new record functions. | Product/manufacturer, nursing/HF, privacy | Current feature fixed; controls/evidence open |
 | G1-04 | Approve exact managed device, OS, browser/engine, assistive-technology and language matrix. | Software, HF/accessibility, security, institution | Open |
 | G1-05 | Approve offline-after-install, cache/update/rollback/eviction/recovery/useful-life claim and non-software fallback. | Clinical, software, security, quality | Open |
 | G1-06 | Approve REG-002 intended-use, limitation, contraindication, warning and permitted/prohibited claim text plus the English/French review plan. | Regulatory, pharmacy, nursing/HF, quality | Open |
@@ -236,9 +279,9 @@ does not complete formal verification of the product.
   all lower items require documented quality disposition.
 - Sign GATE-007 for the exact source/artifact/report/archive hashes.
 
-## 12. G8 — Immutable dossier baseline
+## 12. G8 — Immutable future clinical-release baseline
 
-- Assign/freeze `0.2.0-classification`, full commit/tag, artifact/app-shell
+- Assign/freeze the next controlled clinical-release candidate, full commit/tag, artifact/app-shell
   manifest and every source/dependency/evidence hash in REL-001.
 - Archive source, lockfiles, Nix inputs, SBOM, VVR/raw evidence, TRC/anomalies,
   threat/security records and controlled screenshots under approved retention,
@@ -251,10 +294,14 @@ does not complete formal verification of the product.
 - Protect the frozen branch/baseline and require impact assessment/new hashes/
   affected reruns for every later change; sign GATE-008.
 
-## 13. G9/G10 — Dossier audit, routing and correspondence
+## 13. G9/G10 — Future formal dossier, routing and correspondence
 
-- Populate `00`–`09` only from approved records and the exact G8 build; remove
-  every placeholder and generate controlled PDFs with tool/version/hash records.
+- Select the applicable post-response non-device, MDEL, Class II/III MDL or
+  additional-information route; do not reuse the inquiry email as an assumed
+  licence-application route.
+- Populate the applicable formal dossier only from approved records and the
+  exact G8 build; remove every placeholder and generate controlled outputs with
+  tool/version/hash records.
 - Verify current consolidated law/guidance and every statutory pin-cite with
   regulatory counsel at approval and submission.
 - Independently audit version/hash consistency, screenshots, equations,
@@ -262,11 +309,11 @@ does not complete formal verification of the product.
   IP/manufacturer authority and deferred-work accuracy.
 - Obtain manufacturer/regulatory/counsel/quality G9 signatures for the exact
   package digest.
-- On the send day, check the then-effective FRM-0292 routing instruction and the
-  known 2026-12-14 transition; update controlled sources if routing changed.
-- Send one request to the verified primary route, never duplicates; archive the
-  exact message, attachments, delivery, acknowledgement/reference and deadlines.
-- Control every response through COR-001; reopen affected scope/gates rather
+- On the send day, verify the current official route and, when MDEL is relevant,
+  the then-effective FRM-0292 including the known 2026-12-14 transition.
+- Send one approved package through the applicable verified route; archive the
+  exact submission, attachments, delivery, acknowledgement/reference and deadlines.
+- Control every response through the G10 correspondence record; reopen affected scope/gates rather
   than paraphrasing Health Canada's position into a stronger conclusion.
 
 ## 14. Work after the classification response

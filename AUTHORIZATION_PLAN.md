@@ -1,7 +1,8 @@
 # Health Canada classification-readiness and authorization plan
 
-Plan date: 2026-08-07  
-Repository baseline: `3b4b63b` on `agent/history-review`  
+Plan date: 2026-08-13
+Repository legacy review baseline: `3b4b63b` on `agent/history-review`
+Early inquiry product baseline: `6b53fde87ff9b193b3c24f7bd93549746b4d6471`
 Inputs reviewed: `CLAUDE_REVIEW.md`, `CODEX_REVIEW.md`, and
 `CANADIAN_REGULATIONS.md`
 
@@ -12,7 +13,7 @@ Inputs reviewed: `CLAUDE_REVIEW.md`, `CODEX_REVIEW.md`, and
 
 ## 1. Target outcome and important boundary
 
-The immediate outcome is a **classification-ready reference product and a
+The immediate outcome is a **classification-ready exact-prototype description and a
 concise classification-support request** to Health Canada's Medical Devices
 Directorate. The request will ask:
 
@@ -32,22 +33,27 @@ clinical usability validation, a penetration test, provincial procurement and
 post-market operations are not prerequisites to asking the classification
 question. They become required or strongly advisable after the route is known.
 
-The reference build still needs to be credible. The current arithmetic can
-produce a reviewed `0 mL` from a positive result, the layout hides content in
-required accessibility states, and saved records can supply invalid data. Those
-known defects directly weaken the claim that the calculation is transparent and
-independently reviewable. They must be corrected before the build is used in
-the classification dossier.
+The product submitted for early classification verification is the functionality
+implemented by the exact current prototype at `6b53fde`. Known implementation
+defects do **not** need to be corrected before Health Canada can classify those
+functions, but they must be candidly disclosed, the prototype must remain
+unavailable for patient care, and no submission statement may imply that the
+software is validated or safe. The positive-to-displayed-zero, accessibility,
+stored-record, security and lifecycle defects remain mandatory remediation
+before a clinical release. Any remediation that adds, removes or materially
+changes a submitted function requires classification impact assessment.
 
 ## 2. Recommended submission strategy
 
 Use one clearly bounded product—not several hypothetical variants—for the
 initial request.
 
-### 2.1 Reference-product scope
+### 2.1 Exact inquiry-product scope
 
-The proposed classification reference version is `0.2.0-classification` with
-the following enforced scope:
+The inquiry product is package version `0.1.0` at full source commit
+`6b53fde87ff9b193b3c24f7bd93549746b4d6471`. Its functionality is frozen by
+`INQ-000_EXACT_PROTOTYPE_BASELINE.md`. The inquiry must describe what this code
+actually does, including:
 
 - intended user: a trained nurse working under an existing authorized
   medication order in a Canadian clinical setting;
@@ -66,20 +72,19 @@ the following enforced scope:
 - no barcode, camera, OCR, voice, EHR, pharmacy-system, pump or monitoring-device
   input;
 - no cloud service, account, analytics, telemetry, crash upload or AI/ML;
-- local-only optional favourites and history, after the storage remediations in
-  this plan; and
+- current local-only favourites and history implemented in browser
+  `localStorage`, including their known validation limitations; and
 - installable PWA operation after one successful online app-shell installation,
-  with no first-visit-offline claim and with controlled cache, update, rollback
-  and storage-eviction behaviour included in verification.
+  with no first-visit-offline claim and the current cache-first service-worker
+  behavior disclosed without claiming controlled rollback or eviction recovery.
 
-Before this scope is approved, the clinical owners must decide and record
-whether the first product excludes paediatrics/neonates, emergency/resuscitation,
-critical care, high-alert medications, continuous infusions, hazardous drugs,
-investigational drugs, multi-vial preparations and compounded preparations.
-The recommended first-release position is to exclude them unless objective
-evidence supports them. The UI and draft label must enforce and disclose the
-decision; a paper-only limitation that contradicts foreseeable use is not
-acceptable.
+Before IQ-001 closes, the manufacturer, pharmacy and nursing reviewers must
+state the actual intended users/settings and every represented limitation.
+Because the prototype does not technically enforce patient, medication or care-
+setting exclusions, the package must not claim that proposed paper limitations
+are implemented controls. Health Canada should be asked how those facts affect
+criterion 3 and fallback classification. Technical enforcement and final
+clinical limitations remain G1–G7 work.
 
 ### 2.2 Proposed intended-use text
 
@@ -142,52 +147,93 @@ Primary sources:
 - [Future FRM-0292 effective 2026-12-14](https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html)
 - [SOR/2026-110 establishment-licence amendments](https://gazette.gc.ca/rp-pr/p2/2026/2026-06-17/html/sor-dors110-eng.html)
 
-## 3. Critical path
+## 3. Two controlled paths
+
+The early classification inquiry and later clinical authorization are separate.
+The inquiry obtains regulatory direction before incurring the entire clinical-
+release programme:
 
 ```text
-Contain prototype
-      ↓
-Freeze intended use and reference-product scope
-      ↓
-Approve numeric requirements and preliminary hazards
-      ↓
-Refactor and correct calculation, storage and UI
-      ↓
-Verify the representative reference build
-      ↓
-Freeze version, claims, screenshots and evidence summaries
-      ↓
-Approve and send one classification-support package
-      ↓
-Record Health Canada response and enter the correct authorization branch
+G0-01 manufacturer/signatory authority + required role appointments
+  → INQ-000 exact prototype facts and known limitations
+    → IQ-001 intended use, clinical facts and exclusion/fallback analysis
+      → generated SUB-000–SUB-009 package
+        → IQ-002 independent audit and exact-package release
+          → send once; control response in COR-002
+            → select regulatory branch
+
+In parallel or after response:
+G0 → G1 → G2 → G3/G4/G5/G6 → G7 → G8 → G9 → G10 clinical-release readiness
 ```
 
-No downstream stage may compensate for a failed upstream gate. In particular,
-warnings and training cannot compensate for an arithmetic defect, and a passing
-browser test cannot compensate for an undefined numeric policy.
+IQ-001/IQ-002 do not close, waive or renumber G0–G10. G0–G10 continue to govern
+implementation remediation and future clinical distribution. No inquiry
+approval may be cited as validation, risk acceptance or patient-care authority.
 
 ## 4. Required roles and approvals
 
 One person may fill more than one role in a small organization, but independent
 verification of the calculation cannot be performed only by its implementer.
 
-| Role | Accountable work before classification request |
+| Role | Accountable early-inquiry work |
 | --- | --- |
 | Legal manufacturer / executive owner | Own product name and intended purpose; provide Canadian contact; approve resources and submission; accept business risk. |
 | Regulatory lead | Control intended use and claims; prepare exclusion/classification analysis; correspond with Health Canada; maintain regulatory decision log. |
-| Quality lead | Control documents, reviews, versions, anomalies, approvals and submission records; ensure the reference build matches the dossier. |
-| IP/commercialization counsel | Confirm copyright/contributor provenance, the manufacturer's rights and control, GPL-3.0 compliance, third-party licences and obligations for the proposed distribution model. |
-| Clinical pharmacy / medication-safety lead | Approve formulas, units, bounds, rounding, unsupported uses, golden test corpus and hazard severity. |
-| Nursing / human-factors lead | Define real workflow and critical tasks; review wording and interface; conduct formative evaluation with representative nurses. |
-| Software lead | Produce architecture, implement requirements, maintain traceability and build the reference release. |
-| Independent software/calculation verifier | Recalculate the corpus independently; review numeric implementation and verification evidence; sign the verification conclusion. |
-| Security/privacy lead | Approve data-flow, threat model, CSP/network boundary, SBOM and local-data design. |
-| French clinical reviewer | Confirm that draft French intended-use, limitations and safety wording have the same meaning as English. |
+| Quality lead | Control YAML/generated records, evidence, versions, approvals, audit findings and the exact outgoing package; preserve the distinction between inquiry and release evidence. |
+| IP/commercialization counsel | Not an automatic inquiry blocker; advise if manufacturer authority or a factual representation is disputed. Full provenance/GPL/distribution advice remains G0/G1 work before commercialization. |
+| Clinical pharmacy / medication-safety reviewer | Confirm formula source, routine-practice basis, worked example, immediate-use consequences and the accuracy of stated limits. |
+| Nursing / human-factors reviewer | Confirm that the submitted user, setting, workflow, independent-review steps and immediate-use description are factually realistic; this is not summative validation. |
+| Software lead | Confirm every function, architecture, limitation, screenshot and artifact statement against the exact source baseline. |
+| Independent calculation verifier | Reproduce the submitted worked example and confirm the disclosed Number/formatting limitations; full G3/G7 verification follows later. |
+| Security/privacy reviewer | Confirm current interface, network, localStorage and service-worker facts; full control approval remains G2/G6. |
+| French clinical reviewer | Not required for an English classification inquiry unless Health Canada requests French or the submitted safety meaning relies on bilingual material; mandatory national-release work remains later. |
 
 The classification package must show the legal manufacturer, not only an
 individual GitHub user or repository name.
 
-## 5. Exact sequence to classification readiness
+## 5. Exact sequence to classification inquiry and later authorization
+
+### Early inquiry sequence — classify the exact current prototype
+
+1. Complete G0-01 manufacturer identity/signatory authority and appoint the
+   quality/software owners needed to make attributable records. Full G0 closure
+   is not a prerequisite to the inquiry.
+2. Fill `records/data/inquiry/INQ-000.yaml` and approve the exact prototype
+   baseline, reproducible URL/artifact, current behavior and known limitations.
+3. Fill `records/data/inquiry/IQ-001.yaml`; approve intended use, actual users/
+   settings, limitations, formula/example, immediate-use facts, four-criterion
+   analysis, published comparison and fallback classification proposal.
+4. Fill `records/data/submission/SUB-000.yaml` through `SUB-009.yaml`, generating
+   the matching Markdown with `npm run regulatory:build`.
+5. Run `npm run regulatory:ready -- --record INQ-000 --record IQ-001` and the
+   corresponding `SUB-*` records. Visible `MISSING` markers are submission
+   blockers, not editorial notes.
+6. Independently audit the exact package, verify current Health Canada routing,
+   complete IQ-002, hash the attachments and obtain manufacturer authorization.
+7. Send once and preserve transmission/acknowledgement/response in COR-002.
+8. Continue G0–G10 according to Health Canada's response and clinical-release
+   needs. Do not change submitted functionality without impact assessment.
+
+### Structured record and generation control
+
+YAML under `docs/regulatory/records/data/` is the editable audit source.
+Mustache templates and `scripts/regulatory-records.mjs` generate deterministic
+Markdown, completeness status and SHA-256 manifests under
+`docs/regulatory/completed/`. Use:
+
+```text
+npm run regulatory:build
+npm run regulatory:check
+npm run regulatory:ready -- --record RECORD-ID
+npm run regulatory:commit -- "Describe the completed evidence or decision"
+```
+
+`regulatory:commit` stages only YAML data and generated completed records and
+refuses pre-existing staged files. A Git commit is an audit trail, not a human
+signature. Sensitive evidence stays in the controlled quality repository and is
+referenced by immutable ID. CI fails if generated documents drift from YAML.
+
+### Full authorization sequence — unchanged G0–G10 controls
 
 ### Step 0 — Contain and baseline the prototype
 
@@ -251,10 +297,11 @@ Actions required while producing them:
    displayed” for the proposed reference product.
 2. Separate current behaviour from future requirements in `README.md`,
    `VISION.md`, `MVP_DESIGN.md` and `MVP_UX_DESIGN.md`.
-3. Decide whether favourites and history are part of the first clinical product.
-   This plan assumes both remain. If either is removed, remove its UI, code,
-   storage and claims before the dossier is frozen; do not describe a feature
-   that is absent or hide a feature that will ship.
+3. Preserve favourites and history as implemented features of the product
+   boundary. Formalize their current workflow and local-only claim; do not add
+   cloud sync, identity, sharing or new record functions. Safety remediation of
+   storage validation/migration does not authorize feature expansion and must
+   receive classification-impact assessment.
 4. Approve the supported patient/care-setting/medication limitations described
    in section 2.1.
 5. Remove or prohibit wording such as “safe,” “verified,” “prevents medication
@@ -629,27 +676,29 @@ The quality lead must:
 The complete verification set must be rerun after any post-G7 code, dependency,
 configuration or label change that can affect the evidence.
 
-### Step 8 — Freeze the classification reference release
+### Step 8 — Freeze the future clinical-release reference
 
 **Dependencies:** G7  
 **Primary owner:** quality and regulatory leads  
 **Gate:** `G8 — dossier baseline frozen`
 
-1. Assign version `0.2.0-classification` and record commit/build hashes.
+1. Assign the next controlled clinical-release candidate version and record
+   commit/build hashes. Do not reuse the exact-prototype inquiry version.
 2. Tag or otherwise immutably identify the source revision.
 3. Archive the exact built artifact, SBOM, lockfile, verification report and
    screenshots.
 4. Freeze the intended use, UI safety copy, feature list, formula, supported
    matrix and prototype warning.
-5. Produce a draft electronic label/IFU in English and clinically reviewed
-   French. It is a draft for classification, not final market labelling.
+5. Produce controlled electronic label/IFU content in English and independently
+   clinically reviewed French. Its final status depends on the applicable
+   authorization branch and is not established by the inquiry response.
 6. Create a software version description explaining what changed from
    `3b4b63b`, every fixed review finding and every deferred item.
 7. Prevent ordinary feature merges into the frozen branch. Any necessary change
    requires impact assessment, new build hash, affected verification rerun and
    dossier update.
 
-## 6. Classification dossier assembly
+## 6. Early classification-inquiry package assembly
 
 Health Canada's July 2026 [application-content notice](https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/expectations-information-submitted-class-iii-iv-licence-notice-industry.html)
 asks Class III/IV applicants to submit concise, relevant summaries rather than
@@ -664,7 +713,10 @@ field, not permanent boilerplate. Regulatory counsel must compare it with the
 current consolidated Medical Devices Regulations and current Health Canada
 guidance when the attachment is approved and again before any later MDL filing.
 
-Create `docs/regulatory/classification-request/` with this manifest:
+The earlier Markdown-only `docs/regulatory/classification-request/` directory is
+superseded for execution by structured YAML in
+`docs/regulatory/records/data/submission/` and generated review documents in
+`docs/regulatory/completed/submission/`. The current manifest is:
 
 | Attachment | Content | Source/approver |
 | --- | --- | --- |
@@ -672,12 +724,12 @@ Create `docs/regulatory/classification-request/` with this manifest:
 | `01_PRODUCT_AND_INTENDED_USE.pdf` | Product definition, intended use, users, setting, limitations, contraindications and claims. | Regulatory, pharmacy, nursing. |
 | `02_WORKFLOW_AND_SCREENSHOTS.pdf` | Numbered end-to-end workflow with current reference-build screenshots, including equations, blocked errors and review reset. | Human factors, quality. |
 | `03_ARCHITECTURE_AND_DATA_FLOW.pdf` | Component/data-flow diagram, manual inputs, local storage, no backend/signal/device integration, build/deployment description. | Software, security/privacy. |
-| `04_CALCULATION_AND_VERIFICATION_SUMMARY.pdf` | Formula, units, numeric policy, independently verified examples, test categories and conclusion; detailed report available on request. | Pharmacy and independent verifier. |
-| `05_RISK_SUMMARY.pdf` | Major hazards, severity, key design controls, residual uncertainties and excluded uses. | Quality, clinical, regulatory. |
-| `06_LABEL_AND_CLAIMS.pdf` | Draft English/French UI label, IFU safety content, claims register and prohibited claims. | Regulatory and French reviewer. |
+| `04_CALCULATION_AND_WORKED_EXAMPLE.pdf` | Formula, actual Number/format behavior, independently reproduced example, current test/formal boundary and known numeric limitation. | Pharmacy, software and independent verifier. |
+| `05_RISK_AND_KNOWN_LIMITATIONS.pdf` | Immediate-use severity, current conceptual safeguards, known defects and unclosed release controls. | Quality, pharmacy and nursing. |
+| `06_ACTUAL_LABEL_AND_CLAIMS.pdf` | Actual English prototype warning/safety/claims text and prohibited claims; not final release labelling. | Regulatory and manufacturer. |
 | `07_SAMD_EXCLUSION_ANALYSIS.pdf` | Evidence against each of the four exclusion criteria, with criterion 3 explicitly identified as ambiguous. | Regulatory counsel/lead. |
 | `08_FALLBACK_CLASSIFICATION.pdf` | If regulated, analysis under SaMD significance/situation matrix and Rules 10(1), 10(2) and 12; explain why broad critical use could be Class III. | Regulatory counsel/lead. |
-| `09_VERSION_AND_CHANGE_SUMMARY.pdf` | Reference commit/build, resolved defects, current feature set and out-of-scope future features. | Quality and software. |
+| `09_PACKAGE_MANIFEST_AND_CHANGE_BOUNDARY.pdf` | Exact source/artifact/attachment hashes and classification reassessment triggers. | Quality and regulatory. |
 
 ### 6.1 Exact exclusion analysis
 
@@ -690,9 +742,10 @@ The package must not assert a foregone non-device conclusion. It should state:
 3. **Criterion 3 — requires Health Canada determination:** the software does not
    choose treatment, but the calculated mL may support immediate preparation or
    administration and could be characterized as driving clinical management.
-4. **Criterion 4 — met for the reference build:** the complete basis is visible
-   and independently reproducible, supported by the calculation verification
-   report and formative-user evidence.
+4. **Criterion 4 — proposed met in functional concept:** the complete substituted
+   basis is visible and checkable before result reveal. Disclose the absence of
+   full conformance/formative evidence and the known Number/format limitations;
+   do not claim that the current prototype is validated.
 
 Compare the reference product directly with Health Canada's examples of simple
 medical calculations and manually entered drug-dosing calculations that users
@@ -722,26 +775,34 @@ only as excluded future changes that will receive a new assessment. Describe
 offline-after-install operation as part of the frozen reference build and its
 verified availability model.
 
-### 6.3 Cover email template
+### 6.3 Cover email source
+
+`records/data/submission/SUB-000.yaml` is the controlled source for the cover
+letter. The text below is illustrative only; populate the YAML with the exact
+manufacturer, baseline, artifact and package facts and review the generated
+document. Do not send this prose copy.
 
 ```text
 Subject: Classification support request — Dosage medication-preparation
-arithmetic software, reference version 0.2.0-classification
+arithmetic software, exact prototype version 0.1.0
 
 To the Medical Devices Directorate,
 
-[Legal manufacturer] requests classification support for Dosage reference
-version 0.2.0-classification. Dosage is intended for trained nurses to perform
+[Legal manufacturer] requests classification support for Dosage exact prototype
+version 0.1.0 at source commit
+6b53fde87ff9b193b3c24f7bd93549746b4d6471. Dosage is intended for trained nurses to perform
 transparent arithmetic using manually entered vial-label information, a final
 prepared volume and an already-authorized dose. It does not select or recommend
 treatment. The complete basis of the result is displayed for independent
 review.
 
 The attached package defines the exact version, intended use, limitations,
-workflow, architecture, verification summary, risk summary, draft label and our
-analysis of the four SaMD exclusion criteria. Criterion 3 is the point on which
-we specifically request Health Canada's interpretation because the output may
-be used in an immediate medication-preparation workflow.
+workflow, architecture, calculation example, known defects and unclosed release
+controls, actual prototype label/claims and our analysis of the four SaMD
+exclusion criteria. Criterion 3 is the point on which we specifically request
+Health Canada's interpretation because the output may be used in an immediate
+medication-preparation workflow. This request does not claim that the prototype
+has completed clinical validation.
 
 Please confirm whether this product is outside the Medical Devices Regulations.
 If it is a medical device, please advise which class and Schedule 1 rule(s) are
@@ -754,13 +815,17 @@ under review.
 [Manufacturer and regulatory contact]
 ```
 
-## 7. Internal dossier review and submission
+## 7. Future clinical-release dossier review and submission
 
-### Step 9 — Perform an independent dossier audit
+This section governs any later formal application or remediated-product dossier
+after the early inquiry response. It is not the route for IQ-002/COR-002 and is
+not a prerequisite to the exact-prototype inquiry.
+
+### Step 9 — Perform the future clinical-release/licence dossier audit
 
 **Dependencies:** G8 and complete attachment manifest  
 **Primary owner:** quality lead  
-**Gate:** `G9 — submission approved`
+**Gate:** `G9 — formal dossier approved`
 
 The auditor must verify:
 
@@ -774,32 +839,30 @@ The auditor must verify:
 - the architecture accurately describes local storage and all network/build
   services;
 - English and French safety statements are equivalent;
-- the contact details and source links are current on submission day;
+- the applicable application route, contact details, forms and source links are
+  current on submission day;
 - filenames, versions, dates, approvals and hashes are consistent; and
 - deferred clinical-release work is not represented as completed.
 
-Regulatory counsel should review `07_SAMD_EXCLUSION_ANALYSIS.pdf` and
-`08_FALLBACK_CLASSIFICATION.pdf`. The legal manufacturer signs the cover
-letter and G9 release record.
+Regulatory counsel must review the resulting classification decision and the
+legal basis, application content and claims for the applicable branch. The legal
+manufacturer signs the formal application/cover letter and G9 release record.
 
-### Step 10 — Send and control correspondence
+### Step 10 — Send and control future formal/licence correspondence
 
 **Dependencies:** G9  
 **Primary owner:** regulatory lead  
-**Gate:** `G10 — request acknowledged`
+**Gate:** `G10 — formal submission acknowledged`
 
-1. Determine whether the submission date is before or on/after 2026-12-14. If it
-   is before, use the currently effective FRM-0292; if it is on/after, use the
-   superseding “FRM-0292 (effective December 14, 2026)” and review the
-   SOR/2026-110 implementation material. Do not rely on a cached pre-effective
-   copy.
-2. Recheck that the version effective on the submission date still designates
-   `meddevices-instrumentsmed@hc-sc.gc.ca` for classification support. Record
-   the instruction title/version, page URL, access date and applicable effective
-   date. If it has changed, update both this plan and
-   `CANADIAN_REGULATIONS.md` before submission.
-3. Send the email and attachments to that primary address from the legal
-   manufacturer's controlled regulatory mailbox.
+1. Select the applicable non-device, Class I/MDEL, Class II MDL, Class III MDL
+   or additional-information route from the controlled Health Canada response
+   and current law/guidance; do not assume the early-inquiry email is the later
+   application channel.
+2. If MDEL obligations are implicated, apply the version of FRM-0292 effective
+   on the submission day, including the 2026-12-14 transition and SOR/2026-110.
+   Record the instruction title/version, URL, access date and effective date.
+3. Submit the exact G9-approved package through the then-current official route
+   from the legal manufacturer's controlled regulatory account or mailbox.
 4. Save the exact sent message, attachments and cryptographic hashes in the
    regulatory record.
 5. Log the Health Canada acknowledgement, reference number, contact and every
@@ -810,18 +873,18 @@ letter and G9 release record.
 7. Answer only from controlled evidence. If an answer changes intended use,
    feature scope or risk analysis, reopen the affected gate and update the
    complete package.
-8. Keep the reference build frozen and unavailable for patient care while the
-   request is open.
+8. Keep the reference build frozen and unavailable for patient care unless and
+   until all applicable authorization and institutional release conditions are
+   satisfied.
 
-Health Canada may answer by email, recommend a meeting, request more
-information, decline to provide a definitive premarket view, or confirm class
-only during an MDL application. Record the exact wording and assumptions; do
-not paraphrase it into a stronger claim.
+Health Canada may acknowledge, screen, request more information, impose terms or
+reject an application. Record the exact wording and assumptions; do not
+paraphrase it into a stronger claim or authorization.
 
 ## 8. Work deliberately deferred until after classification
 
-The following are not excuses to delay the classification request once G9 is
-met. They remain mandatory clinical-release work where applicable:
+The following are not prerequisites to the early IQ-002 classification request.
+They remain mandatory clinical-release work where applicable:
 
 - MDSAP certification and a complete ISO 13485 QMS;
 - full IEC 62304 lifecycle records beyond the controlled reference-build set;
@@ -930,11 +993,12 @@ Canada's classification direction is evaluated.
 | Prototype warning could drift | Steps 0 and 7; automated assertion and controlled claims record. |
 | GPL-3.0, contributor rights and manufacturer authority are not established | Steps 0–1; contributor/title/licence inventory and counsel-approved `IP-001_OWNERSHIP_AND_LICENSING.md` before G1. |
 
-### Findings that do not block the classification request
+### Findings that do not block the early classification inquiry
 
 The reviews also identify useful maintenance work that does not materially
 change the classification analysis. Record, prioritize and disposition it, but
-do not delay G9 solely for these items unless the risk analysis promotes one:
+do not delay IQ-002 solely for these items unless they make a submitted fact or
+classification analysis inaccurate:
 
 - align history pagination with favourites;
 - optimize or subset KaTeX only after proving MathML and equation readability
@@ -951,41 +1015,33 @@ These items remain normal controlled changes. None may alter intended use,
 calculation behaviour, independently reviewable equations, security boundary or
 evidence without reopening the affected gate.
 
-## 11. Classification-submission definition of done
+## 11. Early classification-inquiry definition of done
 
 The package is ready to send only when every item below is true:
 
 - [ ] Legal manufacturer and controlled regulatory contact are identified.
-- [ ] IP/commercialization counsel has approved the copyright/contributor,
-  GPL-3.0, third-party licence and manufacturer-control record for the proposed
-  product and distribution model.
-- [ ] Reference-product scope, intended use, contraindications and claims are
-  signed and match the executable software.
+- [ ] INQ-000 identifies one exact source commit, executable artifact/URL,
+  screenshots and every actual function/known limitation.
+- [ ] Intended user, setting, represented purpose and limitations are signed and
+  match the executable prototype; unimplemented exclusions are not called
+  enforced controls.
 - [ ] Current build remains clearly unavailable for patient care.
-- [ ] Numeric input, calculation, display and rounding policy are clinically
-  approved.
-- [ ] Pure calculation engine and typed state boundaries are implemented.
-- [ ] The approved unit/property-test and type-system infrastructure exists in
-  `package.json`, lock/configuration files and CI; none of the verification
-  commands is hypothetical.
-- [ ] Reproduced zero/overflow defects and every critical/high review finding
-  applicable to the reference scope are closed with regression evidence;
-  offline/PWA installation, update, rollback and eviction behaviour meets the
-  approved availability claim.
-- [ ] Saved data cannot introduce an unvalidated or stale calculation.
-- [ ] Required portrait, landscape, tablet and 200% text states are usable.
-- [ ] Exact formulas and the result are independently reviewable by
-  representative nurses.
-- [ ] Unit/property/fuzz/E2E/accessibility/privacy tests pass on the frozen build.
-- [ ] Preliminary risk, architecture/data-flow, SBOM and verification summaries
-  accurately describe the build.
-- [ ] Draft English/French label and IFU match intended use and limitations.
+- [ ] Pharmacy confirms the formula/routine-practice source and an independent
+  reviewer reproduces the worked example; current Number/formatting behavior is
+  accurately disclosed.
+- [ ] Nursing confirms the submitted workflow and immediate-use context are
+  factually realistic; no claim of summative validation is made.
+- [ ] Architecture, localStorage, service-worker, network and current English
+  warning/claim descriptions match the exact prototype.
+- [ ] Known defects and unclosed clinical-release controls are conspicuously
+  disclosed without being represented as accepted risk.
 - [ ] Four-criterion SaMD analysis candidly identifies criterion 3 ambiguity.
 - [ ] Non-device and Class I/II/III alternatives are supported by the applicable
   Health Canada guidance and rules.
-- [ ] Every attachment has an owner, approver, version, date and matching build
-  hash.
-- [ ] Independent dossier audit and regulatory-counsel review are complete.
+- [ ] Every required YAML value, evidence reference and approval is populated;
+  `regulatory:ready` passes for INQ-000, IQ-001, IQ-002 and SUB-000–SUB-009.
+- [ ] Every generated attachment matches YAML/template hashes and the exact
+  package has an independent consistency/regulatory review.
 - [ ] Health Canada contacts and source documents were rechecked on submission
   day.
 - [ ] Legal manufacturer approved the exact sent package.
@@ -998,6 +1054,7 @@ planning range is:
 
 | Work | Planning range | Parallelism |
 | --- | ---: | --- |
+| Early exact-prototype inquiry (G0-01/roles, INQ-000, IQ-001/2, SUB package) | 2–6 weeks | Identity, clinical facts, screenshots, calculation and regulatory review can overlap. |
 | Steps 0–1: containment and product definition | 1–3 weeks | Regulatory/clinical workshops can run together. |
 | Step 2: numeric/risk/test specifications | 2–4 weeks | Security/privacy specification can run alongside numeric work. |
 | Steps 3–6: implementation and hardening | 5–10 weeks | Storage, UI and security can overlap after domain interfaces stabilize. |
@@ -1012,19 +1069,21 @@ to meet a target date.
 
 ## 13. Bottom line
 
-The product should be submitted for classification as a narrow, transparent
-arithmetic aid, not as an unrestricted clinical dosing system. The shortest
-defensible route is:
+The exact current prototype should be submitted for classification as a narrow,
+transparent arithmetic aid, not as an unrestricted clinical dosing system. The
+shortest defensible route is:
 
-1. freeze the intended purpose and excluded uses;
-2. correct the known arithmetic, state and accessibility defects;
-3. independently verify one representative build;
-4. describe that exact build in a concise, candid dossier; and
-5. ask Health Canada whether its immediate medication-preparation use still fits
+1. establish the manufacturer/signatory and accountable record owners;
+2. freeze and accurately describe the exact `6b53fde` prototype, including
+   known defects and absence of patient-care authorization;
+3. approve the intended purpose, actual functional boundary, clinical facts,
+   worked example, exclusion analysis and fallback position;
+4. generate/audit one hashed package from YAML and send it once; and
+5. ask Health Canada whether immediate medication-preparation use still fits
    the published exclusion for independently reviewable drug calculations.
 
 Do not spend the time and money for a Class II/III licence application before
-obtaining classification direction, but do not send the current defective
-prototype as though its equations are reliable. Classification readiness is the
-next gate; clinical authorization remains a separate, longer programme after
-Health Canada responds.
+obtaining classification direction. The defective prototype may be the subject
+of classification if the package is candid; it may not be supplied or described
+as reliable for patient care. IQ-001/IQ-002 are the next gates. Clinical
+authorization remains the separate G0–G10 programme.

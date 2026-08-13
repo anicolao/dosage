@@ -17,6 +17,57 @@ permission for patient care, or completion of any authorization gate.
 - The three source reviews remain unchanged design inputs:
   `CLAUDE_REVIEW.md`, `CODEX_REVIEW.md`, and `CANADIAN_REGULATIONS.md`.
 
+## Structured execution records
+
+The prose records in this directory define procedures, rationale and required
+evidence. They are not filled in directly for execution. The controlled,
+fillable sources are YAML under `records/data/`; deterministic Markdown for
+review is generated under `completed/`.
+
+```text
+npm run regulatory:build
+npm run regulatory:check
+npm run regulatory:ready -- --record RECORD-ID
+npm run regulatory:commit -- "Describe the completed evidence or decision"
+```
+
+`regulatory:build` validates each YAML record against
+`records/record.schema.json`, renders it through a version-controlled Mustache
+template, and writes the generated record, completeness index and SHA-256
+manifest. Null required values render as conspicuous `MISSING` markers.
+`regulatory:ready` fails until the selected records contain required evidence,
+decisions and approvals and are marked approved. `regulatory:commit` refuses
+pre-existing staged files, regenerates/checks the package, and stages only the
+YAML sources and `completed/` outputs.
+
+Git records who changed the YAML and generated output; it is not itself a legal
+or quality signature. Signature references must identify evidence held in the
+approved record system. Do not commit privileged, personal or sensitive source
+evidence merely to satisfy a reference field.
+
+## Exact-prototype inquiry path
+
+The immediate classification inquiry describes package version `0.1.0` at
+source commit `6b53fde87ff9b193b3c24f7bd93549746b4d6471` exactly as implemented,
+including its known defects and unclosed clinical-release controls. It neither
+authorizes patient care nor claims validation. Its execution order is:
+
+```text
+G0-01 and accountable role appointments
+  → INQ-000
+    → IQ-001
+      → SUB-000 through SUB-009
+        → IQ-002
+          → COR-002
+```
+
+The `GATE-000` through `GATE-010` YAML records govern the separate, later
+clinical-release programme. They do not have to be closed before IQ-002. The
+product feature boundary remains the current prototype: no new clinical logic,
+integration, cloud, AI or automation is silently added. Safety corrections may
+change defective input, arithmetic, display, persistence or lifecycle behavior
+only under documented classification-impact control.
+
 ## Current records
 
 | Record | Status | Purpose |
@@ -59,9 +110,14 @@ permission for patient care, or completion of any authorization gate.
 | `classification-request/README.md` | Draft/not submission ready | Index the controlled `00`–`09` classification-request source templates. |
 | `classification-request/GATE-009_DOSSIER_AUDIT.md` | Open | Require an independent exact-package audit and manufacturer approval before sending. |
 | `classification-request/COR-001_CLASSIFICATION_CORRESPONDENCE_LOG.md` | Draft/open | Control submission-day routing, delivery evidence and Health Canada correspondence. |
+| `records/data/inquiry/*.yaml` | Incomplete/fillable | Control the exact prototype baseline, early inquiry gates and correspondence log. |
+| `records/data/submission/*.yaml` | Incomplete/fillable | Populate the `SUB-000`–`SUB-009` early classification package. |
+| `records/data/gates/*.yaml` | Incomplete/fillable | Populate G0 support records and the G0–G10 clinical-release gates. |
+| `completed/` | Generated/not ready | Deterministic review copies, completeness index and source/template/output hash manifest. |
 
 G1 records are drafted for review, but no G1 record may imply that G0 is closed
 while `GATE-000_CONTROLLED_PROTOTYPE.md` remains open. G2 specifications must
-not be approved until both gates are legitimately closed. Classification-request
-sources are planning scaffolds only: they cannot be finalized until the required
-upstream gates and G9 audit are complete.
+not be approved until both gates are legitimately closed. The legacy
+`classification-request/` Markdown scaffolds are superseded for early-inquiry
+execution by the structured records. G9/G10 apply only to a future formal
+clinical-release/licence dossier; IQ-002 and COR-002 control the early inquiry.
