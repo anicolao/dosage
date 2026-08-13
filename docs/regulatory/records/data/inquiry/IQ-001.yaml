@@ -1,0 +1,160 @@
+record_id: IQ-001
+title: Classification inquiry product and analysis approval
+kind: inquiry_gate
+template: gate.md.mustache
+output: gates/IQ-001_CLASSIFICATION_INQUIRY_PRODUCT_AND_ANALYSIS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  IQ-001 is an early classification-inquiry gate, not clinical-release gate G1.
+  It freezes enough exact product fact, intended/represented use and exclusion
+  analysis for Health Canada to assess the current prototype. Closing IQ-001
+  does not approve patient care, commercialization, implementation quality or
+  residual risk.
+dependencies:
+  - Approved G0-01-FRM manufacturer identity and signatory authority
+  - Approved INQ-000 exact prototype baseline
+required_fields:
+  - id: IQ1-F01
+    label: Manufacturer legal name/address and Canadian contact
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ1-F02
+    label: Exact prototype full source commit
+    value: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+    evidence_ref: INQ-000
+    required: true
+  - id: IQ1-F03
+    label: Intended user and setting
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ1-F04
+    label: Intended use and represented-purpose text
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ1-F05
+    label: Exact inclusion and exclusion boundary
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ1-F06
+    label: Current prototype limitations statement
+    value: null
+    evidence_ref: null
+    required: true
+sections:
+  - title: Gate boundary
+    body: >-
+      IQ-001 approves the facts used for classification verification: exact
+      functions, intended/represented use, manual-input and independent-review
+      workflow, immediate-use context, four-criterion analysis, published
+      comparison and fallback classification position. It does not approve the
+      prototype's known implementation limitations for patient care.
+    required: true
+decisions:
+  - id: IQ1-D01
+    question: Does the inquiry candidly ask Health Canada to resolve criterion 3 given immediate medication-preparation use?
+    decision: null
+    rationale: null
+    evidence_ref: null
+    required: true
+  - id: IQ1-D02
+    question: Does the inquiry compare the exact prototype with Health Canada's independently reviewable drug-calculation example without claiming equivalence as a conclusion?
+    decision: null
+    rationale: null
+    evidence_ref: null
+    required: true
+  - id: IQ1-D03
+    question: Does the fallback analysis propose and justify a class/rule if Health Canada considers the prototype SaMD?
+    decision: null
+    rationale: null
+    evidence_ref: null
+    required: true
+evidence:
+  - id: IQ1-E01
+    description: Exact prototype baseline and discrepancy/known-limitation list
+    reference: docs/regulatory/completed/inquiry/INQ-000_EXACT_PROTOTYPE_BASELINE.md
+    status: draft
+    required: true
+  - id: IQ1-E02
+    description: Approved intended use, function list, workflow and exclusion boundary
+    reference: null
+    status: missing
+    required: true
+  - id: IQ1-E03
+    description: Pharmacy review of formula, worked example and routine-practice basis
+    reference: null
+    status: missing
+    required: true
+  - id: IQ1-E04
+    description: Representative nurse review that the submitted workflow is factually realistic
+    reference: null
+    status: missing
+    required: true
+  - id: IQ1-E05
+    description: Regulatory/counsel review of current guidance, four criteria, fallback rules and questions
+    reference: null
+    status: missing
+    required: true
+approvals:
+  - role: Legal manufacturer
+    scope: Approve exact inquiry product, intended/represented use and classification questions
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Regulatory lead or qualified Canadian regulatory reviewer
+    scope: Approve exclusion and fallback classification analysis against current official guidance
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Pharmacy or medication-safety reviewer
+    scope: Approve formula, authoritative/routine-practice basis and worked example as factual inputs to classification
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Representative nurse or nursing/human-factors reviewer
+    scope: Confirm that the submitted workflow and immediate-use description are factually realistic
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Software lead
+    scope: Confirm every functional and architecture statement matches the exact source baseline
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Quality lead
+    scope: Confirm record control, evidence trace, discrepancy disclosure and signature completeness
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+change_triggers:
+  - Any change to IQ1-F02 through IQ1-F06 or their evidence
+  - New official guidance or legal interpretation material to the analysis
+  - New evidence that a prototype function or foreseeable workflow was omitted
+completion_statement: >-
+  IQ-001 is open. It may close before G1–G8 only after the exact-prototype facts,
+  intended use, exclusions, analysis, clinical facts and required approvals are
+  complete.

@@ -1,0 +1,108 @@
+record_id: IQ-002
+title: Classification inquiry package release
+kind: inquiry_gate
+template: gate.md.mustache
+output: gates/IQ-002_CLASSIFICATION_INQUIRY_PACKAGE_RELEASE.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  IQ-002 authorizes one exact hashed classification-verification package to be
+  sent once. It is a narrow pre-submission audit and does not replace G7–G9 for
+  a future clinical release or licence application.
+dependencies:
+  - Approved IQ-001
+  - All required SUB-000 through SUB-008 documents mechanically ready and approved
+required_fields:
+  - id: IQ2-F01
+    label: Exact package manifest SHA-256
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ2-F02
+    label: Recipient instruction title, URL, version/effective date and access date
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ2-F03
+    label: Primary recipient address verified on submission day
+    value: null
+    evidence_ref: null
+    required: true
+  - id: IQ2-F04
+    label: Authorized sending mailbox and sender
+    value: null
+    evidence_ref: null
+    required: true
+sections:
+  - title: Narrow audit scope
+    body: >-
+      Verify manufacturer/contact identity, exact source baseline, intended use,
+      feature and workflow accuracy, screenshots, formula/example, four-criterion
+      analysis, fallback classification, known limitations, current official
+      citations, internal consistency and absence of approval/clinical-use
+      claims. Preserve the exact outgoing message and attachments.
+    required: true
+decisions:
+  - id: IQ2-D01
+    question: Is this exact package approved to send once as a classification-verification request?
+    decision: null
+    rationale: null
+    evidence_ref: null
+    required: true
+evidence:
+  - id: IQ2-E01
+    description: Generated submission completeness report and package manifest
+    reference: docs/regulatory/completed/COMPLETENESS.md; MANIFEST.json
+    status: draft
+    required: true
+  - id: IQ2-E02
+    description: Independent package consistency review findings and closure evidence
+    reference: null
+    status: missing
+    required: true
+  - id: IQ2-E03
+    description: Submission-day Health Canada routing verification
+    reference: null
+    status: missing
+    required: true
+approvals:
+  - role: Independent package reviewer
+    scope: Audit exact generated package for factual and internal consistency
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Regulatory lead
+    scope: Approve current citations, questions, route and correspondence controls
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Quality lead
+    scope: Release the exact hashed package after all blocking findings close
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+  - role: Legal manufacturer
+    scope: Authorize transmission of the exact package and representations
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+change_triggers:
+  - Any package file, source baseline, intended-use fact, analysis, recipient or citation changes after approval
+completion_statement: >-
+  IQ-002 remains open until the exact generated submission package is complete,
+  independently audited, submission-day routing is recorded and the legal
+  manufacturer authorizes transmission.
