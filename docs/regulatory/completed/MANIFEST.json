@@ -993,11 +993,11 @@
       "status": "incomplete",
       "ready": false,
       "source": "docs/regulatory/records/data/submission/SUB-002.yaml",
-      "source_sha256": "b9c1892b731d96b4996e0ce45d85b41df856c9ff45342dbdd3680f6cb5ffb964",
+      "source_sha256": "fbacb6d2dae85c5d848e352aabb10170edf225373ac2a0624953b9d8422b5016",
       "template": "docs/regulatory/records/templates/submission.md.mustache",
       "template_sha256": "e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd",
       "output": "docs/regulatory/completed/submission/02_WORKFLOW_AND_SCREENSHOTS.md",
-      "output_sha256": "3d99c3df6f0084cacf00ef53728dd4ce7ee4e90b5489a7b0bcf44d6d8e503a90",
+      "output_sha256": "54515bbb9e80260da6cab18be2a8001875d3609916e07d8beb2c441ec5bcfa16",
       "missing": [
         "SUB-002.approvals.1.date",
         "SUB-002.approvals.1.decision",

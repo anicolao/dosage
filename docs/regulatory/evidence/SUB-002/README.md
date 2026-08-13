@@ -7,7 +7,7 @@ This archive was captured automatically from Dosage `0.1.0` at source baseline `
 | Capture date | 2026-08-13 |
 | Operator | Automated Playwright capture; no human operator |
 | Environment | Playwright Chromium; en-CA; America/Toronto; 393x852 CSS pixels at device scale factor 1 |
-| Worked example | Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; expected administration volume 10 mL |
+| Worked example | Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; expected prepared concentration 0.2 mg/mL = 200 mcg/mL and expected administration volume 10 mL |
 | Screenshot archive SHA-256 | `96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8` |
 | Built artifact file-manifest SHA-256 | `87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db` |
 | Machine-readable manifest | [MANIFEST.json](./MANIFEST.json) |

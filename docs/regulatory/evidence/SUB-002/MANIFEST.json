@@ -13,7 +13,7 @@
     "viewport": "393x852 CSS pixels at device scale factor 1"
   },
   "capture_plan": "docs/regulatory/evidence/SUB-002/capture-plan.json",
-  "capture_plan_sha256": "3f604d0931f90f8636150265ca264022353950e0b02ad41a8d3a53b959d52335",
+  "capture_plan_sha256": "42127b9b17d920db88e686d7aefa26c2bf198506f28a892a5e1dd4dfc07ce773",
   "build_command": "npm run build:submission",
   "test_command": "playwright test --config playwright.submission.config.ts",
   "artifact_file_manifest_sha256": "87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db",

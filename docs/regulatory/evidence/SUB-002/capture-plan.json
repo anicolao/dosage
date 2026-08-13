@@ -10,7 +10,7 @@
   "locale": "en-CA",
   "timezone": "America/Toronto",
   "viewport": "393x852 CSS pixels at device scale factor 1",
-  "worked_example": "Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; expected administration volume 10 mL",
+  "worked_example": "Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; expected prepared concentration 0.2 mg/mL = 200 mcg/mL and expected administration volume 10 mL",
   "captures": [
     {
       "id": "01-blank-mix",

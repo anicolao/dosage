@@ -36,4 +36,4 @@
 | `SUB-009` | incomplete | NOT READY | 15 | `docs/regulatory/completed/submission/09_PACKAGE_MANIFEST_AND_CHANGE_BOUNDARY.md` |
 | `GEN-001` | in_review | NOT READY | 7 | `docs/regulatory/completed/support/GEN-001_RECORD_GENERATION_CONTROL.md` |
 
-Manifest SHA-256: `ae14deb2df55534c306ab5b76d72dbeaf5c46f3211b776636bcda166efd50c63`
+Manifest SHA-256: `a3f546009be81dd0cc562b1cfffb006bea62ca415aa1b3cacd1d936100aba3b6`
