@@ -1,0 +1,48 @@
+record_id: SUB-000
+title: Classification-verification request cover letter
+kind: submission
+template: submission.md.mustache
+output: submission/00_COVER_LETTER.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Draft cover letter asking Health Canada whether the exact Dosage prototype is
+  outside the medical-device definition and, if not, which class and rule apply.
+dependencies: [IQ-001, IQ-002]
+required_fields:
+  - { id: COV-F01, label: "Legal manufacturer name and address", value: null, evidence_ref: null, required: true }
+  - { id: COV-F02, label: "Regulatory contact and controlled coordinates", value: null, evidence_ref: null, required: true }
+  - { id: COV-F03, label: "Submission date", value: null, evidence_ref: null, required: true }
+  - { id: COV-F04, label: "Exact package manifest digest", value: null, evidence_ref: null, required: true }
+  - { id: COV-F05, label: "Verified recipient address", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Request
+    body: |-
+      `[LEGAL MANUFACTURER]` requests classification verification for the exact Dosage prototype identified by the source commit above. The software is intended to provide trained nurses with transparent medication dilution arithmetic from manually entered vial-label facts, a selected final prepared volume and an already-authorized ordered dose. It does not select or recommend a medication or dose. Every substituted equation must be checked before the calculated mL is revealed.
+
+      The manufacturer asks whether the exact prototype meets all four Health Canada clinical-decision-support exclusion criteria. The request specifically asks Health Canada to determine whether immediate or near-term use in medication preparation means the output drives clinical/patient management despite the transparent arithmetic and independent review. If it is SaMD, the manufacturer requests the applicable class and Schedule 1 rule(s).
+    required: true
+  - title: Questions
+    body: |-
+      1. Does the exact prototype fall outside the definition of a medical device under all four SaMD exclusion criteria and the published manually entered, independently reviewable drug-calculation example?
+      2. Does immediate medication-preparation use prevent criterion 3 from being met?
+      3. If regulated, what class and current Schedule 1 rule(s) apply to the exact intended/represented use?
+      4. What additional fact, limitation or evidence would Health Canada require?
+    required: true
+  - title: Status disclaimer
+    body: >-
+      The identified prototype is not being supplied for patient care. The
+      manufacturer will not represent classification advice as a medical device
+      licence, establishment licence, market authorization or safety approval.
+    required: true
+decisions:
+  - { id: COV-D01, question: "Is the exact package authorized to send once?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: COV-E01, description: "IQ-002 package-release decision", reference: null, status: missing, required: true }
+approvals:
+  - { role: Regulatory lead, scope: "Approve recipient questions and current route", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer signatory, scope: "Sign and authorize the exact request", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Any change to package identity, questions, recipient or manufacturer]
+completion_statement: null

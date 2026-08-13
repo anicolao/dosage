@@ -1,0 +1,54 @@
+record_id: SUB-005
+title: Classification-relevant risk and known limitations
+kind: submission
+template: submission.md.mustache
+output: submission/05_RISK_AND_KNOWN_LIMITATIONS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Candid classification-relevant hazard and limitation summary. This is not a
+  completed risk-management file or residual-risk acceptance.
+dependencies: [INQ-000, IQ-001]
+required_fields:
+  - { id: RSK-F01, label: "Intended clinical context and worst credible consequence", value: null, evidence_ref: null, required: true }
+  - { id: RSK-F02, label: "Prototype containment while inquiry is pending", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Classification-relevant risk
+    body: >-
+      A wrong or misunderstood mL result used in immediate medication
+      preparation could contribute to serious injury or death. This consequence
+      is central to criterion 3 and fallback classification. Transparent
+      arithmetic and external verification may reduce reliance but do not erase
+      immediate use or establish acceptable residual risk.
+    required: true
+  - title: Known prototype limitations
+    body: >-
+      Known limitations include permissive browser/Number input and arithmetic,
+      positive values that may display as zero after six-decimal formatting,
+      no approved numeric bounds or clinical rounding rule, weak stored-record
+      validation and trust of stored derived values, no complete migration or
+      recovery control, incomplete accessibility/usability evidence, no CSP or
+      final SBOM/security review, incomplete update/rollback proof, public
+      prototype hosting and no final bilingual label/IFU.
+    required: true
+  - title: Existing conceptual safeguards
+    body: >-
+      Current UI safeguards include closed mg/mcg selectors, six final-volume
+      choices, finite-positive checks, final-volume and one-vial blocking,
+      visible substituted equations, check-every-step gating, edit reset,
+      acknowledgement, warnings, no patient-information prompt, and persistent
+      prototype status. These are implementation facts, not verified residual-
+      risk controls.
+    required: true
+decisions:
+  - { id: RSK-D01, question: "Are known defects and immediate-use severity stated without minimization?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: RSK-E01, description: "Quality/clinical review of hazard and limitation completeness", reference: null, status: missing, required: true }
+approvals:
+  - { role: Quality lead, scope: "Approve honest distinction between current facts and unclosed risk controls", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Pharmacy reviewer, scope: "Confirm clinical consequence and calculation hazards", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Nursing reviewer, scope: "Confirm workflow/reliance and immediate-use risk description", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [New hazard, defect, incident, control evidence, intended-use or baseline change]
+completion_statement: null

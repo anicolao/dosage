@@ -1,0 +1,58 @@
+record_id: SUB-001
+title: Exact product and intended use
+kind: submission
+template: submission.md.mustache
+output: submission/01_PRODUCT_AND_INTENDED_USE.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Product/intended-use description for the exact executable prototype, not the
+  later target architecture or an authorized clinical release.
+dependencies: [INQ-000, IQ-001]
+required_fields:
+  - { id: PRD-F01, label: "Legal manufacturer", value: null, evidence_ref: null, required: true }
+  - { id: PRD-F02, label: "Intended user", value: null, evidence_ref: null, required: true }
+  - { id: PRD-F03, label: "Intended care setting", value: null, evidence_ref: null, required: true }
+  - { id: PRD-F04, label: "Exact intended-use statement", value: null, evidence_ref: null, required: true }
+  - { id: PRD-F05, label: "Exact enforceable exclusions", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Exact included functions
+    body: >-
+      The prototype includes manual entry of medication display name, vial
+      amount/unit/volume and ordered dose/unit; six final prepared volume
+      selections; mg/mcg conversion; dilution arithmetic; substituted equation
+      review before result reveal; acknowledgement before history save;
+      localStorage favourites and history; English UI; installable manifest;
+      offline app-shell cache; and visible version/source identity.
+    required: true
+  - title: Exact absent functions
+    body: >-
+      There is no drug library, patient model, dose selection/range check, route
+      or rate recommendation, order verification, barcode, camera, OCR, EHR,
+      pharmacy, pump, medical-signal, account, cloud sync, telemetry, analytics,
+      crash upload or AI/ML function.
+    required: true
+  - title: Represented-use limits
+    body: >-
+      The UI states “Prototype only — not for patient care,” tells the user the
+      app does not recommend a dose, requires verification against the order,
+      vial label, pharmacy guidance and local policy, warns to verify overfill
+      and preparation method, and says local policy controls measurable volume
+      and rounding. The submitted intended-use and exclusions must not
+      contradict any actual function or foreseeable immediate-use workflow.
+    required: true
+decisions:
+  - { id: PRD-D01, question: "Are favourites, history and offline installation included in the classified product?", decision: null, rationale: null, evidence_ref: null, required: true }
+  - { id: PRD-D02, question: "Does the intended use candidly state immediate or near-term medication-preparation use?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: PRD-E01, description: "Approved exact prototype baseline", reference: docs/regulatory/completed/inquiry/INQ-000_EXACT_PROTOTYPE_BASELINE.md, status: draft, required: true }
+  - { id: PRD-E02, description: "Clinical review of intended users/settings/exclusions", reference: null, status: missing, required: true }
+approvals:
+  - { role: Legal manufacturer, scope: "Approve represented purpose and exact product boundary", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Regulatory lead, scope: "Approve intended-use wording for classification", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Pharmacy reviewer, scope: "Confirm formula/preparation purpose and limits are factually accurate", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Nursing reviewer, scope: "Confirm user/setting/workflow and immediate-use facts", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Change to a function, intended use, user, setting, limitation or claim]
+completion_statement: null

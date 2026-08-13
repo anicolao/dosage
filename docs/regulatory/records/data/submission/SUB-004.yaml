@@ -1,0 +1,62 @@
+record_id: SUB-004
+title: Exact calculation and worked example
+kind: submission
+template: submission.md.mustache
+output: submission/04_CALCULATION_AND_WORKED_EXAMPLE.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Formula, actual Number/formatting implementation, independently reproducible
+  example and current evidence. Formal work is disclosed but not misrepresented
+  as proof that the prototype implements the Lean model.
+dependencies: [INQ-000]
+required_fields:
+  - { id: CAL-F01, label: "Authoritative formula source", value: null, evidence_ref: null, required: true }
+  - { id: CAL-F02, label: "Approved worked-example inputs and expected values", value: null, evidence_ref: null, required: true }
+  - { id: CAL-F03, label: "Independent calculation reviewer", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Actual formula
+    body: |-
+      Let A be vial amount, Vv vial volume, Vf selected final prepared volume, D ordered dose, and unit factor S(mg)=1000, S(mcg)=1:
+
+      - vial concentration = A / Vv
+      - prepared concentration = A / Vf
+      - prepared concentration in ordered units = (A × S(vial unit) / S(ordered unit)) / Vf
+      - administration volume mL = D / prepared concentration in ordered units
+
+      The prototype blocks Vf < Vv and D greater than one vial's converted available amount.
+    required: true
+  - title: Actual implementation and rounding disclosure
+    body: >-
+      Inputs are converted with JavaScript Number and operations use IEEE-754
+      arithmetic. All displayed numbers use en-CA Intl.NumberFormat with no more
+      than six fractional digits. No clinically approved rounding or measurable-
+      volume rule is implemented; the UI delegates these to local policy. The
+      known positive-to-displayed-zero risk is disclosed.
+    required: true
+  - title: Worked example
+    body: null
+    required: true
+  - title: Current verification evidence and boundary
+    body: >-
+      Existing Playwright tests exercise representative same/cross-unit paths,
+      one-vial blocking, six volumes, review state, local records, privacy,
+      responsiveness and offline installation. Lean proves properties of a
+      separate exact-rational reference model. No differential conformance test
+      proves the JavaScript prototype equivalent to that model. Neither test
+      suite proves clinical appropriateness.
+    required: true
+decisions:
+  - { id: CAL-D01, question: "Does the worked example independently reproduce every displayed equation and result?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: CAL-E01, description: "Pharmacy-authoritative formula basis", reference: null, status: missing, required: true }
+  - { id: CAL-E02, description: "Independently calculated worked-example sheet", reference: null, status: missing, required: true }
+  - { id: CAL-E03, description: "Current automated-test and Lean evidence summary", reference: tests/e2e/; formal/lean/README.md, status: reviewed, required: true }
+approvals:
+  - { role: Pharmacy reviewer, scope: "Approve formula basis and worked example as routine-practice facts", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Independent calculation verifier, scope: "Independently reproduce example and verify disclosed implementation limits", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Software lead, scope: "Confirm implementation description matches source", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Formula, operation order, validation, unit, formatting, review or source-baseline change]
+completion_statement: null

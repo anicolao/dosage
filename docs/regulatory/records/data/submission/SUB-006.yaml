@@ -1,0 +1,49 @@
+record_id: SUB-006
+title: Actual prototype label and represented claims
+kind: submission
+template: submission.md.mustache
+output: submission/06_ACTUAL_LABEL_AND_CLAIMS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Exact English status/safety/claims text represented by the current prototype
+  and associated repository materials. It is not final market labelling.
+dependencies: [INQ-000, IQ-001]
+required_fields:
+  - { id: LBL-F01, label: "Legal manufacturer identity/address", value: null, evidence_ref: null, required: true }
+  - { id: LBL-F02, label: "Controlled support/regulatory contact", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Current in-app statements
+    body: |-
+      - “Prototype only — not for patient care.”
+      - “Verify every value with the order, vial label, pharmacy guidance, and local policy.”
+      - “Enter the label and ordered values. This app does not recommend a dose.”
+      - “Medication name · Do not enter patient information.”
+      - “Verify overfill and preparation method.”
+      - “Use local policy for measurable volume and rounding.”
+      - “I checked the order, vial unit, ordered-dose unit, and final prepared volume.”
+      - Favourites/history are described as stored on this device/phone and history is not a medication order.
+    required: true
+  - title: Current identity and installation metadata
+    body: >-
+      Header shows package version and seven-character source revision. The
+      manifest names the app Dosage and describes local medication dilution
+      arithmetic with explicit calculation review. The app is English-only.
+    required: true
+  - title: Claims not made
+    body: >-
+      The prototype must not be described as Health Canada approved, licensed,
+      cleared, validated, clinically safe, error preventing or ready for patient
+      care. It does not claim to validate an order or recommend treatment.
+    required: true
+decisions:
+  - { id: LBL-D01, question: "Is all intended/represented use across UI, manifest, repository and submission mutually consistent?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: LBL-E01, description: "Complete current UI/manifest/repository claims inventory", reference: null, status: missing, required: true }
+approvals:
+  - { role: Regulatory lead, scope: "Approve classification-inquiry claims consistency and prohibited claims", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Approve represented purpose for the exact inquiry product", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Any UI, manifest, README, website, screenshot or intended-use wording change]
+completion_statement: null

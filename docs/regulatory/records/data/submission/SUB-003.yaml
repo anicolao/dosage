@@ -1,0 +1,54 @@
+record_id: SUB-003
+title: Exact architecture and data flow
+kind: submission
+template: submission.md.mustache
+output: submission/03_ARCHITECTURE_AND_DATA_FLOW.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Current-state architecture of the source baseline, including localStorage and
+  service-worker behavior; future target controls are excluded.
+dependencies: [INQ-000]
+required_fields:
+  - { id: ARC-F01, label: "Deployment/review URL and host owner", value: null, evidence_ref: null, required: true }
+  - { id: ARC-F02, label: "Exact built-artifact digest", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Current runtime components
+    body: |-
+      `Nurse → Svelte App.svelte reactive UI/Number calculation → KaTeX equation rendering → browser DOM`
+
+      `Svelte UI ↔ localStorage dosage.favourites.v2 / dosage.history.v2`
+
+      `Static HTTPS host → generated cache-first service worker → app-shell Cache Storage → Svelte UI`
+
+      All calculation code and runtime record handling are currently in `src/App.svelte`. There is no runtime application server or clinical-system interface.
+    required: true
+  - title: Current network and storage facts
+    body: >-
+      Initial load and uncached same-origin in-scope assets may use the static
+      host. The service worker ignores cross-origin and out-of-scope requests
+      rather than providing a formal deny layer. The app source contains no
+      fetch/XHR/beacon/WebSocket/EventSource, analytics or telemetry logic.
+      Favourites/history are JSON arrays in localStorage and may reveal
+      medication context; they have no cloud backup or encryption provided by
+      the app.
+    required: true
+  - title: Build and third-party boundary
+    body: >-
+      Vite/Svelte/KaTeX and locked npm dependencies build the static app. Vite
+      injects package version and supplied/Git short revision and generates the
+      service worker from the output inventory. GitHub Pages is a public
+      prototype review channel, not a clinical distribution channel.
+    required: true
+decisions:
+  - { id: ARC-D01, question: "Is every actual runtime interface and persistence path disclosed?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: ARC-E01, description: "Independent source/build interface inventory", reference: null, status: missing, required: true }
+  - { id: ARC-E02, description: "Runtime network observation for representative workflows", reference: null, status: missing, required: true }
+approvals:
+  - { role: Software lead, scope: "Approve exact current-state technical accuracy", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Security/privacy reviewer, scope: "Confirm interfaces, network and local-data statements are complete for classification facts", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Source, dependency, build, host, storage, network or service-worker change]
+completion_statement: null

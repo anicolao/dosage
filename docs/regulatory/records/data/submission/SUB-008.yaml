@@ -1,0 +1,52 @@
+record_id: SUB-008
+title: Fallback classification, comparisons and prior correspondence
+kind: submission
+template: submission.md.mustache
+output: submission/08_FALLBACK_CLASSIFICATION_AND_COMPARISONS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Manufacturer's proposed classification if Health Canada considers the exact
+  prototype SaMD, together with published-example, MDALL and prior-decision
+  comparisons. It asks for verification rather than presupposing the outcome.
+dependencies: [SUB-007]
+required_fields:
+  - { id: FAL-F01, label: "Proposed SaMD class and current Schedule 1 rule(s)", value: null, evidence_ref: null, required: true }
+  - { id: FAL-F02, label: "Significance of information and healthcare situation category", value: null, evidence_ref: null, required: true }
+  - { id: FAL-F03, label: "Current MDALL/comparable Canadian product search date and method", value: null, evidence_ref: null, required: true }
+  - { id: FAL-F04, label: "Prior Canadian classification/correspondence inventory", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Conservative fallback analysis
+    body: >-
+      The mL output may drive immediate medication preparation and an erroneous
+      result could contribute to serious injury or death. The prototype does not
+      select a medication/dose or diagnose a condition. The manufacturer must
+      analyze current Rules 10(1), 10(2), 12 and any other applicable rule and
+      apply Health Canada's significance/situation framework to the exact
+      submitted user, setting and exclusions. Class III remains a planning
+      possibility for critical use unless a current reviewed analysis supports
+      another route.
+    required: true
+  - title: Published-example comparison
+    body: >-
+      Compare the exact prototype with Health Canada's non-device example for
+      drug dosing calculated from manually entered drug-label parameters where
+      the calculation is independently reviewable. Distinguish the prototype's
+      administration-volume output, immediate-preparation context, final-volume
+      selection, local records and known implementation limitations.
+    required: true
+  - title: Similar products and prior decisions
+    body: null
+    required: true
+decisions:
+  - { id: FAL-D01, question: "Is the proposed fallback class/rule supported by current official material and the same facts used in the exclusion analysis?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: FAL-E01, description: "Current legal/guidance classification analysis with exact citations", reference: null, status: missing, required: true }
+  - { id: FAL-E02, description: "MDALL/comparator/prior-correspondence search record", reference: null, status: missing, required: true }
+approvals:
+  - { role: Regulatory lead or qualified Canadian regulatory reviewer, scope: "Approve fallback rule/class and comparator analysis", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Adopt the fallback proposal and authorize Health Canada verification", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Rule/guidance, intended use, risk context, comparator or prior correspondence change]
+completion_statement: null

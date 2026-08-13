@@ -1,0 +1,49 @@
+record_id: SUB-002
+title: Exact workflow and controlled screenshots
+kind: submission
+template: submission.md.mustache
+output: submission/02_WORKFLOW_AND_SCREENSHOTS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Representative evidence of every material user-visible function in the exact
+  prototype. Captures must retain version, warning, equations and safety copy.
+dependencies: [INQ-000]
+required_fields:
+  - { id: WFL-F01, label: "Capture artifact/environment/operator/date", value: null, evidence_ref: null, required: true }
+  - { id: WFL-F02, label: "Controlled screenshot archive digest", value: null, evidence_ref: null, required: true }
+  - { id: WFL-F03, label: "Worked-example inputs", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Numbered actual workflow
+    body: |-
+      1. Launch and observe prototype warning plus version/revision.
+      2. Optionally enter a medication name and enter vial amount, mg/mcg unit and vial volume.
+      3. Select 10, 50, 100, 250, 500 or 1000 mL as final prepared volume.
+      4. Enter the already-authorized ordered dose and mg/mcg unit.
+      5. Observe incomplete, invalid, final-volume-below-vial or above-one-vial blocking where applicable.
+      6. Open calculation review, inspect and individually check every substituted equation.
+      7. Complete review to reveal mL; acknowledge external checks before saving history.
+      8. Demonstrate edit reset, favourite reuse, saved-history re-review, deletion and offline reopen.
+    required: true
+  - title: Required captures
+    body: >-
+      Provide uncropped images for blank Mix, completed inputs/hidden answer,
+      equation review, revealed result, each blocking-error family, favourites,
+      history/re-review, storage-unavailable state if reproducible, installed
+      app, offline reopen and About/version/prototype status. Each caption must
+      identify exact source commit, browser/device, viewport, input values and
+      corresponding test/evidence reference.
+    required: true
+decisions:
+  - { id: WFL-D01, question: "Do screenshots and captions represent only the exact source baseline?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: WFL-E01, description: "Controlled screenshot archive", reference: null, status: missing, required: true }
+  - { id: WFL-E02, description: "Screenshot-to-workflow/test trace", reference: null, status: missing, required: true }
+approvals:
+  - { role: Software lead, scope: "Confirm captures match the exact source baseline and actual behavior", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Nursing reviewer, scope: "Confirm captions accurately explain the real workflow without implying validation", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Approve capture identity, completeness and archive control", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [UI, workflow, warning, version identity, screenshot or source-baseline change]
+completion_statement: null
