@@ -1,0 +1,72 @@
+record_id: GEN-001
+title: Structured regulatory record generation control
+kind: support
+template: record.md.mustache
+output: support/GEN-001_RECORD_GENERATION_CONTROL.md
+revision: "0.1"
+status: in_review
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  This record defines the deterministic source-to-document control used for
+  classification-inquiry, gate, evidence and correspondence records. It is a
+  tooling control, not a regulatory approval or electronic-signature system.
+dependencies: []
+required_fields:
+  - id: GEN-F01
+    label: Structured source format
+    value: YAML validated by docs/regulatory/records/record.schema.json
+    evidence_ref: package.json and package-lock.json
+    required: true
+  - id: GEN-F02
+    label: Generated output root
+    value: docs/regulatory/completed/
+    evidence_ref: scripts/regulatory-records.mjs
+    required: true
+  - id: GEN-F03
+    label: Routine audit commit scope
+    value: docs/regulatory/records/data/ and docs/regulatory/completed/ only
+    evidence_ref: regulatory:commit implementation
+    required: true
+sections:
+  - title: Control boundary
+    body: >-
+      YAML is the editable record source. Mustache templates control stable
+      presentation. Generated Markdown and MANIFEST.json are deterministic and
+      committed beside their YAML. Git records changes, but required human
+      signatures remain attributable controlled references within each record.
+    required: true
+  - title: Incomplete-record behavior
+    body: >-
+      Build permits incomplete review drafts and renders conspicuous missing
+      markers. The ready command fails until selected records are approved and
+      every required value, evidence acceptance and signature is populated.
+    required: true
+decisions:
+  - id: GEN-D01
+    question: Which dependency boundary provides the generator tooling?
+    decision: Node packages are locked in package-lock.json; native/system tools remain governed by Nix where applicable.
+    rationale: YAML, schema validation and Mustache rendering are JavaScript build dependencies and belong in package.json.
+    evidence_ref: package.json; package-lock.json; CALCULATION_ENGINE_PLAN.md
+    required: true
+evidence:
+  - id: GEN-E01
+    description: Generator source, JSON Schema, templates and command documentation
+    reference: scripts/regulatory-records.mjs; docs/regulatory/records/
+    status: reviewed
+    required: true
+approvals:
+  - role: Quality lead
+    scope: Approve the generator as a controlled record-production process
+    name: null
+    organization: null
+    decision: null
+    date: null
+    signature_ref: null
+    required: true
+change_triggers:
+  - Schema, template, generator, hashing or completeness-rule change
+  - Change to evidence retention, approval identity or signature mechanism
+completion_statement: >-
+  This tooling record remains in review until the appointed quality lead has
+  verified the process and approved its use.

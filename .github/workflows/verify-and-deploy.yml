@@ -45,6 +45,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install chromium
       - run: npm run check
+      - run: npm run regulatory:check
       - run: npm run test:e2e
         env:
           CI: 'true'

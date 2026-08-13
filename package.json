@@ -11,6 +11,10 @@
     "check": "svelte-check",
     "check:base": "node scripts/verify-base-paths.mjs",
     "build:e2e": "DOSAGE_GIT_HASH=e2eha5h vite build",
+    "regulatory:build": "node scripts/regulatory-records.mjs build",
+    "regulatory:check": "node scripts/regulatory-records.mjs check",
+    "regulatory:ready": "node scripts/regulatory-records.mjs ready",
+    "regulatory:commit": "node scripts/regulatory-records.mjs commit",
     "test:formal": "nix develop --command bash scripts/run-formal-verification.sh",
     "test:e2e": "npm run build:e2e && playwright test",
     "test:e2e:update-snapshots": "npm run build:e2e && UPDATE_E2E_DOCS=1 playwright test --update-snapshots"
@@ -23,7 +27,10 @@
     "@axe-core/playwright": "^4.12.1",
     "@playwright/test": "^1.62.1",
     "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "ajv": "^8.20.0",
+    "mustache": "^4.2.0",
     "svelte-check": "^4.7.2",
-    "vite": "^8.1.4"
+    "vite": "^8.1.4",
+    "yaml": "^2.9.0"
   }
 }

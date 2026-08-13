@@ -1,0 +1,69 @@
+# {{record_id}} — {{title}}
+
+> **{{status_label}} — GENERATED CLASSIFICATION-INQUIRY DOCUMENT.** This is not
+> authorization, licensing, clearance, or permission for patient care. Edit
+> `{{source_path}}`; do not edit this generated file.
+
+| Package control | Value |
+| --- | --- |
+| Document ID | `{{record_id}}` |
+| Revision | {{revision}} |
+| Document status | **{{status_label}}** |
+| Package readiness | **{{completion_label}}** |
+| Exact prototype baseline | `{{{source_baseline_display}}}` |
+| Structured source / SHA-256 | `{{source_path}}` / `{{source_hash}}` |
+| Template / SHA-256 | `{{template_path}}` / `{{template_hash}}` |
+
+{{{summary}}}
+
+## Package fields
+
+| ID | Field | Value | Evidence | State |
+| --- | --- | --- | --- | --- |
+{{#required_fields}}
+| `{{id}}` | {{label}} | {{{value_display}}} | {{{evidence_display}}} | {{state_label}} |
+{{/required_fields}}
+
+{{#sections}}
+## {{number}}. {{title}}
+
+{{{body_display}}}
+
+{{/sections}}
+## Classification decisions represented
+
+| ID | Question | Position/decision | Rationale | Evidence | State |
+| --- | --- | --- | --- | --- | --- |
+{{#decisions}}
+| `{{id}}` | {{question}} | {{{decision_display}}} | {{{rationale_display}}} | {{{evidence_display}}} | {{state_label}} |
+{{/decisions}}
+
+## Supporting evidence
+
+| ID | Evidence | Reference | Status | State |
+| --- | --- | --- | --- | --- |
+{{#evidence}}
+| `{{id}}` | {{description}} | {{{reference_display}}} | {{status}} | {{state_label}} |
+{{/evidence}}
+
+## Review and authorization
+
+| Role | Review scope | Name / organization | Decision | Date | Signature reference | State |
+| --- | --- | --- | --- | --- | --- | --- |
+{{#approvals}}
+| {{role}} | {{scope}} | {{{identity_display}}} | {{{decision_display}}} | {{{date_display}}} | {{{signature_display}}} | {{state_label}} |
+{{/approvals}}
+
+## Document determination
+
+**{{completion_label}}**
+
+{{{completion_statement_display}}}
+
+{{#missing.length}}
+Required items still open:
+
+{{#missing}}
+- `{{.}}`
+{{/missing}}
+{{/missing.length}}

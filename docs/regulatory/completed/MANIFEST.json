@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "generator_version": "1",
+  "records": [
+    {
+      "record_id": "GEN-001",
+      "status": "in_review",
+      "ready": false,
+      "source": "docs/regulatory/records/data/support/GEN-001.yaml",
+      "source_sha256": "856cc5b75bf89de281c924ffd1822f0e13ba6c9725563e19e1ef1c5397d12ec3",
+      "template": "docs/regulatory/records/templates/record.md.mustache",
+      "template_sha256": "99f7fedc1d2cb5ba9edc70a721182801f48f96b538f91b43eaa6a6d9fba0328d",
+      "output": "docs/regulatory/completed/support/GEN-001_RECORD_GENERATION_CONTROL.md",
+      "output_sha256": "efd30dad3fdefc5a40969548c18d6348269ff5f530a5c16fd8d9adbd2d201115",
+      "missing": [
+        "GEN-001.approvals.1.date",
+        "GEN-001.approvals.1.decision",
+        "GEN-001.approvals.1.name",
+        "GEN-001.approvals.1.organization",
+        "GEN-001.approvals.1.signature_ref",
+        "GEN-001.evidence.GEN-E01.status",
+        "GEN-001.status"
+      ]
+    }
+  ]
+}
