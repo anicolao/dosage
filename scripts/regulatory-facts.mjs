@@ -11,6 +11,7 @@ const jsonPath = path.join(root, 'docs/regulatory/evidence/AUTOMATED-FACTS.json'
 const markdownPath = path.join(root, 'docs/regulatory/evidence/AUTOMATED-FACTS.md');
 const screenshotManifestPath = path.join(root, 'docs/regulatory/evidence/SUB-002/MANIFEST.json');
 const archivePath = path.join(root, 'docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip');
+const baselineManifestPath = path.join(root, 'docs/regulatory/evidence/INQ-000/source-baseline-manifest.json');
 const controlledApplicationPaths = ['index.html', 'src', 'static', 'vite.config.js'];
 
 function sha256(value) {
@@ -98,13 +99,45 @@ function deterministicZip(files) {
   return Buffer.concat([...localParts, centralDirectory, end]);
 }
 
-const changedApplicationPaths = git('diff', '--name-only', baseline, '--', ...controlledApplicationPaths)
-  .split('\n').filter(Boolean);
-if (changedApplicationPaths.length) {
-  throw new Error(`Application differs from inquiry baseline: ${changedApplicationPaths.join(', ')}`);
-}
+const currentControlledFiles = controlledApplicationPaths.flatMap((entry) => {
+  const item = path.join(root, entry);
+  return statSync(item).isDirectory() ? filesBelow(item) : [item];
+}).map((file) => ({
+  file: path.relative(root, file).split(path.sep).join('/'),
+  sha256: sha256(readFileSync(file))
+})).sort((left, right) => left.file.localeCompare(right.file));
 
-const baselinePackage = JSON.parse(git('show', `${baseline}:package.json`));
+let baselineManifest;
+if (mode === 'build') {
+  const changed = git('diff', '--name-only', baseline, '--', ...controlledApplicationPaths)
+    .split('\n').filter(Boolean);
+  if (changed.length) throw new Error(`Application differs from inquiry baseline: ${changed.join(', ')}`);
+  const baselinePackageFromGit = JSON.parse(git('show', `${baseline}:package.json`));
+  baselineManifest = {
+    schema_version: 1,
+    source_baseline: baseline,
+    baseline_tree: git('rev-parse', `${baseline}^{tree}`),
+    controlled_paths: controlledApplicationPaths,
+    package: {
+      name: baselinePackageFromGit.name,
+      version: baselinePackageFromGit.version,
+      dependencies: baselinePackageFromGit.dependencies ?? {}
+    },
+    files: currentControlledFiles
+  };
+  mkdirSync(path.dirname(baselineManifestPath), { recursive: true });
+  writeFileSync(baselineManifestPath, `${JSON.stringify(baselineManifest, null, 2)}\n`);
+} else {
+  baselineManifest = JSON.parse(readFileSync(baselineManifestPath, 'utf8'));
+}
+if (baselineManifest.source_baseline !== baseline) throw new Error('Baseline manifest identifies the wrong source commit');
+const expectedFiles = new Map(baselineManifest.files.map(({ file, sha256: digest }) => [file, digest]));
+const currentFiles = new Map(currentControlledFiles.map(({ file, sha256: digest }) => [file, digest]));
+const changedApplicationPaths = [...new Set([...expectedFiles.keys(), ...currentFiles.keys()])]
+  .filter((file) => expectedFiles.get(file) !== currentFiles.get(file)).sort();
+if (changedApplicationPaths.length) throw new Error(`Application differs from inquiry baseline manifest: ${changedApplicationPaths.join(', ')}`);
+
+const baselinePackage = baselineManifest.package;
 const currentPackage = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'));
 if (baselinePackage.name !== currentPackage.name || baselinePackage.version !== currentPackage.version) {
   throw new Error('Current package identity differs from inquiry baseline');
@@ -195,7 +228,10 @@ const facts = {
     controlled_paths: controlledApplicationPaths,
     changed_paths: changedApplicationPaths,
     result: 'Current application source is byte-identical to the inquiry baseline for every controlled path',
-    baseline_tree: git('rev-parse', `${baseline}^{tree}`)
+    baseline_tree: baselineManifest.baseline_tree,
+    baseline_manifest: path.relative(root, baselineManifestPath).split(path.sep).join('/'),
+    baseline_manifest_sha256: sha256(readFileSync(baselineManifestPath)),
+    files: baselineManifest.files
   },
   artifact: {
     build_command: 'npm run build:submission',

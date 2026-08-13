@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "source_baseline": "6b53fde87ff9b193b3c24f7bd93549746b4d6471",
+  "baseline_tree": "fe20072281b83bf73f48fd03a0ebbfda07b62aae",
+  "controlled_paths": [
+    "index.html",
+    "src",
+    "static",
+    "vite.config.js"
+  ],
+  "package": {
+    "name": "dosage",
+    "version": "0.1.0",
+    "dependencies": {
+      "katex": "^0.18.1",
+      "svelte": "^5.56.5"
+    }
+  },
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "de29f9cbd5a05929daf9cda2c0f5792d3371ba2548f699b84b27dc804e0ee534"
+    },
+    {
+      "file": "src/App.svelte",
+      "sha256": "fb85b1e57d4923bc2d3563bfd773190b43eb6194172c1f22fc509c0700dad8f2"
+    },
+    {
+      "file": "src/main.js",
+      "sha256": "40c174b5d1f8a1d9ec4496c17d9d39ceb5808f1e839d411dd3360a4839339cc1"
+    },
+    {
+      "file": "static/icons/apple-touch-icon.png",
+      "sha256": "4c95dec1bb78cd9963c0acb433aa34404c0f905d89285a6629305c733b921128"
+    },
+    {
+      "file": "static/icons/dosage-192.png",
+      "sha256": "1bc4879e80d60d58d62daa8d69fb49d35234328b303b3fbcb2bf920f18ab69c8"
+    },
+    {
+      "file": "static/icons/dosage-512.png",
+      "sha256": "3b239b19be91e94c66d78a3a8245952817406eae8bda55e715c5f3443baf1fb2"
+    },
+    {
+      "file": "static/images/container-1000ml.png",
+      "sha256": "f15b976f496d50db9a652aca2e429e68ead6687a51e32b37aefb58f6ff0007f1"
+    },
+    {
+      "file": "static/images/container-100ml.png",
+      "sha256": "e4d95699098251ec36b7679b48acd418e0142c4d75db785d0d39e40b4a19b22a"
+    },
+    {
+      "file": "static/images/container-10ml.png",
+      "sha256": "13cfd4b1b8059dafeb223114fdd68641ac3564b7c68c20e17947b293bf344d78"
+    },
+    {
+      "file": "static/images/container-250ml.png",
+      "sha256": "05809c833e935b7beaaebb2f61069e2b2c44aa9068abfd02615404740402fc14"
+    },
+    {
+      "file": "static/images/container-500ml.png",
+      "sha256": "08662d1bc204c711341b159aa084c21ee21fa2b3cef3a96662cc4c17edc22f35"
+    },
+    {
+      "file": "static/images/container-50ml.png",
+      "sha256": "51922f856de33457460cf094c4762233aae167c23a9ec28576de83cfb4f6a1f6"
+    },
+    {
+      "file": "static/images/dilution-containers.png",
+      "sha256": "f0c26e178a04e9d476ce795c2fd8552c998c204f481db609853ae6c7b52af66c"
+    },
+    {
+      "file": "static/manifest.webmanifest",
+      "sha256": "c426bfae122b3a12132b0846ea50d07d2f773492b44b67920979d22521e5f488"
+    },
+    {
+      "file": "vite.config.js",
+      "sha256": "8bdd6e439f956c4fb83630ca987ba192fcbaeeddfe10e4e55928536be7e3329c"
+    }
+  ]
+}
