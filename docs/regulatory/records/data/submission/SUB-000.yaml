@@ -8,15 +8,14 @@ status: incomplete
 source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
 supersedes: null
 summary: >-
-  Draft cover letter asking Health Canada whether the exact Dosage prototype is
-  outside the medical-device definition and, if not, which class and rule apply.
-dependencies: [IQ-001, IQ-002]
+  Draft cover letter asking Health Canada whether the exact Dosage prototype is outside the medical-device definition and, if not, which class and rule apply.
+dependencies: [ IQ-001, IQ-002 ]
 required_fields:
   - { id: COV-F01, label: "Legal manufacturer name and address", value: null, evidence_ref: null, required: true }
   - { id: COV-F02, label: "Regulatory contact and controlled coordinates", value: null, evidence_ref: null, required: true }
   - { id: COV-F03, label: "Submission date", value: null, evidence_ref: null, required: true }
   - { id: COV-F04, label: "Exact package manifest digest", value: null, evidence_ref: null, required: true }
-  - { id: COV-F05, label: "Verified recipient address", value: null, evidence_ref: null, required: true }
+  - { id: COV-F05, label: "Verified recipient address", value: "meddevices-instrumentsmed@hc-sc.gc.ca, mechanically verified in the current FRM-0292 response captured 2026-08-13; must be refreshed on the actual submission day", evidence_ref: docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day, required: true }
 sections:
   - title: Request
     body: |-
@@ -33,9 +32,7 @@ sections:
     required: true
   - title: Status disclaimer
     body: >-
-      The identified prototype is not being supplied for patient care. The
-      manufacturer will not represent classification advice as a medical device
-      licence, establishment licence, market authorization or safety approval.
+      The identified prototype is not being supplied for patient care. The manufacturer will not represent classification advice as a medical device licence, establishment licence, market authorization or safety approval.
     required: true
 decisions:
   - { id: COV-D01, question: "Is the exact package authorized to send once?", decision: null, rationale: null, evidence_ref: null, required: true }
@@ -44,5 +41,6 @@ evidence:
 approvals:
   - { role: Regulatory lead, scope: "Approve recipient questions and current route", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Legal manufacturer signatory, scope: "Sign and authorize the exact request", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
-change_triggers: [Any change to package identity, questions, recipient or manufacturer]
-completion_statement: null
+change_triggers: [ Any change to package identity, questions, recipient or manufacturer ]
+completion_statement: >-
+  The request text and questions are drafted. Legal manufacturer/contact identity, submission-day date/recipient, final package digest, IQ-002 release evidence and attributable regulatory/manufacturer authorization remain open.

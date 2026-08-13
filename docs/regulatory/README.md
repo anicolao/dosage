@@ -29,6 +29,10 @@ npm run regulatory:build
 npm run regulatory:check
 npm run regulatory:ready -- --record RECORD-ID
 npm run regulatory:commit -- "Describe the completed evidence or decision"
+npm run regulatory:screenshots
+npm run regulatory:facts
+npm run regulatory:sources
+npm run regulatory:submission
 ```
 
 `regulatory:build` validates each YAML record against
@@ -44,6 +48,26 @@ Git records who changed the YAML and generated output; it is not itself a legal
 or quality signature. Signature references must identify evidence held in the
 approved record system. Do not commit privileged, personal or sensitive source
 evidence merely to satisfy a reference field.
+
+The evidence commands remove repeatable manual preparation:
+
+- `regulatory:screenshots` rebuilds the frozen prototype, captures the SUB-002
+  workflow in Playwright and regenerates screenshot/artifact hashes;
+- `regulatory:facts` verifies that controlled application paths still equal the
+  inquiry baseline, creates the deterministic executable ZIP and derives the
+  source, claims, interfaces and worked-example evidence; and
+- `regulatory:sources` fetches the official Health Canada/regulations sources,
+  records response hashes and runs the defined MDALL keyword searches. It uses
+  the actual access date and must be rerun on the submission day.
+
+`completed/HUMAN_ACTIONS.md` is generated from all remaining early-inquiry
+blanks and unaccepted evidence. It is the current checklist for identities,
+professional decisions, evidence acceptance, signatures and external events.
+`regulatory:submission` runs all three evidence refreshes, updates the
+source-derived YAML fields, rebuilds the completed documents and checks drift.
+Because it records the real official-source access date, run it immediately
+before the IQ-002 submission-day review and commit all resulting controlled
+changes.
 
 ## Exact-prototype inquiry path
 

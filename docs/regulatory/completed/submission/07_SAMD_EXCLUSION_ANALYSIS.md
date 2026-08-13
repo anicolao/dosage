@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-007.yaml` / `4fefc2c22b6a5ea59608b7d4d5fa0d7ad4d0d4621cba26302508411951e5859e` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-007.yaml` / `65d43d39618f93833275f44ec0aed5aceb7ca99ee511977b87d61747c751c7dc` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Manufacturer's assessment of all four Health Canada exclusion criteria for the exact prototype. Criterion 3 is an explicit determination request.
@@ -20,8 +20,8 @@ Manufacturer's assessment of all four Health Canada exclusion criteria for the e
 
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
-| `EXC-F01` | Current official guidance title/URL/version/access date | ⟦MISSING: SUB-007.required_fields.EXC-F01.value⟧ | ⟦MISSING: SUB-007.required_fields.EXC-F01.evidence_ref⟧ | Open |
-| `EXC-F02` | Current official classification-examples title/URL/version/access date | ⟦MISSING: SUB-007.required_fields.EXC-F02.value⟧ | ⟦MISSING: SUB-007.required_fields.EXC-F02.evidence_ref⟧ | Open |
+| `EXC-F01` | Current official guidance title/URL/version/access date | Guidance Document: Software as a Medical Device (SaMD): Definition and Classification; effective 2019-12-18; https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance-document.html; content SHA-256 63b663a9bdb96e57e8bb036808e333131a6aa54d3d79341b601b6047f8459896; accessed 2026-08-13 | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Complete |
+| `EXC-F02` | Current official classification-examples title/URL/version/access date | Guidance Document: Software as a Medical Device (SaMD): Classification Examples; effective 2019-12-18; updated 2022-11-15; https://www.canada.ca/content/dam/hc-sc/documents/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance/examples/examples.pdf; content SHA-256 b7ca89ef726135bc8ea306c227cc362a84570037a68c70cadd802db16c93c48e; accessed 2026-08-13 | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Complete |
 
 ## 1. Criterion 1 — no image/IVD/signal processing
 
@@ -41,7 +41,7 @@ Proposed met in functional concept. The user sees every substituted equation and
 
 ## 5. Overall manufacturer position
 
-⟦MISSING: SUB-007.sections.5.body⟧
+Draft position for manufacturer/regulatory authorization: criteria 1 and 2 are proposed met from source/function facts; criterion 4 is proposed met in functional concept because every substituted equation is exposed for review; criterion 3 is not assumed met because the mL may be used immediately or in the near term. The request therefore asks Health Canada to verify exclusion rather than asserting a non-device conclusion.
 
 ## Classification decisions represented
 
@@ -53,7 +53,7 @@ Proposed met in functional concept. The user sees every substituted equation and
 
 | ID | Evidence | Reference | Status | State |
 | --- | --- | --- | --- | --- |
-| `EXC-E01` | Current official guidance and example copies/references | ⟦MISSING: SUB-007.evidence.EXC-E01.reference⟧ | missing | Open |
+| `EXC-E01` | Current official guidance and example response metadata/content hashes | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; README.md | reviewed | Open |
 | `EXC-E02` | Regulatory/counsel review of each criterion against exact facts | ⟦MISSING: SUB-007.evidence.EXC-E02.reference⟧ | missing | Open |
 
 ## Review and authorization
@@ -67,7 +67,7 @@ Proposed met in functional concept. The user sees every substituted equation and
 
 **NOT READY**
 
-⟦MISSING: SUB-007.completion_statement⟧
+Official source identity and the draft four-criterion position are complete. A qualified Canadian regulatory reviewer and the legal manufacturer must approve the current analysis and explicit criterion 3 uncertainty.
 
 Required items still open:
 
@@ -81,17 +81,10 @@ Required items still open:
 - `SUB-007.approvals.2.name`
 - `SUB-007.approvals.2.organization`
 - `SUB-007.approvals.2.signature_ref`
-- `SUB-007.completion_statement`
 - `SUB-007.decisions.EXC-D01.decision`
 - `SUB-007.decisions.EXC-D01.evidence_ref`
 - `SUB-007.decisions.EXC-D01.rationale`
-- `SUB-007.evidence.EXC-E01.reference`
 - `SUB-007.evidence.EXC-E01.status`
 - `SUB-007.evidence.EXC-E02.reference`
 - `SUB-007.evidence.EXC-E02.status`
-- `SUB-007.required_fields.EXC-F01.evidence_ref`
-- `SUB-007.required_fields.EXC-F01.value`
-- `SUB-007.required_fields.EXC-F02.evidence_ref`
-- `SUB-007.required_fields.EXC-F02.value`
-- `SUB-007.sections.5.body`
 - `SUB-007.status`

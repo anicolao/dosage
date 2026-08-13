@@ -29,23 +29,43 @@ required_fields:
     required: true
   - id: IQ1-F03
     label: Intended user and setting
-    value: null
-    evidence_ref: null
+    value: >-
+      Proposed for authorization: trained nurses in Canadian clinical settings
+      operating under an already-authorized medication order and applicable
+      pharmacy/institutional policy. The prototype technically enforces no
+      patient, medication, acuity, unit or care-setting restriction.
+    evidence_ref: AUTHORIZATION_PLAN.md section 2.2; SUB-001
     required: true
   - id: IQ1-F04
     label: Intended use and represented-purpose text
-    value: null
-    evidence_ref: null
+    value: >-
+      Dosage is a software arithmetic aid intended for trained nurses in Canada
+      to calculate a volume in millilitres from manually entered vial quantity,
+      vial volume, selected final prepared volume and already-authorized dose.
+      It displays substituted arithmetic for independent review and does not
+      select, recommend, prescribe, validate, modify or assess medication,
+      dose, route, rate, preparation or treatment.
+    evidence_ref: AUTHORIZATION_PLAN.md section 2.2; SUB-001
     required: true
   - id: IQ1-F05
     label: Exact inclusion and exclusion boundary
-    value: null
-    evidence_ref: null
+    value: >-
+      Includes every function listed in INQ-000, including favourites, history
+      and offline-after-install behavior. Excludes drug/patient logic,
+      recommendations, alerts, clinical-system/device inputs, cloud services
+      and AI/ML because those functions are absent. No paper-only clinical
+      exclusion is represented as technically enforced.
+    evidence_ref: INQ-000; docs/regulatory/evidence/AUTOMATED-FACTS.json
     required: true
   - id: IQ1-F06
     label: Current prototype limitations statement
-    value: null
-    evidence_ref: null
+    value: >-
+      JavaScript Number/permissive-input and positive-to-displayed-zero risks;
+      no approved bounds or clinical rounding; weak stored-record validation;
+      incomplete accessibility/usability, CSP/SBOM/security and update/rollback
+      evidence; public prototype channel; no final bilingual label/IFU; no
+      authorization for patient care.
+    evidence_ref: INQ-000; SUB-005; FND-001_OPEN_FINDINGS.csv
     required: true
 sections:
   - title: Gate boundary

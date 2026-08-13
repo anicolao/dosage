@@ -11,7 +11,7 @@
 | Mechanical readiness | **NOT READY** |
 | Controlled status | **INCOMPLETE / NOT APPROVED** |
 | Exact source baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/inquiry/IQ-001.yaml` / `f441d4f6deaab565058415c0eb0d97a1b551e43b296fd144dde78c2fa465a1ef` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/inquiry/IQ-001.yaml` / `2012533e744f1a827e2d60f70854ad564f1da9fa2088684cea3a7cf4e7856691` |
 | Template / SHA-256 | `docs/regulatory/records/templates/gate.md.mustache` / `7b321ada55239b22972c0795527edcc0a4f635f907e28782762695dcf06194ac` |
 
 IQ-001 is an early classification-inquiry gate, not clinical-release gate G1. It freezes enough exact product fact, intended/represented use and exclusion analysis for Health Canada to assess the current prototype. Closing IQ-001 does not approve patient care, commercialization, implementation quality or residual risk.
@@ -27,10 +27,10 @@ IQ-001 is an early classification-inquiry gate, not clinical-release gate G1. It
 | --- | --- | --- | --- | --- | --- |
 | `IQ1-F01` | Manufacturer legal name/address and Canadian contact | ⟦MISSING: IQ-001.required_fields.IQ1-F01.value⟧ | ⟦MISSING: IQ-001.required_fields.IQ1-F01.evidence_ref⟧ | Yes | Open |
 | `IQ1-F02` | Exact prototype full source commit | 6b53fde87ff9b193b3c24f7bd93549746b4d6471 | INQ-000 | Yes | Complete |
-| `IQ1-F03` | Intended user and setting | ⟦MISSING: IQ-001.required_fields.IQ1-F03.value⟧ | ⟦MISSING: IQ-001.required_fields.IQ1-F03.evidence_ref⟧ | Yes | Open |
-| `IQ1-F04` | Intended use and represented-purpose text | ⟦MISSING: IQ-001.required_fields.IQ1-F04.value⟧ | ⟦MISSING: IQ-001.required_fields.IQ1-F04.evidence_ref⟧ | Yes | Open |
-| `IQ1-F05` | Exact inclusion and exclusion boundary | ⟦MISSING: IQ-001.required_fields.IQ1-F05.value⟧ | ⟦MISSING: IQ-001.required_fields.IQ1-F05.evidence_ref⟧ | Yes | Open |
-| `IQ1-F06` | Current prototype limitations statement | ⟦MISSING: IQ-001.required_fields.IQ1-F06.value⟧ | ⟦MISSING: IQ-001.required_fields.IQ1-F06.evidence_ref⟧ | Yes | Open |
+| `IQ1-F03` | Intended user and setting | Proposed for authorization: trained nurses in Canadian clinical settings operating under an already-authorized medication order and applicable pharmacy/institutional policy. The prototype technically enforces no patient, medication, acuity, unit or care-setting restriction. | AUTHORIZATION_PLAN.md section 2.2; SUB-001 | Yes | Complete |
+| `IQ1-F04` | Intended use and represented-purpose text | Dosage is a software arithmetic aid intended for trained nurses in Canada to calculate a volume in millilitres from manually entered vial quantity, vial volume, selected final prepared volume and already-authorized dose. It displays substituted arithmetic for independent review and does not select, recommend, prescribe, validate, modify or assess medication, dose, route, rate, preparation or treatment. | AUTHORIZATION_PLAN.md section 2.2; SUB-001 | Yes | Complete |
+| `IQ1-F05` | Exact inclusion and exclusion boundary | Includes every function listed in INQ-000, including favourites, history and offline-after-install behavior. Excludes drug/patient logic, recommendations, alerts, clinical-system/device inputs, cloud services and AI/ML because those functions are absent. No paper-only clinical exclusion is represented as technically enforced. | INQ-000; docs/regulatory/evidence/AUTOMATED-FACTS.json | Yes | Complete |
+| `IQ1-F06` | Current prototype limitations statement | JavaScript Number/permissive-input and positive-to-displayed-zero risks; no approved bounds or clinical rounding; weak stored-record validation; incomplete accessibility/usability, CSP/SBOM/security and update/rollback evidence; public prototype channel; no final bilingual label/IFU; no authorization for patient care. | INQ-000; SUB-005; FND-001_OPEN_FINDINGS.csv | Yes | Complete |
 
 ## 1. Gate boundary
 
@@ -123,14 +123,6 @@ Blocking structured items:
 - `IQ-001.evidence.IQ1-E05.status`
 - `IQ-001.required_fields.IQ1-F01.evidence_ref`
 - `IQ-001.required_fields.IQ1-F01.value`
-- `IQ-001.required_fields.IQ1-F03.evidence_ref`
-- `IQ-001.required_fields.IQ1-F03.value`
-- `IQ-001.required_fields.IQ1-F04.evidence_ref`
-- `IQ-001.required_fields.IQ1-F04.value`
-- `IQ-001.required_fields.IQ1-F05.evidence_ref`
-- `IQ-001.required_fields.IQ1-F05.value`
-- `IQ-001.required_fields.IQ1-F06.evidence_ref`
-- `IQ-001.required_fields.IQ1-F06.value`
 - `IQ-001.status`
 
 A generated `READY` result is necessary but not sufficient: the accountable

@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-001.yaml` / `b57c02c29ff29e8ac4461089daa2bec495a115ca3eab802fae4fccc17e1137ca` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-001.yaml` / `61539e47ac1640b91895601e03ac65f631ef0457c1389f604b64c0d0c7d1cfc6` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Product/intended-use description for the exact executable prototype, not the later target architecture or an authorized clinical release.
@@ -21,10 +21,10 @@ Product/intended-use description for the exact executable prototype, not the lat
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
 | `PRD-F01` | Legal manufacturer | ⟦MISSING: SUB-001.required_fields.PRD-F01.value⟧ | ⟦MISSING: SUB-001.required_fields.PRD-F01.evidence_ref⟧ | Open |
-| `PRD-F02` | Intended user | ⟦MISSING: SUB-001.required_fields.PRD-F02.value⟧ | ⟦MISSING: SUB-001.required_fields.PRD-F02.evidence_ref⟧ | Open |
-| `PRD-F03` | Intended care setting | ⟦MISSING: SUB-001.required_fields.PRD-F03.value⟧ | ⟦MISSING: SUB-001.required_fields.PRD-F03.evidence_ref⟧ | Open |
-| `PRD-F04` | Exact intended-use statement | ⟦MISSING: SUB-001.required_fields.PRD-F04.value⟧ | ⟦MISSING: SUB-001.required_fields.PRD-F04.evidence_ref⟧ | Open |
-| `PRD-F05` | Exact enforceable exclusions | ⟦MISSING: SUB-001.required_fields.PRD-F05.value⟧ | ⟦MISSING: SUB-001.required_fields.PRD-F05.evidence_ref⟧ | Open |
+| `PRD-F02` | Intended user | Proposed for authorization: trained nurses in Canada | AUTHORIZATION_PLAN.md section 2.2; nursing approval below | Complete |
+| `PRD-F03` | Intended care setting | Proposed for authorization: Canadian clinical settings under an already-authorized medication order and applicable pharmacy/institutional policy; the prototype technically enforces no care-setting or acuity restriction | AUTHORIZATION_PLAN.md section 2.2; nursing/pharmacy approval below | Complete |
+| `PRD-F04` | Exact intended-use statement | Dosage is a software arithmetic aid intended for trained nurses in Canada to calculate a volume in millilitres from a manually entered medication vial quantity, a manually entered vial volume, a manually entered or selected final prepared volume, and an already-authorized medication dose. Dosage displays the complete substituted arithmetic for independent review. It does not select, recommend, prescribe, validate, modify or assess the appropriateness of a dose, medication, route, rate, preparation method or treatment and is not a substitute for the medication order, authorized product information, pharmacy instructions, independent double-check requirements or institutional policy. | AUTHORIZATION_PLAN.md section 2.2; manufacturer/regulatory/clinical approvals below | Complete |
+| `PRD-F05` | Exact enforceable exclusions | The executable limits units to mg/mcg, final volume to six fixed choices, and blocks non-positive/non-finite values, final volume below vial volume and an order above one vial. Drug/patient logic, recommendations, alerts, integrations, signals, cloud and AI/ML are excluded because absent. The current code does not enforce patient, medication, acuity, preparation or care-setting exclusions; none are claimed as implemented controls. | docs/regulatory/evidence/AUTOMATED-FACTS.json; INQ-000 | Complete |
 
 ## 1. Exact included functions
 
@@ -65,7 +65,7 @@ The UI states “Prototype only — not for patient care,” tells the user the 
 
 **NOT READY**
 
-⟦MISSING: SUB-001.completion_statement⟧
+The proposed intended-use wording and exact executable inclusion/exclusion boundary are drafted from controlled sources. Manufacturer identity, the two product decisions, clinical review evidence and four attributable approvals remain required.
 
 Required items still open:
 
@@ -89,7 +89,6 @@ Required items still open:
 - `SUB-001.approvals.4.name`
 - `SUB-001.approvals.4.organization`
 - `SUB-001.approvals.4.signature_ref`
-- `SUB-001.completion_statement`
 - `SUB-001.decisions.PRD-D01.decision`
 - `SUB-001.decisions.PRD-D01.evidence_ref`
 - `SUB-001.decisions.PRD-D01.rationale`
@@ -101,12 +100,4 @@ Required items still open:
 - `SUB-001.evidence.PRD-E02.status`
 - `SUB-001.required_fields.PRD-F01.evidence_ref`
 - `SUB-001.required_fields.PRD-F01.value`
-- `SUB-001.required_fields.PRD-F02.evidence_ref`
-- `SUB-001.required_fields.PRD-F02.value`
-- `SUB-001.required_fields.PRD-F03.evidence_ref`
-- `SUB-001.required_fields.PRD-F03.value`
-- `SUB-001.required_fields.PRD-F04.evidence_ref`
-- `SUB-001.required_fields.PRD-F04.value`
-- `SUB-001.required_fields.PRD-F05.evidence_ref`
-- `SUB-001.required_fields.PRD-F05.value`
 - `SUB-001.status`

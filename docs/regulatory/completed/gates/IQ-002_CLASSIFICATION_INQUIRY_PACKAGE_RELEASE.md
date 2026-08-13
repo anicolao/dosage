@@ -11,7 +11,7 @@
 | Mechanical readiness | **NOT READY** |
 | Controlled status | **INCOMPLETE / NOT APPROVED** |
 | Exact source baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/inquiry/IQ-002.yaml` / `f785d86873a6fc9caad6dc8587ad71bca48f96b8b1d95b80287a0e5623f7a919` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/inquiry/IQ-002.yaml` / `e994cb0e748310059945fcf519a68e5042cb47a9b1bd30ae354ae6f7c21013ee` |
 | Template / SHA-256 | `docs/regulatory/records/templates/gate.md.mustache` / `7b321ada55239b22972c0795527edcc0a4f635f907e28782762695dcf06194ac` |
 
 IQ-002 authorizes one exact hashed classification-verification package to be sent once. It is a narrow pre-submission audit and does not replace G7–G9 for a future clinical release or licence application.
@@ -26,8 +26,8 @@ IQ-002 authorizes one exact hashed classification-verification package to be sen
 | ID | Criterion | Recorded value | Evidence | Required | State |
 | --- | --- | --- | --- | --- | --- |
 | `IQ2-F01` | Exact package manifest SHA-256 | ⟦MISSING: IQ-002.required_fields.IQ2-F01.value⟧ | ⟦MISSING: IQ-002.required_fields.IQ2-F01.evidence_ref⟧ | Yes | Open |
-| `IQ2-F02` | Recipient instruction title, URL, version/effective date and access date | ⟦MISSING: IQ-002.required_fields.IQ2-F02.value⟧ | ⟦MISSING: IQ-002.required_fields.IQ2-F02.evidence_ref⟧ | Yes | Open |
-| `IQ2-F03` | Primary recipient address verified on submission day | ⟦MISSING: IQ-002.required_fields.IQ2-F03.value⟧ | ⟦MISSING: IQ-002.required_fields.IQ2-F03.evidence_ref⟧ | Yes | Open |
+| `IQ2-F02` | Recipient instruction title, URL, version/effective date and access date | Medical Device Establishment Licence application form instructions (FRM-0292); updated 2025-02-26; current before 2026-12-14 unless superseded; https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/medical-device-establishment-licence-application-form-instructions-0292.html; accessed 2026-08-13. Pending transition checked: Medical Device Establishment Licence application instructions effective December 14, 2026; effective 2026-12-14; https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html. | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Yes | Complete |
+| `IQ2-F03` | Primary recipient address verified on submission day | meddevices-instrumentsmed@hc-sc.gc.ca, mechanically verified in the current FRM-0292 response captured 2026-08-13; must be refreshed on the actual submission day | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Yes | Complete |
 | `IQ2-F04` | Authorized sending mailbox and sender | ⟦MISSING: IQ-002.required_fields.IQ2-F04.value⟧ | ⟦MISSING: IQ-002.required_fields.IQ2-F04.evidence_ref⟧ | Yes | Open |
 
 ## 1. Narrow audit scope
@@ -95,10 +95,6 @@ Blocking structured items:
 - `IQ-002.evidence.IQ2-E03.status`
 - `IQ-002.required_fields.IQ2-F01.evidence_ref`
 - `IQ-002.required_fields.IQ2-F01.value`
-- `IQ-002.required_fields.IQ2-F02.evidence_ref`
-- `IQ-002.required_fields.IQ2-F02.value`
-- `IQ-002.required_fields.IQ2-F03.evidence_ref`
-- `IQ-002.required_fields.IQ2-F03.value`
 - `IQ-002.required_fields.IQ2-F04.evidence_ref`
 - `IQ-002.required_fields.IQ2-F04.value`
 - `IQ-002.status`

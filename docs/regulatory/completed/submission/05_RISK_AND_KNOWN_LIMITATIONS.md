@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-005.yaml` / `2bcbd9920735e614a456005191d62442bdd914960e7a4d62bca57930bc920031` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-005.yaml` / `7fbe585a4d6245c91fd94780188e1a5d54f22ae1e53084cc0db81a1360abb2a3` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Candid classification-relevant hazard and limitation summary. This is not a completed risk-management file or residual-risk acceptance.
@@ -20,8 +20,8 @@ Candid classification-relevant hazard and limitation summary. This is not a comp
 
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
-| `RSK-F01` | Intended clinical context and worst credible consequence | ⟦MISSING: SUB-005.required_fields.RSK-F01.value⟧ | ⟦MISSING: SUB-005.required_fields.RSK-F01.evidence_ref⟧ | Open |
-| `RSK-F02` | Prototype containment while inquiry is pending | ⟦MISSING: SUB-005.required_fields.RSK-F02.value⟧ | ⟦MISSING: SUB-005.required_fields.RSK-F02.evidence_ref⟧ | Open |
+| `RSK-F01` | Intended clinical context and worst credible consequence | Proposed for clinical authorization: immediate or near-term medication preparation by a trained nurse; an incorrect or misunderstood mL used for a critical/high-alert medication could contribute to serious injury or death | RMF-001; CANADIAN_REGULATIONS.md; pharmacy/nursing approvals below | Complete |
+| `RSK-F02` | Prototype containment while inquiry is pending | Persistent Prototype only — not for patient care banner; noindex/nofollow/noarchive metadata; not represented or supplied as clinically validated; public review channel remains a known containment limitation | src/App.svelte; index.html; BASE-001; DST-001; automated screenshots | Complete |
 
 ## 1. Classification-relevant risk
 
@@ -59,7 +59,7 @@ Current UI safeguards include closed mg/mcg selectors, six final-volume choices,
 
 **NOT READY**
 
-⟦MISSING: SUB-005.completion_statement⟧
+The known source/review limitations, current safeguards and proposed worst credible consequence are drafted. Quality, pharmacy and nursing reviewers must confirm completeness and authorize the clinical characterization.
 
 Required items still open:
 
@@ -78,14 +78,9 @@ Required items still open:
 - `SUB-005.approvals.3.name`
 - `SUB-005.approvals.3.organization`
 - `SUB-005.approvals.3.signature_ref`
-- `SUB-005.completion_statement`
 - `SUB-005.decisions.RSK-D01.decision`
 - `SUB-005.decisions.RSK-D01.evidence_ref`
 - `SUB-005.decisions.RSK-D01.rationale`
 - `SUB-005.evidence.RSK-E01.reference`
 - `SUB-005.evidence.RSK-E01.status`
-- `SUB-005.required_fields.RSK-F01.evidence_ref`
-- `SUB-005.required_fields.RSK-F01.value`
-- `SUB-005.required_fields.RSK-F02.evidence_ref`
-- `SUB-005.required_fields.RSK-F02.value`
 - `SUB-005.status`

@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-000.yaml` / `1921e9c58dcd35c8221eb1337047f09ad8bb77a850f835e9d365e34b28680ef6` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-000.yaml` / `ee05178c617004d43eddc9c2093d2fb5d48cdff2425e47982d31598ee08af60c` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Draft cover letter asking Health Canada whether the exact Dosage prototype is outside the medical-device definition and, if not, which class and rule apply.
@@ -24,7 +24,7 @@ Draft cover letter asking Health Canada whether the exact Dosage prototype is ou
 | `COV-F02` | Regulatory contact and controlled coordinates | ⟦MISSING: SUB-000.required_fields.COV-F02.value⟧ | ⟦MISSING: SUB-000.required_fields.COV-F02.evidence_ref⟧ | Open |
 | `COV-F03` | Submission date | ⟦MISSING: SUB-000.required_fields.COV-F03.value⟧ | ⟦MISSING: SUB-000.required_fields.COV-F03.evidence_ref⟧ | Open |
 | `COV-F04` | Exact package manifest digest | ⟦MISSING: SUB-000.required_fields.COV-F04.value⟧ | ⟦MISSING: SUB-000.required_fields.COV-F04.evidence_ref⟧ | Open |
-| `COV-F05` | Verified recipient address | ⟦MISSING: SUB-000.required_fields.COV-F05.value⟧ | ⟦MISSING: SUB-000.required_fields.COV-F05.evidence_ref⟧ | Open |
+| `COV-F05` | Verified recipient address | meddevices-instrumentsmed@hc-sc.gc.ca, mechanically verified in the current FRM-0292 response captured 2026-08-13; must be refreshed on the actual submission day | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Complete |
 
 ## 1. Request
 
@@ -66,7 +66,7 @@ The identified prototype is not being supplied for patient care. The manufacture
 
 **NOT READY**
 
-⟦MISSING: SUB-000.completion_statement⟧
+The request text and questions are drafted. Legal manufacturer/contact identity, submission-day date/recipient, final package digest, IQ-002 release evidence and attributable regulatory/manufacturer authorization remain open.
 
 Required items still open:
 
@@ -80,7 +80,6 @@ Required items still open:
 - `SUB-000.approvals.2.name`
 - `SUB-000.approvals.2.organization`
 - `SUB-000.approvals.2.signature_ref`
-- `SUB-000.completion_statement`
 - `SUB-000.decisions.COV-D01.decision`
 - `SUB-000.decisions.COV-D01.evidence_ref`
 - `SUB-000.decisions.COV-D01.rationale`
@@ -94,6 +93,4 @@ Required items still open:
 - `SUB-000.required_fields.COV-F03.value`
 - `SUB-000.required_fields.COV-F04.evidence_ref`
 - `SUB-000.required_fields.COV-F04.value`
-- `SUB-000.required_fields.COV-F05.evidence_ref`
-- `SUB-000.required_fields.COV-F05.value`
 - `SUB-000.status`

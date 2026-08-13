@@ -13,7 +13,7 @@
 | Source baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
 | Source data | `docs/regulatory/records/data/submission/COR-002.yaml` |
 | Template | `docs/regulatory/records/templates/record.md.mustache` |
-| Source-data SHA-256 | `3127238217d733bfd37fd42f646a274cad07f4a77187730065fc27a95a2e5299` |
+| Source-data SHA-256 | `cc8757cd343bd5b811f859653ba410b9dc65d9cd82c5fc55b1ca32d4bedd7729` |
 | Template SHA-256 | `99f7fedc1d2cb5ba9edc70a721182801f48f96b538f91b43eaa6a6d9fba0328d` |
 
 Submission-day routing, transmission, acknowledgement and response control for the early exact-prototype classification-verification request.
@@ -22,8 +22,8 @@ Submission-day routing, transmission, acknowledgement and response control for t
 
 | ID | Field | Value | Evidence | Required | State |
 | --- | --- | --- | --- | --- | --- |
-| `COR-F01` | Applicable official instruction title/URL/version/effective/access dates | ⟦MISSING: COR-002.required_fields.COR-F01.value⟧ | ⟦MISSING: COR-002.required_fields.COR-F01.evidence_ref⟧ | Yes | Open |
-| `COR-F02` | Verified primary address | ⟦MISSING: COR-002.required_fields.COR-F02.value⟧ | ⟦MISSING: COR-002.required_fields.COR-F02.evidence_ref⟧ | Yes | Open |
+| `COR-F01` | Applicable official instruction title/URL/version/effective/access dates | Medical Device Establishment Licence application form instructions (FRM-0292); updated 2025-02-26; current before 2026-12-14 unless superseded; https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/medical-device-establishment-licence-application-form-instructions-0292.html; accessed 2026-08-13. Pending transition checked: Medical Device Establishment Licence application instructions effective December 14, 2026; effective 2026-12-14; https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html. | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Yes | Complete |
+| `COR-F02` | Verified primary address | meddevices-instrumentsmed@hc-sc.gc.ca, mechanically verified in the current FRM-0292 response captured 2026-08-13; must be refreshed on the actual submission day | docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day | Yes | Complete |
 | `COR-F03` | Outgoing sender/mailbox/date/time/time zone/message ID | ⟦MISSING: COR-002.required_fields.COR-F03.value⟧ | ⟦MISSING: COR-002.required_fields.COR-F03.evidence_ref⟧ | Yes | Open |
 | `COR-F04` | Exact outgoing package digest | ⟦MISSING: COR-002.required_fields.COR-F04.value⟧ | ⟦MISSING: COR-002.required_fields.COR-F04.evidence_ref⟧ | Yes | Open |
 | `COR-F05` | Health Canada acknowledgement/reference | ⟦MISSING: COR-002.required_fields.COR-F05.value⟧ | ⟦MISSING: COR-002.required_fields.COR-F05.evidence_ref⟧ | Yes | Open |
@@ -68,7 +68,7 @@ Verify the then-current official classification-request instruction on the sendi
 
 **Generated determination:** NOT READY
 
-⟦MISSING: COR-002.completion_statement⟧
+This record is intentionally event-driven. Complete it only after IQ-002 by running the official-source refresh on the sending day, recording the exact transmitted package/message and preserving Health Canada's acknowledgement and response with attributable regulatory/quality authorization.
 
 Required items still open:
 
@@ -82,7 +82,6 @@ Required items still open:
 - `COR-002.approvals.2.name`
 - `COR-002.approvals.2.organization`
 - `COR-002.approvals.2.signature_ref`
-- `COR-002.completion_statement`
 - `COR-002.decisions.COR-D01.decision`
 - `COR-002.decisions.COR-D01.evidence_ref`
 - `COR-002.decisions.COR-D01.rationale`
@@ -90,10 +89,6 @@ Required items still open:
 - `COR-002.evidence.COR-E01.status`
 - `COR-002.evidence.COR-E02.reference`
 - `COR-002.evidence.COR-E02.status`
-- `COR-002.required_fields.COR-F01.evidence_ref`
-- `COR-002.required_fields.COR-F01.value`
-- `COR-002.required_fields.COR-F02.evidence_ref`
-- `COR-002.required_fields.COR-F02.value`
 - `COR-002.required_fields.COR-F03.evidence_ref`
 - `COR-002.required_fields.COR-F03.value`
 - `COR-002.required_fields.COR-F04.evidence_ref`

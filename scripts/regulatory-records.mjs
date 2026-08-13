@@ -278,11 +278,75 @@ function expectedFiles(records) {
     `| Record | Controlled status | Mechanical result | Open items | Output |\n` +
     `| --- | --- | --- | ---: | --- |\n${completenessRows}\n\n` +
     `Manifest SHA-256: \`${sha256(manifestText)}\`\n`;
+  const earlyRecordIds = new Set([
+    'INQ-000', 'IQ-001', 'IQ-002', 'COR-002',
+    ...Array.from({ length: 10 }, (_, index) => `SUB-${String(index).padStart(3, '0')}`)
+  ]);
+  const earlyRecords = records.filter(({ record }) => earlyRecordIds.has(record.record_id));
+  let humanActionsText = `# Remaining human actions for the classification inquiry\n\n` +
+    `> **GENERATED — DO NOT EDIT.** This register is derived from the structured\n` +
+    `> YAML records. Repository facts, screenshots, artifacts, calculations and\n` +
+    `> official-source captures are automated where possible. Git and automation\n` +
+    `> do not supply identity, professional judgement, evidence acceptance, a\n` +
+    `> signature, or a submission/Health Canada event.\n\n` +
+    `Regenerate with \`npm run regulatory:build\`. A row disappears only when its\n` +
+    `controlled YAML source contains the required value and authorization.\n\n`;
+  for (const entry of earlyRecords) {
+    const { record } = entry;
+    const actions = [];
+    for (const field of record.required_fields) {
+      if (!field.required || (hasValue(field.value) && hasValue(field.evidence_ref))) continue;
+      const category = /manufacturer|contact|reviewer|mailbox|sender/i.test(field.label)
+        ? 'Identity / authority'
+        : /date|digest|recipient|address|instruction|acknowledgement|reference/i.test(field.label)
+          ? 'Submission or external event'
+          : 'Professional evidence / authorization';
+      actions.push([category, field.id, field.label]);
+    }
+    record.sections.forEach((section, index) => {
+      if (section.required !== false && !hasValue(section.body)) {
+        actions.push(['Submission or external event', `section ${index + 1}`, section.title]);
+      }
+    });
+    for (const decision of record.decisions) {
+      if (decision.required && (!hasValue(decision.decision) || !hasValue(decision.rationale) || !hasValue(decision.evidence_ref))) {
+        actions.push(['Professional decision', decision.id, decision.question]);
+      }
+    }
+    for (const evidence of record.evidence) {
+      if (!evidence.required) continue;
+      if (!hasValue(evidence.reference)) actions.push(['Professional or external evidence', evidence.id, evidence.description]);
+      else if (!['accepted', 'not_applicable'].includes(evidence.status)) {
+        actions.push(['Evidence acceptance', evidence.id, `Accept, reject or justify N/A: ${evidence.description}`]);
+      }
+    }
+    record.approvals.forEach((approval, index) => {
+      const complete = !approval.required ||
+        (hasValue(approval.name) && hasValue(approval.organization) && approval.decision === 'approved' &&
+          hasValue(approval.date) && hasValue(approval.signature_ref));
+      if (!complete) actions.push(['Identity and authorization', `approval ${index + 1}`, `${approval.role}: ${approval.scope}`]);
+    });
+    if (!hasValue(record.completion_statement)) actions.push(['Record authorization', 'completion', 'Enter the controlled completion determination']);
+    if (record.status !== 'approved') actions.push(['Record authorization', 'status', 'Set approved only after every required action/evidence/approval is complete']);
+
+    humanActionsText += `## ${record.record_id} — ${record.title}\n\n`;
+    humanActionsText += `Source: \`${posixRelative(entry.sourcePath)}\`\n\n`;
+    if (actions.length === 0) {
+      humanActionsText += `No remaining human action.\n\n`;
+    } else {
+      humanActionsText += `| Category | Item | Required human action |\n| --- | --- | --- |\n`;
+      humanActionsText += actions.map(([category, item, action]) =>
+        `| ${category} | \`${item}\` | ${String(action).replaceAll('|', '\\|')} |`).join('\n');
+      humanActionsText += `\n\n`;
+    }
+  }
+  humanActionsText = `${humanActionsText.trimEnd()}\n`;
 
   return new Map([
     ...records.map((entry) => [entry.outputPath, entry.outputText]),
     [path.join(completedRoot, 'MANIFEST.json'), manifestText],
-    [path.join(completedRoot, 'COMPLETENESS.md'), completenessText]
+    [path.join(completedRoot, 'COMPLETENESS.md'), completenessText],
+    [path.join(completedRoot, 'HUMAN_ACTIONS.md'), humanActionsText]
   ]);
 }
 
@@ -291,7 +355,7 @@ function build(files) {
     mkdirSync(path.dirname(filePath), { recursive: true });
     writeFileSync(filePath, content);
   }
-  console.log(`Generated ${files.size - 2} controlled records plus manifest and completeness index.`);
+  console.log(`Generated ${files.size - 3} controlled records plus manifest, completeness index and human-action register.`);
 }
 
 function check(files) {
@@ -303,7 +367,7 @@ function check(files) {
   if (mismatches.length > 0) {
     fail(`${mismatches.join('\n')}\nRun npm run regulatory:build and commit the generated outputs.`);
   }
-  console.log(`Verified ${files.size - 2} generated records and deterministic manifest.`);
+  console.log(`Verified ${files.size - 3} generated records and deterministic indexes.`);
 }
 
 function selectedRecordIds(args) {

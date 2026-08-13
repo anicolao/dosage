@@ -18,10 +18,14 @@
     "regulatory:commit": "node scripts/regulatory-records.mjs commit",
     "regulatory:facts": "npm run build:submission && node scripts/regulatory-facts.mjs build",
     "regulatory:facts:check": "npm run build:submission && node scripts/regulatory-facts.mjs check",
+    "regulatory:sources": "node scripts/regulatory-official-sources.mjs refresh",
+    "regulatory:sources:check": "node scripts/regulatory-official-sources.mjs check",
+    "regulatory:submission": "npm run regulatory:screenshots && npm run regulatory:facts && npm run regulatory:sources && npm run regulatory:build && npm run regulatory:check",
+    "regulatory:submission:check": "npm run regulatory:screenshots:check && npm run regulatory:facts:check && npm run regulatory:sources:check && npm run regulatory:check",
     "regulatory:screenshots": "npm run build:submission && playwright test --config playwright.submission.config.ts --update-snapshots && node scripts/submission-evidence.mjs build",
     "regulatory:screenshots:check": "npm run build:submission && playwright test --config playwright.submission.config.ts && node scripts/submission-evidence.mjs check",
     "test:formal": "nix develop --command bash scripts/run-formal-verification.sh",
-    "test:e2e": "npm run regulatory:screenshots:check && npm run regulatory:facts:check && npm run build:e2e && playwright test",
+    "test:e2e": "npm run regulatory:screenshots:check && npm run regulatory:facts:check && npm run regulatory:sources:check && npm run build:e2e && playwright test",
     "test:e2e:update-snapshots": "npm run build:e2e && UPDATE_E2E_DOCS=1 playwright test --update-snapshots"
   },
   "dependencies": {

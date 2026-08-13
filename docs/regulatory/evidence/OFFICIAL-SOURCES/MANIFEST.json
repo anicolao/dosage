@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "access_date": "2026-08-13",
+  "time_zone": "America/Toronto",
+  "source_plan": "docs/regulatory/evidence/OFFICIAL-SOURCES/source-plan.json",
+  "source_plan_sha256": "6c0a87cd8863da3e91a8d245fbf28cbd9a83878ee1ebddea3c443e41f641c5f9",
+  "sources": [
+    {
+      "id": "HC-SAMD-DEFINITION",
+      "title": "Guidance Document: Software as a Medical Device (SaMD): Definition and Classification",
+      "version": "effective 2019-12-18",
+      "requested_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance-document.html",
+      "final_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance-document.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": "Thu, 13 Aug 2026 10:55:13 GMT",
+      "bytes": 61462,
+      "sha256": "63b663a9bdb96e57e8bb036808e333131a6aa54d3d79341b601b6047f8459896",
+      "verified_text": [
+        "Software as a Medical Device (SaMD): Definition and Classification"
+      ]
+    },
+    {
+      "id": "HC-SAMD-EXAMPLES",
+      "title": "Guidance Document: Software as a Medical Device (SaMD): Classification Examples",
+      "version": "effective 2019-12-18; updated 2022-11-15",
+      "requested_url": "https://www.canada.ca/content/dam/hc-sc/documents/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance/examples/examples.pdf",
+      "final_url": "https://www.canada.ca/content/dam/hc-sc/documents/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance/examples/examples.pdf",
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "last_modified": "Mon, 16 Jan 2023 14:22:21 GMT",
+      "bytes": 1392532,
+      "sha256": "b7ca89ef726135bc8ea306c227cc362a84570037a68c70cadd802db16c93c48e",
+      "verified_text": []
+    },
+    {
+      "id": "HC-MDALL",
+      "title": "Medical Devices Active Licence Listing (MDALL)",
+      "version": "live database landing page",
+      "requested_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/licences/medical-devices-active-licence-listing.html",
+      "final_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/licences/medical-devices-active-licence-listing.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": "Thu, 13 Aug 2026 11:25:30 GMT",
+      "bytes": 24830,
+      "sha256": "61e15663f7edad5e2de3c84e882d24d1ee48888345fd1c40b3e08a1147b3bf32",
+      "verified_text": [
+        "Medical Devices Active Licence Listing"
+      ]
+    },
+    {
+      "id": "HC-MDALL-API",
+      "title": "Medical Devices Active Licence Listing (MDALL) API",
+      "version": "live API documentation",
+      "requested_url": "https://health-products.canada.ca/api/documentation/mdall-documentation-en.html",
+      "final_url": "https://health-products.canada.ca/api/documentation/mdall-documentation-en.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": "Thu, 09 May 2024 17:16:11 GMT",
+      "bytes": 72027,
+      "sha256": "848f35f63b8fa1af3a88c244ca7f76145f9496f7f091a6ae1bb82df22a5aa64b",
+      "verified_text": [
+        "Medical Devices Active Licence Listing"
+      ]
+    },
+    {
+      "id": "HC-MDEL-0292-CURRENT",
+      "title": "Medical Device Establishment Licence application form instructions (FRM-0292)",
+      "version": "updated 2025-02-26; current before 2026-12-14 unless superseded",
+      "requested_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/medical-device-establishment-licence-application-form-instructions-0292.html",
+      "final_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/medical-device-establishment-licence-application-form-instructions-0292.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": "Thu, 13 Aug 2026 12:18:51 GMT",
+      "bytes": 56273,
+      "sha256": "dded46cd50918c6cbfe17f7f8f03ef1d0c4a8fa082d4e1a2050a461ebd9ecf42",
+      "verified_text": [
+        "classification request",
+        "meddevices-instrumentsmed@hc-sc.gc.ca"
+      ]
+    },
+    {
+      "id": "HC-MDEL-0292-2026-12-14",
+      "title": "Medical Device Establishment Licence application instructions effective December 14, 2026",
+      "version": "effective 2026-12-14",
+      "requested_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html",
+      "final_url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": "Thu, 13 Aug 2026 12:18:51 GMT",
+      "bytes": 49639,
+      "sha256": "6441fdf7a0020854bb0b3e914d2ae8ecee58fa68f15384541d0d572c844f64f9",
+      "verified_text": [
+        "December 14, 2026"
+      ]
+    },
+    {
+      "id": "MDR-CONSOLIDATED",
+      "title": "Medical Devices Regulations, SOR/98-282",
+      "version": "consolidated current page",
+      "requested_url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-98-282/FullText.html",
+      "final_url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-98-282/FullText.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": null,
+      "bytes": 442482,
+      "sha256": "d4a59f26b2902405628190ae805b9667bde67f0c65c78be82c2ffffeda2f875d",
+      "verified_text": [
+        "Medical Devices Regulations"
+      ]
+    },
+    {
+      "id": "SOR-2026-110",
+      "title": "Regulations Amending the Medical Devices Regulations, SOR/2026-110",
+      "version": "registered 2026-06-01; published 2026-06-17",
+      "requested_url": "https://gazette.gc.ca/rp-pr/p2/2026/2026-06-17/html/sor-dors110-eng.html",
+      "final_url": "https://gazette.gc.ca/rp-pr/p2/2026/2026-06-17/html/sor-dors110-eng.html",
+      "http_status": 200,
+      "content_type": "text/html",
+      "last_modified": null,
+      "bytes": 100608,
+      "sha256": "82ef51b883c554519a5acf62fd82159895df07f19dcf54c60c66a0d3ae213649",
+      "verified_text": [
+        "SOR/2026-110"
+      ]
+    }
+  ],
+  "mdall": {
+    "limitation": "MDALL covers licensed Class II, III and IV products; licence-name keyword results do not establish equivalence or absence of a comparable product.",
+    "queries": [
+      {
+        "term": "dosage",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=dosage",
+        "result_count": 0,
+        "results": []
+      },
+      {
+        "term": "dose calculator",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=dose+calculator",
+        "result_count": 0,
+        "results": []
+      },
+      {
+        "term": "dosing calculator",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=dosing+calculator",
+        "result_count": 0,
+        "results": []
+      },
+      {
+        "term": "medication calculator",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=medication+calculator",
+        "result_count": 0,
+        "results": []
+      },
+      {
+        "term": "drug dosing",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=drug+dosing",
+        "result_count": 0,
+        "results": []
+      },
+      {
+        "term": "infusion calculator",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=infusion+calculator",
+        "result_count": 0,
+        "results": []
+      },
+      {
+        "term": "dilution",
+        "url": "https://health-products.canada.ca/api/medical-devices/licence/?lang=en&type=json&state=active&licence_name=dilution",
+        "result_count": 4,
+        "results": [
+          {
+            "original_licence_no": 86613,
+            "licence_status": "I",
+            "appl_risk_class": 2,
+            "licence_name": "ARK METHOTREXATE DILUTION BUFFER",
+            "first_licence_status_dt": "2011-07-12",
+            "last_refresh_dt": "2026-08-12",
+            "end_date": null,
+            "licence_type_cd": "D",
+            "company_id": 129023,
+            "licence_type_desc": "Single Device"
+          },
+          {
+            "original_licence_no": 14294,
+            "licence_status": "I",
+            "appl_risk_class": 4,
+            "licence_name": "PULMONARY ARTERY MONITORING AND THERMODILUTION CATHETERS",
+            "first_licence_status_dt": "1999-11-10",
+            "last_refresh_dt": "2026-08-12",
+            "end_date": null,
+            "licence_type_cd": "Y",
+            "company_id": 112925,
+            "licence_type_desc": "Device Group Family"
+          },
+          {
+            "original_licence_no": 2085,
+            "licence_status": "I",
+            "appl_risk_class": 4,
+            "licence_name": "HANDS-OFF THERMODILUTION CATHETERS",
+            "first_licence_status_dt": "1999-03-31",
+            "last_refresh_dt": "2026-08-12",
+            "end_date": null,
+            "licence_type_cd": "Y",
+            "company_id": 159585,
+            "licence_type_desc": "Device Group Family"
+          },
+          {
+            "original_licence_no": 2087,
+            "licence_status": "I",
+            "appl_risk_class": 4,
+            "licence_name": "BALLOON THERMODILUTION CATHETERS",
+            "first_licence_status_dt": "1999-04-06",
+            "last_refresh_dt": "2026-08-12",
+            "end_date": null,
+            "licence_type_cd": "F",
+            "company_id": 159585,
+            "licence_type_desc": "Device Family"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -12,8 +12,8 @@ summary: >-
   completed risk-management file or residual-risk acceptance.
 dependencies: [INQ-000, IQ-001]
 required_fields:
-  - { id: RSK-F01, label: "Intended clinical context and worst credible consequence", value: null, evidence_ref: null, required: true }
-  - { id: RSK-F02, label: "Prototype containment while inquiry is pending", value: null, evidence_ref: null, required: true }
+  - { id: RSK-F01, label: "Intended clinical context and worst credible consequence", value: "Proposed for clinical authorization: immediate or near-term medication preparation by a trained nurse; an incorrect or misunderstood mL used for a critical/high-alert medication could contribute to serious injury or death", evidence_ref: "RMF-001; CANADIAN_REGULATIONS.md; pharmacy/nursing approvals below", required: true }
+  - { id: RSK-F02, label: "Prototype containment while inquiry is pending", value: "Persistent Prototype only — not for patient care banner; noindex/nofollow/noarchive metadata; not represented or supplied as clinically validated; public review channel remains a known containment limitation", evidence_ref: "src/App.svelte; index.html; BASE-001; DST-001; automated screenshots", required: true }
 sections:
   - title: Classification-relevant risk
     body: >-
@@ -51,4 +51,7 @@ approvals:
   - { role: Pharmacy reviewer, scope: "Confirm clinical consequence and calculation hazards", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Nursing reviewer, scope: "Confirm workflow/reliance and immediate-use risk description", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
 change_triggers: [New hazard, defect, incident, control evidence, intended-use or baseline change]
-completion_statement: null
+completion_statement: >-
+  The known source/review limitations, current safeguards and proposed worst
+  credible consequence are drafted. Quality, pharmacy and nursing reviewers
+  must confirm completeness and authorize the clinical characterization.
