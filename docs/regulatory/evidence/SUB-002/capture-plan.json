@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "record_id": "SUB-002",
+  "source_baseline": "6b53fde87ff9b193b3c24f7bd93549746b4d6471",
+  "package_version": "0.1.0",
+  "capture_date": "2026-08-13",
+  "fixed_clock": "2026-08-13T10:00:00-04:00",
+  "operator": "Automated Playwright capture; no human operator",
+  "browser": "Playwright Chromium",
+  "locale": "en-CA",
+  "timezone": "America/Toronto",
+  "viewport": "393x852 CSS pixels at device scale factor 1",
+  "worked_example": "Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; expected administration volume 10 mL",
+  "captures": [
+    {
+      "id": "01-blank-mix",
+      "title": "Blank Mix screen and prototype identity",
+      "caption": "Initial Mix screen showing the persistent non-clinical warning, v0.1.0 · 6b53fde build identity, manual fields, closed final-volume choices and local-only navigation.",
+      "workflow_steps": [1, 2, 3, 4]
+    },
+    {
+      "id": "02-complete-inputs-answer-hidden",
+      "title": "Complete inputs with answer hidden",
+      "caption": "Worked-example inputs are complete, but no administration volume appears before equation review.",
+      "workflow_steps": [2, 3, 4, 6]
+    },
+    {
+      "id": "03-equation-review",
+      "title": "Mandatory substituted-equation review",
+      "caption": "The review dialog displays vial, prepared, mg-to-mcg conversion and administration equations; every step must be checked before completion.",
+      "workflow_steps": [6]
+    },
+    {
+      "id": "04-result-revealed",
+      "title": "Result revealed after completed review",
+      "caption": "After all equations are checked, the prototype reveals 10 mL and requires a separate acknowledgement before history can be saved.",
+      "workflow_steps": [7]
+    },
+    {
+      "id": "05-result-acknowledged",
+      "title": "External-check acknowledgement",
+      "caption": "The user acknowledges checking the order, vial unit, ordered-dose unit and final prepared volume; the save action is then enabled.",
+      "workflow_steps": [7]
+    },
+    {
+      "id": "06-one-vial-block",
+      "title": "Order above one vial is blocked",
+      "caption": "An ordered dose greater than the converted amount available in one vial produces a blocking error and no actionable result.",
+      "workflow_steps": [5]
+    },
+    {
+      "id": "07-final-volume-block",
+      "title": "Final volume below vial volume is blocked",
+      "caption": "A 51 mL vial volume with a 50 mL final prepared volume produces a blocking error and no actionable result.",
+      "workflow_steps": [5]
+    },
+    {
+      "id": "08-favourites-local-record",
+      "title": "Favourite stores vial facts only",
+      "caption": "Favourites are labelled stored on this device only and retain medication/vial facts without an ordered dose.",
+      "workflow_steps": [8]
+    },
+    {
+      "id": "09-history-local-record",
+      "title": "Saved calculation in local history",
+      "caption": "Mix history is labelled stored on this device only, warns that it is not a medication order, and displays the source inputs and result.",
+      "workflow_steps": [8]
+    },
+    {
+      "id": "10-history-rereview",
+      "title": "History re-review resets equation checks",
+      "caption": "Opening a saved mix restores inputs into mandatory equation review with every check reset and the result concealed.",
+      "workflow_steps": [8]
+    },
+    {
+      "id": "11-storage-unavailable",
+      "title": "Corrupt local storage does not block calculation",
+      "caption": "A corrupt favourites record disables persistence, displays a recovery warning and leaves the reviewed calculation available.",
+      "workflow_steps": [5, 8]
+    },
+    {
+      "id": "12-offline-reopen",
+      "title": "Installed app shell reopened offline",
+      "caption": "After a successful online app-shell installation and service-worker control, a new page opens offline with the prototype identity and calculator available.",
+      "workflow_steps": [1, 8]
+    }
+  ]
+}

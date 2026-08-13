@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-002.yaml` / `4544b698129e19d0ecd31075b48e2013b5a77b1dc4529d73c9fde3d463d4effa` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-002.yaml` / `b9c1892b731d96b4996e0ce45d85b41df856c9ff45342dbdd3680f6cb5ffb964` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Representative evidence of every material user-visible function in the exact prototype. Captures must retain version, warning, equations and safety copy.
@@ -20,9 +20,9 @@ Representative evidence of every material user-visible function in the exact pro
 
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
-| `WFL-F01` | Capture artifact/environment/operator/date | ⟦MISSING: SUB-002.required_fields.WFL-F01.value⟧ | ⟦MISSING: SUB-002.required_fields.WFL-F01.evidence_ref⟧ | Open |
-| `WFL-F02` | Controlled screenshot archive digest | ⟦MISSING: SUB-002.required_fields.WFL-F02.value⟧ | ⟦MISSING: SUB-002.required_fields.WFL-F02.evidence_ref⟧ | Open |
-| `WFL-F03` | Worked-example inputs | ⟦MISSING: SUB-002.required_fields.WFL-F03.value⟧ | ⟦MISSING: SUB-002.required_fields.WFL-F03.evidence_ref⟧ | Open |
+| `WFL-F01` | Capture artifact/environment/operator/date | Automated Playwright Chromium capture on 2026-08-13; fixed clock 2026-08-13T10:00:00-04:00; en-CA; America/Toronto; 393×852 CSS pixels; device scale factor 1; no human operator | docs/regulatory/evidence/SUB-002/capture-plan.json; MANIFEST.json | Complete |
+| `WFL-F02` | Controlled screenshot archive digest | 96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8 | docs/regulatory/evidence/SUB-002/MANIFEST.json | Complete |
+| `WFL-F03` | Worked-example inputs | Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; expected prepared concentration 0.2 mg/mL = 200 mcg/mL and expected administration volume 10 mL | captures 02–05; tests/submission/02-workflow-and-screenshots.spec.ts | Complete |
 
 ## 1. Numbered actual workflow
 
@@ -37,20 +37,35 @@ Representative evidence of every material user-visible function in the exact pro
 
 ## 2. Required captures
 
-Provide uncropped images for blank Mix, completed inputs/hidden answer, equation review, revealed result, each blocking-error family, favourites, history/re-review, storage-unavailable state if reproducible, installed app, offline reopen and About/version/prototype status. Each caption must identify exact source commit, browser/device, viewport, input values and corresponding test/evidence reference.
+The following uncropped captures are generated and verified by `npm run regulatory:screenshots:check`. The machine-readable manifest records the exact source baseline, build command, browser environment, viewport, per-file SHA-256 and built-artifact file-manifest digest. The exact prototype has no About screen; version and prototype status are captured in the persistent header/banner instead. Playwright cannot capture browser installation chrome, so installability is verified from manifest metadata and service-worker control while capture 12 demonstrates a new offline page after app-shell installation.
+
+1. [Blank Mix and prototype identity](../../evidence/SUB-002/screenshots/01-blank-mix.png)
+2. [Complete inputs with answer hidden](../../evidence/SUB-002/screenshots/02-complete-inputs-answer-hidden.png)
+3. [Mandatory substituted-equation review](../../evidence/SUB-002/screenshots/03-equation-review.png)
+4. [Result revealed after review](../../evidence/SUB-002/screenshots/04-result-revealed.png)
+5. [External-check acknowledgement](../../evidence/SUB-002/screenshots/05-result-acknowledged.png)
+6. [One-vial blocking error](../../evidence/SUB-002/screenshots/06-one-vial-block.png)
+7. [Final-volume blocking error](../../evidence/SUB-002/screenshots/07-final-volume-block.png)
+8. [Favourite stores vial facts only](../../evidence/SUB-002/screenshots/08-favourites-local-record.png)
+9. [Saved calculation in history](../../evidence/SUB-002/screenshots/09-history-local-record.png)
+10. [History re-review resets checks](../../evidence/SUB-002/screenshots/10-history-rereview.png)
+11. [Storage-unavailable recovery state](../../evidence/SUB-002/screenshots/11-storage-unavailable.png)
+12. [Installed app shell reopened offline](../../evidence/SUB-002/screenshots/12-offline-reopen.png)
+
+Captions, workflow mapping, dimensions and individual hashes are in [the controlled evidence index](../../evidence/SUB-002/README.md).
 
 ## Classification decisions represented
 
 | ID | Question | Position/decision | Rationale | Evidence | State |
 | --- | --- | --- | --- | --- | --- |
-| `WFL-D01` | Do screenshots and captions represent only the exact source baseline? | ⟦MISSING: SUB-002.decisions.WFL-D01.decision⟧ | ⟦MISSING: SUB-002.decisions.WFL-D01.rationale⟧ | ⟦MISSING: SUB-002.decisions.WFL-D01.evidence_ref⟧ | Open |
+| `WFL-D01` | Do screenshots and captions represent only the exact source baseline? | Yes — mechanically verified; pending attributable approval | The dedicated build injects the frozen full source revision, every capture asserts the visible v0.1.0/6b53fde identity, and Playwright verifies the described state before comparing the committed image pixel-for-pixel. | tests/submission/02-workflow-and-screenshots.spec.ts; docs/regulatory/evidence/SUB-002/MANIFEST.json | Complete |
 
 ## Supporting evidence
 
 | ID | Evidence | Reference | Status | State |
 | --- | --- | --- | --- | --- |
-| `WFL-E01` | Controlled screenshot archive | ⟦MISSING: SUB-002.evidence.WFL-E01.reference⟧ | missing | Open |
-| `WFL-E02` | Screenshot-to-workflow/test trace | ⟦MISSING: SUB-002.evidence.WFL-E02.reference⟧ | missing | Open |
+| `WFL-E01` | Controlled screenshot archive | docs/regulatory/evidence/SUB-002/screenshots/; archive SHA-256 96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8 | reviewed | Open |
+| `WFL-E02` | Screenshot-to-workflow/test trace | docs/regulatory/evidence/SUB-002/capture-plan.json; tests/submission/02-workflow-and-screenshots.spec.ts; docs/regulatory/evidence/SUB-002/README.md | reviewed | Open |
 
 ## Review and authorization
 
@@ -64,7 +79,7 @@ Provide uncropped images for blank Mix, completed inputs/hidden answer, equation
 
 **NOT READY**
 
-⟦MISSING: SUB-002.completion_statement⟧
+All repository-derived workflow fields and controlled captures are complete. Submission readiness now requires named software, nursing and quality reviewers to accept this evidence and provide attributable authorization.
 
 Required items still open:
 
@@ -83,18 +98,6 @@ Required items still open:
 - `SUB-002.approvals.3.name`
 - `SUB-002.approvals.3.organization`
 - `SUB-002.approvals.3.signature_ref`
-- `SUB-002.completion_statement`
-- `SUB-002.decisions.WFL-D01.decision`
-- `SUB-002.decisions.WFL-D01.evidence_ref`
-- `SUB-002.decisions.WFL-D01.rationale`
-- `SUB-002.evidence.WFL-E01.reference`
 - `SUB-002.evidence.WFL-E01.status`
-- `SUB-002.evidence.WFL-E02.reference`
 - `SUB-002.evidence.WFL-E02.status`
-- `SUB-002.required_fields.WFL-F01.evidence_ref`
-- `SUB-002.required_fields.WFL-F01.value`
-- `SUB-002.required_fields.WFL-F02.evidence_ref`
-- `SUB-002.required_fields.WFL-F02.value`
-- `SUB-002.required_fields.WFL-F03.evidence_ref`
-- `SUB-002.required_fields.WFL-F03.value`
 - `SUB-002.status`

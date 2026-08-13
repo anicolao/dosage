@@ -26,7 +26,7 @@
 | `COR-002` | incomplete | NOT READY | 31 | `docs/regulatory/completed/correspondence/COR-002_EARLY_CLASSIFICATION_INQUIRY_LOG.md` |
 | `SUB-000` | incomplete | NOT READY | 27 | `docs/regulatory/completed/submission/00_COVER_LETTER.md` |
 | `SUB-001` | incomplete | NOT READY | 41 | `docs/regulatory/completed/submission/01_PRODUCT_AND_INTENDED_USE.md` |
-| `SUB-002` | incomplete | NOT READY | 30 | `docs/regulatory/completed/submission/02_WORKFLOW_AND_SCREENSHOTS.md` |
+| `SUB-002` | incomplete | NOT READY | 18 | `docs/regulatory/completed/submission/02_WORKFLOW_AND_SCREENSHOTS.md` |
 | `SUB-003` | incomplete | NOT READY | 23 | `docs/regulatory/completed/submission/03_ARCHITECTURE_AND_DATA_FLOW.md` |
 | `SUB-004` | incomplete | NOT READY | 32 | `docs/regulatory/completed/submission/04_CALCULATION_AND_WORKED_EXAMPLE.md` |
 | `SUB-005` | incomplete | NOT READY | 26 | `docs/regulatory/completed/submission/05_RISK_AND_KNOWN_LIMITATIONS.md` |
@@ -36,4 +36,4 @@
 | `SUB-009` | incomplete | NOT READY | 23 | `docs/regulatory/completed/submission/09_PACKAGE_MANIFEST_AND_CHANGE_BOUNDARY.md` |
 | `GEN-001` | in_review | NOT READY | 7 | `docs/regulatory/completed/support/GEN-001_RECORD_GENERATION_CONTROL.md` |
 
-Manifest SHA-256: `d24e74be1633e1010395bde8da54bf7d86e4ab06a83626a4f83983c6469746a1`
+Manifest SHA-256: `b6bb95144b4e8aa6e65321ee9c3872835a27a7c85ea7aec42b2020a6520d6467`
