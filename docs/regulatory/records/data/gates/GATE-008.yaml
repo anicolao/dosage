@@ -1,0 +1,27 @@
+record_id: GATE-008
+title: Dossier baseline frozen
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-008_DOSSIER_BASELINE.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: Full G8 completion record governed by docs/regulatory/GATE-008_DOSSIER_BASELINE.md.
+dependencies: [GATE-007]
+required_fields:
+  - { id: G8-F01, label: "Frozen source/tag/build/artifact and archive hashes", value: null, evidence_ref: null, required: true }
+  - { id: G8-F02, label: "Frozen intended use/functions/formula/platform/safety copy", value: null, evidence_ref: null, required: true }
+  - { id: G8-F03, label: "English label/IFU and independently reviewed French", value: null, evidence_ref: null, required: true }
+  - { id: G8-F04, label: "SBOM/VVR/screenshots/version-change archive", value: null, evidence_ref: null, required: true }
+sections: [{ title: Immutable dossier-baseline determination, body: null, required: true }]
+decisions:
+  - { id: G8-D01, question: "Is one immutable release/evidence/label baseline frozen without unresolved placeholder?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G8-E01, description: "REL-001/LBL-001 and complete archive/hash manifest", reference: null, status: missing, required: true }
+approvals:
+  - { role: Quality lead, scope: "Freeze source/artifact/evidence baseline", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Regulatory lead, scope: "Freeze intended use/label/dossier baseline", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Approve exact frozen baseline", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Any frozen source, artifact, evidence, label, translation, scope or hash change]
+completion_statement: null

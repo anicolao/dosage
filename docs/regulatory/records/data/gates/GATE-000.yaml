@@ -1,0 +1,29 @@
+record_id: GATE-000
+title: Controlled prototype
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-000_CONTROLLED_PROTOTYPE.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Full G0 completion record governed by docs/regulatory/GATE-000_CONTROLLED_PROTOTYPE.md.
+dependencies: []
+required_fields:
+  - { id: G0-F01, label: "Legal manufacturer and authorized signatory", value: null, evidence_ref: null, required: true }
+  - { id: G0-F02, label: "Quality and software leads with authority/competence", value: null, evidence_ref: null, required: true }
+  - { id: G0-F03, label: "Prototype source/deployment baseline and containment", value: null, evidence_ref: null, required: true }
+  - { id: G0-F04, label: "Contributor/provenance and counsel rights conclusion", value: null, evidence_ref: null, required: true }
+sections:
+  - { title: Exit checklist disposition, body: null, required: true }
+decisions:
+  - { id: G0-D01, question: "Are prototype identity, access, findings, rights, roles and exact baseline controlled?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G0-E01, description: "Completed G0-01/G0-02/G0-03/G0-04 evidence packet", reference: null, status: missing, required: true }
+  - { id: G0-E02, description: "BASE-001/DST-001/FND-001 and exact-candidate CI/deployment evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Quality lead, scope: "Close G0 evidence and containment", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Software lead, scope: "Approve exact prototype and technical containment", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Accept G0 responsibilities for exact baseline", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Manufacturer/role/rights, baseline, access, warning or unresolved-finding change]
+completion_statement: null

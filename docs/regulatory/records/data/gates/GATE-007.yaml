@@ -1,0 +1,26 @@
+record_id: GATE-007
+title: Verified reference build
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-007_VERIFIED_REFERENCE_BUILD.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: Full G7 completion record governed by docs/regulatory/GATE-007_VERIFIED_REFERENCE_BUILD.md.
+dependencies: [GATE-003, GATE-004, GATE-005, GATE-006]
+required_fields:
+  - { id: G7-F01, label: "Exact verified source/build/artifact/environment", value: null, evidence_ref: null, required: true }
+  - { id: G7-F02, label: "VVR-001 archive and complete command/results manifest", value: null, evidence_ref: null, required: true }
+  - { id: G7-F03, label: "Closed traceability and anomaly disposition", value: null, evidence_ref: null, required: true }
+sections: [{ title: Controlled verification conclusion, body: null, required: true }]
+decisions:
+  - { id: G7-D01, question: "Does the exact reference build satisfy the approved verification plan with no unresolved critical/high anomaly?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G7-E01, description: "VVR-001, TRC-001, complete test evidence and anomaly archive", reference: null, status: missing, required: true }
+approvals:
+  - { role: Independent verifier, scope: "Approve independent verification conclusion", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Applicable clinical/security/HF reviewers, scope: "Approve specialty evidence conclusions", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Close traceability/anomalies and G7", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Post-verification source, dependency, config, artifact, label or evidence change]
+completion_statement: null

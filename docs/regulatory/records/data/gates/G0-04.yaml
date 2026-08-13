@@ -1,0 +1,31 @@
+record_id: G0-04
+title: Ownership and licensing counsel conclusion
+kind: support
+template: gate.md.mustache
+output: gates/G0-04_OWNERSHIP_AND_LICENSING_COUNSEL_CONCLUSION.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Controlled execution record for counsel's conclusion on the manufacturer's authority to submit, distribute and make regulatory representations about the exact prototype.
+dependencies: [G0-01, G0-03]
+required_fields:
+  - { id: G004-F01, label: "Counsel opinion or memorandum reference", value: null, evidence_ref: null, required: true }
+  - { id: G004-F02, label: "Distribution and deployment models assessed", value: null, evidence_ref: null, required: true }
+  - { id: G004-F03, label: "Manufacturer rights to submit and make regulatory representations", value: null, evidence_ref: null, required: true }
+  - { id: G004-F04, label: "GPL-3.0 and third-party obligations", value: null, evidence_ref: null, required: true }
+  - { id: G004-F05, label: "Conditions, exclusions and required remediation", value: null, evidence_ref: null, required: true }
+sections:
+  - { title: Counsel conclusion, body: null, required: true }
+  - { title: Conditions and continuing obligations, body: null, required: true }
+decisions:
+  - { id: G004-D01, question: "Does the legal manufacturer have sufficient rights and authority for the proposed inquiry and each contemplated distribution model?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G004-E01, description: "Dated counsel opinion or controlled legal memorandum", reference: null, status: missing, required: true }
+  - { id: G004-E02, description: "G0-03 provenance inventory and any counsel-requested supplemental evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Qualified legal counsel, scope: "Issue the ownership, licensing and submission-authority conclusion", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer officer, scope: "Accept counsel conditions and required remediation", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify the controlled conclusion is referenced without exposing privileged content", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Manufacturer, contributor, dependency, licence, distribution model or counsel-condition change]
+completion_statement: null

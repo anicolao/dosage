@@ -1,0 +1,29 @@
+record_id: GATE-009
+title: Formal dossier submission approved
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-009_FORMAL_DOSSIER_SUBMISSION.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: >-
+  Full G9 completion record for a future formal clinical-release/licence dossier;
+  early classification inquiries instead use IQ-002.
+dependencies: [GATE-008]
+required_fields:
+  - { id: G9-F01, label: "Exact formal dossier/package digest", value: null, evidence_ref: null, required: true }
+  - { id: G9-F02, label: "Independent audit findings and closure", value: null, evidence_ref: null, required: true }
+  - { id: G9-F03, label: "Current legal/guidance/routing review", value: null, evidence_ref: null, required: true }
+sections: [{ title: Formal dossier audit/release determination, body: null, required: true }]
+decisions:
+  - { id: G9-D01, question: "Is the exact formal dossier approved for the applicable post-classification route?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G9-E01, description: "Independent audit report and exact package manifest", reference: null, status: missing, required: true }
+approvals:
+  - { role: Independent dossier auditor, scope: "Approve exact-package audit conclusion", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Regulatory lead/counsel, scope: "Approve applicable route and current legal basis", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Release exact formal package", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Authorize exact formal submission", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Package, audit, baseline, rule, route, recipient or manufacturer-authorization change]
+completion_statement: null

@@ -1,0 +1,26 @@
+record_id: GATE-005
+title: Representative interface
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-005_REPRESENTATIVE_INTERFACE.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: Full G5 completion record governed by docs/regulatory/GATE-005_REPRESENTATIVE_INTERFACE.md.
+dependencies: [GATE-003]
+required_fields:
+  - { id: G5-F01, label: "Exact representative UI candidate and supported matrix", value: null, evidence_ref: null, required: true }
+  - { id: G5-F02, label: "Accessibility/reflow/AT/keyboard evidence", value: null, evidence_ref: null, required: true }
+  - { id: G5-F03, label: "Representative Canadian nurse formative evidence", value: null, evidence_ref: null, required: true }
+sections: [{ title: Interface and human-factors determination, body: null, required: true }]
+decisions:
+  - { id: G5-D01, question: "Is the interface representative, accessible and independently reviewable for the approved scope?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G5-E01, description: "Controlled viewport/zoom/accessibility/manual/AT/nurse-task evidence and screenshots", reference: null, status: missing, required: true }
+approvals:
+  - { role: Software lead, scope: "Approve representative UI implementation", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Nursing/human-factors lead, scope: "Approve formative workflow/interface conclusion", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify evidence/anomalies and close G5", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [UI, safety copy, workflow, accessibility, supported matrix or human-factors evidence change]
+completion_statement: null

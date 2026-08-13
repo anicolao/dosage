@@ -1,0 +1,31 @@
+record_id: G0-01
+title: Legal manufacturer identity and signing authority
+kind: support
+template: gate.md.mustache
+output: gates/G0-01_LEGAL_MANUFACTURER_IDENTITY.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Fillable execution record for the legal-manufacturer identity and authority procedure defined in G0-01_LEGAL_MANUFACTURER_IDENTITY_TEMPLATE.md.
+dependencies: []
+required_fields:
+  - { id: G001-F01, label: "Full legal manufacturer name", value: null, evidence_ref: null, required: true }
+  - { id: G001-F02, label: "Legal form and jurisdiction", value: null, evidence_ref: null, required: true }
+  - { id: G001-F03, label: "Registered and operating addresses", value: null, evidence_ref: null, required: true }
+  - { id: G001-F04, label: "Authorized regulatory signatory and authority basis", value: null, evidence_ref: null, required: true }
+  - { id: G001-F05, label: "Canadian regulatory contact details", value: null, evidence_ref: null, required: true }
+sections:
+  - { title: Identity verification notes, body: null, required: true }
+  - { title: Authority-chain verification notes, body: null, required: true }
+decisions:
+  - { id: G001-D01, question: "Is one legal manufacturer unambiguously identified and authorized to make the inquiry and later regulatory representations?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G001-E01, description: "Current official registry extract or equivalent formation evidence", reference: null, status: missing, required: true }
+  - { id: G001-E02, description: "Board resolution, delegation, officer certificate or equivalent signatory-authority evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Independent identity reviewer, scope: "Verify legal identity against authoritative evidence", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer officer, scope: "Attest identity, addresses and authority chain", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Confirm record completeness and evidence control", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Manufacturer identity, legal form, address, contact or signatory-authority change]
+completion_statement: null

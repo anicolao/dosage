@@ -1,0 +1,26 @@
+record_id: GATE-004
+title: Trusted state boundaries
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-004_TRUSTED_STATE_BOUNDARIES.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: Full G4 completion record governed by docs/regulatory/GATE-004_TRUSTED_STATE_BOUNDARIES.md.
+dependencies: [GATE-002, GATE-003]
+required_fields:
+  - { id: G4-F01, label: "Exact storage/state candidate commit/build", value: null, evidence_ref: null, required: true }
+  - { id: G4-F02, label: "Versioned schemas/recomputation/migration/failure behavior", value: null, evidence_ref: null, required: true }
+  - { id: G4-F03, label: "Retention/deletion/privacy/offline compatibility", value: null, evidence_ref: null, required: true }
+sections: [{ title: State-boundary implementation and anomaly disposition, body: null, required: true }]
+decisions:
+  - { id: G4-D01, question: "Are all persisted values untrusted and safely validated/recomputed for one exact candidate?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G4-E01, description: "Schema/property/migration/corruption/recovery/privacy/browser evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Software lead, scope: "Approve state/storage implementation", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Security/privacy lead, scope: "Approve local-data/privacy controls", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify evidence/anomalies and close G4", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Schema, persistence, migration, recomputation, retention, deletion or privacy change]
+completion_statement: null

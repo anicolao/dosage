@@ -1,0 +1,27 @@
+record_id: GATE-010
+title: Formal request acknowledged
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-010_FORMAL_REQUEST_ACKNOWLEDGED.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: >-
+  Full G10 correspondence-control record for a future formal/licence request;
+  early classification inquiry correspondence is controlled by COR-002.
+dependencies: [GATE-009]
+required_fields:
+  - { id: G10-F01, label: "Exact sent message/package/delivery identity", value: null, evidence_ref: null, required: true }
+  - { id: G10-F02, label: "Health Canada acknowledgement/reference/contact/deadlines", value: null, evidence_ref: null, required: true }
+  - { id: G10-F03, label: "Response owner and controlled chronology", value: null, evidence_ref: null, required: true }
+sections: [{ title: Acknowledgement and response-control determination, body: null, required: true }]
+decisions:
+  - { id: G10-D01, question: "Is the formal request acknowledged and every follow-up controlled without overstating Health Canada's position?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G10-E01, description: "Exact sent package/delivery and complete correspondence thread", reference: null, status: missing, required: true }
+approvals:
+  - { role: Regulatory lead, scope: "Certify acknowledgement and controlled response ownership", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify correspondence identity and change/gate impacts", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [New correspondence, deadline, question, response or controlling assumption]
+completion_statement: null

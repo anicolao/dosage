@@ -1,0 +1,34 @@
+record_id: G0-03
+title: Contributor and copyright provenance inventory
+kind: support
+template: gate.md.mustache
+output: gates/G0-03_CONTRIBUTOR_AND_COPYRIGHT_PROVENANCE.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Fillable execution record for the ownership and provenance inventory procedure defined in G0-03_CONTRIBUTOR_COPYRIGHT_PROVENANCE_TEMPLATE.md.
+dependencies: [G0-01]
+required_fields:
+  - { id: G003-F01, label: "Repository and history boundary reviewed", value: null, evidence_ref: null, required: true }
+  - { id: G003-F02, label: "Contributor inventory and attribution status", value: null, evidence_ref: null, required: true }
+  - { id: G003-F03, label: "Copyright, assignment and employment-agreement status", value: null, evidence_ref: null, required: true }
+  - { id: G003-F04, label: "Third-party code, asset, font and generated-content inventory", value: null, evidence_ref: null, required: true }
+  - { id: G003-F05, label: "Unresolved provenance gaps and containment", value: null, evidence_ref: null, required: true }
+sections:
+  - { title: Contributor inventory, body: null, required: true }
+  - { title: Third-party and generated asset inventory, body: null, required: true }
+  - { title: Provenance gaps and remediation, body: null, required: true }
+decisions:
+  - { id: G003-D01, question: "Is the provenance inventory complete enough for counsel to determine the manufacturer's rights and obligations for the proposed use?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G003-E01, description: "Version-controlled contributor and copyright inventory", reference: null, status: missing, required: true }
+  - { id: G003-E02, description: "Contributor attestations, assignments, employment agreements or documented gaps", reference: null, status: missing, required: true }
+  - { id: G003-E03, description: "Third-party licence texts, notices and asset provenance evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Software lead, scope: "Attest repository and dependency inventory completeness", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Record custodian, scope: "Verify evidence is controlled, legible and traceable", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Review procedure completion and unresolved-gap controls", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal counsel, scope: "Accept the inventory as sufficient input to the rights conclusion", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Contributor, dependency, asset, licence, repository-boundary or rights-evidence change]
+completion_statement: null
