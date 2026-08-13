@@ -1,0 +1,27 @@
+record_id: GATE-003
+title: Calculation implementation verified
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-003_CALCULATION_IMPLEMENTATION.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: Full G3 completion record governed by docs/regulatory/GATE-003_CALCULATION_IMPLEMENTATION.md.
+dependencies: [GATE-002]
+required_fields:
+  - { id: G3-F01, label: "Exact engine candidate commit/build/interface", value: null, evidence_ref: null, required: true }
+  - { id: G3-F02, label: "Pure typed engine and structured states implemented", value: null, evidence_ref: null, required: true }
+  - { id: G3-F03, label: "Unit/property/differential/formal conformance complete", value: null, evidence_ref: null, required: true }
+sections: [{ title: Implementation and anomaly disposition, body: null, required: true }]
+decisions:
+  - { id: G3-D01, question: "Does one exact implementation satisfy approved calculation/review controls with no critical/high anomaly?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G3-E01, description: "Code review, controlled tests, independent oracle, Lean conformance and anomaly evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Pharmacy lead, scope: "Approve implemented calculation behavior", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Software lead, scope: "Approve exact engine implementation", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Independent calculation verifier, scope: "Sign independent calculation conclusion", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify evidence/anomalies and close G3", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Parser, unit, formula, rounding, output, review state, engine dependency or evidence change]
+completion_statement: null

@@ -1,0 +1,27 @@
+record_id: GATE-006
+title: Controlled reference build
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-006_CONTROLLED_REFERENCE_BUILD.md
+revision: "0.1"
+status: incomplete
+source_baseline: null
+supersedes: null
+summary: Full G6 completion record governed by docs/regulatory/GATE-006_CONTROLLED_REFERENCE_BUILD.md.
+dependencies: [GATE-003]
+required_fields:
+  - { id: G6-F01, label: "Exact source/build/artifact/provenance identity", value: null, evidence_ref: null, required: true }
+  - { id: G6-F02, label: "CSP/network/threat/security evidence", value: null, evidence_ref: null, required: true }
+  - { id: G6-F03, label: "SBOM/licence/vulnerability/CI provenance evidence", value: null, evidence_ref: null, required: true }
+  - { id: G6-F04, label: "Offline install/update/rollback/eviction/recovery evidence", value: null, evidence_ref: null, required: true }
+sections: [{ title: Controlled-build and security determination, body: null, required: true }]
+decisions:
+  - { id: G6-D01, question: "Is one reproducible controlled build suitable for G7 verification?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G6-E01, description: "Exact-build security/supply-chain/offline/determinism evidence", reference: null, status: missing, required: true }
+approvals:
+  - { role: Security/privacy lead, scope: "Approve security/privacy evidence", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Software lead, scope: "Approve build/provenance/offline lifecycle", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify evidence/anomalies and close G6", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Source, dependency, build, CI, host, CSP, network, cache or vulnerability change]
+completion_statement: null

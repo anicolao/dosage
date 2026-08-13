@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "HC-SAMD-DEFINITION",
+      "title": "Guidance Document: Software as a Medical Device (SaMD): Definition and Classification",
+      "version": "effective 2019-12-18",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance-document.html",
+      "required_text": "Software as a Medical Device (SaMD): Definition and Classification"
+    },
+    {
+      "id": "HC-SAMD-EXAMPLES",
+      "title": "Guidance Document: Software as a Medical Device (SaMD): Classification Examples",
+      "version": "effective 2019-12-18; updated 2022-11-15",
+      "url": "https://www.canada.ca/content/dam/hc-sc/documents/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance/examples/examples.pdf",
+      "content_type": "application/pdf"
+    },
+    {
+      "id": "HC-MDALL",
+      "title": "Medical Devices Active Licence Listing (MDALL)",
+      "version": "live database landing page",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/licences/medical-devices-active-licence-listing.html",
+      "required_text": "Medical Devices Active Licence Listing"
+    },
+    {
+      "id": "HC-MDALL-API",
+      "title": "Medical Devices Active Licence Listing (MDALL) API",
+      "version": "live API documentation",
+      "url": "https://health-products.canada.ca/api/documentation/mdall-documentation-en.html",
+      "required_text": "Medical Devices Active Licence Listing"
+    },
+    {
+      "id": "HC-MDEL-0292-CURRENT",
+      "title": "Medical Device Establishment Licence application form instructions (FRM-0292)",
+      "version": "updated 2025-02-26; current before 2026-12-14 unless superseded",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/medical-device-establishment-licence-application-form-instructions-0292.html",
+      "required_text": [
+        "classification request",
+        "meddevices-instrumentsmed@hc-sc.gc.ca"
+      ]
+    },
+    {
+      "id": "HC-MDEL-0292-2026-12-14",
+      "title": "Medical Device Establishment Licence application instructions effective December 14, 2026",
+      "version": "effective 2026-12-14",
+      "url": "https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html",
+      "required_text": "December 14, 2026"
+    },
+    {
+      "id": "MDR-CONSOLIDATED",
+      "title": "Medical Devices Regulations, SOR/98-282",
+      "version": "consolidated current page",
+      "url": "https://laws-lois.justice.gc.ca/eng/regulations/SOR-98-282/FullText.html",
+      "required_text": "Medical Devices Regulations"
+    },
+    {
+      "id": "SOR-2026-110",
+      "title": "Regulations Amending the Medical Devices Regulations, SOR/2026-110",
+      "version": "registered 2026-06-01; published 2026-06-17",
+      "url": "https://gazette.gc.ca/rp-pr/p2/2026/2026-06-17/html/sor-dors110-eng.html",
+      "required_text": "SOR/2026-110"
+    }
+  ],
+  "mdall_queries": [
+    "dosage",
+    "dose calculator",
+    "dosing calculator",
+    "medication calculator",
+    "drug dosing",
+    "infusion calculator",
+    "dilution"
+  ]
+}

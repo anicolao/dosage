@@ -1,5 +1,10 @@
 # MVP UX design
 
+Document status: target interaction requirements. Mockups and prescriptive
+language are design inputs, not evidence of implementation, validation or
+authorization. Current behaviour is summarized in `README.md`; controlled
+requirements and verification status live under `docs/regulatory/`.
+
 ## Design objective
 
 Make the correct calculation easy to inspect and a wrong input difficult to overlook. The experience is optimized for a 393×852 phone, one-handed scanning, interruptions, and fast return to context. The primary calculator fits in the available viewport without document or panel scrolling. Navigation—not swiping through a long form—moves between the calculator, saved records, and equation-review steps.
@@ -12,7 +17,10 @@ The persistent bottom navigation has three destinations:
 - **Favourites** — manage medication label facts and begin a fresh calculation;
 - **History** — review or delete saved calculations on this phone.
 
-The header always shows the product name and a visible “On this device” status. A prototype or unvalidated build also shows a non-dismissible “Not for patient care” banner.
+The header always shows the product name, package version and source revision.
+Favourites and history separately state that records are stored on this device
+only. A prototype or unvalidated build also shows a non-dismissible “Prototype
+only — not for patient care” banner.
 
 ## Primary flow
 
@@ -110,7 +118,8 @@ Each record provides “Review” and “Delete.” Review restores the saved ca
 - Use a leading zero for values below one: `0.2 mg/mL`, never `.2 mg/mL`.
 - Do not add trailing zeros that imply false precision: `2000 mcg`, not `2000.0 mcg` unless entered and clinically meaningful.
 - Never silently normalize the ordered dose to the vial unit; show both the original ordered unit and the converted concentration.
-- Never abbreviate “units” to `U`.
+- Accept only `mg` and `mcg`; reject activity or unknown units rather than
+  abbreviating or normalizing them.
 - Avoid “safe,” “correct,” “recommended,” “usual,” or “standard dose.”
 - A visual container is supportive; its adjacent text value is authoritative.
 

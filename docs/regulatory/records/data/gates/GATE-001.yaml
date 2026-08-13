@@ -1,0 +1,29 @@
+record_id: GATE-001
+title: Product definition frozen
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-001_PRODUCT_DEFINITION.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Full G1 completion record governed by docs/regulatory/GATE-001_PRODUCT_DEFINITION.md.
+dependencies: [GATE-000]
+required_fields:
+  - { id: G1-F01, label: "Frozen product/intended use/users/settings/functions/exclusions", value: null, evidence_ref: null, required: true }
+  - { id: G1-F02, label: "Supported platforms/offline/useful-life boundary", value: null, evidence_ref: null, required: true }
+  - { id: G1-F03, label: "Favourites/history and bilingual-labelling decisions", value: null, evidence_ref: null, required: true }
+  - { id: G1-F04, label: "Ownership/licensing conclusion and initial requirements/traceability", value: null, evidence_ref: null, required: true }
+sections: [{ title: Product-freeze decision summary, body: null, required: true }]
+decisions:
+  - { id: G1-D01, question: "Is one exact product definition frozen for controlled implementation?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G1-E01, description: "Approved REG-001/002/003, IP-001, SYS-001, ARC-001 and initial TRC-001", reference: null, status: missing, required: true }
+approvals:
+  - { role: Legal manufacturer, scope: "Approve exact product and represented purpose", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Regulatory lead, scope: "Approve intended use/claims/classification boundary", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Pharmacy lead, scope: "Approve formula/preparation scope", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Nursing/human-factors lead, scope: "Approve user/setting/workflow scope", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Close G1 document and traceability inputs", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Intended use, user, setting, function, exclusion, platform, claim or rights change]
+completion_statement: null

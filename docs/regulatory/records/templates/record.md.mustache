@@ -1,0 +1,94 @@
+# {{record_id}} — {{title}}
+
+> **{{status_label}}.** This document is generated. Edit
+> `{{source_path}}`, not this file. Missing required values are rendered as
+> `⟦MISSING: ...⟧`; an incomplete generated document is not an approval.
+
+| Control field | Value |
+| --- | --- |
+| Record ID | `{{record_id}}` |
+| Kind | {{kind_label}} |
+| Revision | {{revision}} |
+| Status | **{{status_label}}** |
+| Source baseline | `{{{source_baseline_display}}}` |
+| Source data | `{{source_path}}` |
+| Template | `{{template_path}}` |
+| Source-data SHA-256 | `{{source_hash}}` |
+| Template SHA-256 | `{{template_hash}}` |
+
+{{{summary}}}
+
+## Required record fields
+
+| ID | Field | Value | Evidence | Required | State |
+| --- | --- | --- | --- | --- | --- |
+{{#required_fields}}
+| `{{id}}` | {{label}} | {{{value_display}}} | {{{evidence_display}}} | {{required_label}} | {{state_label}} |
+{{/required_fields}}
+{{^required_fields}}
+No record-specific fields are defined.
+{{/required_fields}}
+
+{{#sections}}
+## {{number}}. {{title}}
+
+{{{body_display}}}
+
+{{/sections}}
+## Decisions
+
+| ID | Question | Decision | Rationale | Evidence | State |
+| --- | --- | --- | --- | --- | --- |
+{{#decisions}}
+| `{{id}}` | {{question}} | {{{decision_display}}} | {{{rationale_display}}} | {{{evidence_display}}} | {{state_label}} |
+{{/decisions}}
+{{^decisions}}
+No separate decisions are defined.
+{{/decisions}}
+
+## Evidence register
+
+| ID | Evidence | Reference | Status | Required | State |
+| --- | --- | --- | --- | --- | --- |
+{{#evidence}}
+| `{{id}}` | {{description}} | {{{reference_display}}} | {{status}} | {{required_label}} | {{state_label}} |
+{{/evidence}}
+{{^evidence}}
+No evidence entries are defined.
+{{/evidence}}
+
+## Approvals
+
+| Role | Approval scope | Name / organization | Decision | Date | Signature or controlled approval reference | State |
+| --- | --- | --- | --- | --- | --- | --- |
+{{#approvals}}
+| {{role}} | {{scope}} | {{{identity_display}}} | {{{decision_display}}} | {{{date_display}}} | {{{signature_display}}} | {{state_label}} |
+{{/approvals}}
+{{^approvals}}
+No approvals are defined.
+{{/approvals}}
+
+{{#change_triggers.length}}
+## Change and reassessment triggers
+
+{{#change_triggers}}
+- {{.}}
+{{/change_triggers}}
+{{/change_triggers.length}}
+
+## Completion determination
+
+**Generated determination:** {{completion_label}}
+
+{{{completion_statement_display}}}
+
+{{#missing.length}}
+Required items still open:
+
+{{#missing}}
+- `{{.}}`
+{{/missing}}
+{{/missing.length}}
+
+The generated determination is mechanical. It does not replace the required
+human decision, signature, evidence review, or governing gate procedure.

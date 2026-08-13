@@ -1,0 +1,47 @@
+record_id: SUB-007
+title: SaMD exclusion analysis
+kind: submission
+template: submission.md.mustache
+output: submission/07_SAMD_EXCLUSION_ANALYSIS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Manufacturer's assessment of all four Health Canada exclusion criteria for the exact prototype. Criterion 3 is an explicit determination request.
+dependencies: [ SUB-001, SUB-002, SUB-003, SUB-004, SUB-005, SUB-006 ]
+required_fields:
+  - { id: EXC-F01, label: "Current official guidance title/URL/version/access date", value: "Guidance Document: Software as a Medical Device (SaMD): Definition and Classification; effective 2019-12-18; https://www.canada.ca/en/health-canada/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance-document.html; content SHA-256 63b663a9bdb96e57e8bb036808e333131a6aa54d3d79341b601b6047f8459896; accessed 2026-08-13", evidence_ref: "docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day", required: true }
+  - { id: EXC-F02, label: "Current official classification-examples title/URL/version/access date", value: "Guidance Document: Software as a Medical Device (SaMD): Classification Examples; effective 2019-12-18; updated 2022-11-15; https://www.canada.ca/content/dam/hc-sc/documents/services/drugs-health-products/medical-devices/application-information/guidance-documents/software-medical-device-guidance/examples/examples.pdf; content SHA-256 b7ca89ef726135bc8ea306c227cc362a84570037a68c70cadd802db16c93c48e; accessed 2026-08-13", evidence_ref: "docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day", required: true }
+sections:
+  - title: Criterion 1 — no image/IVD/signal processing
+    body: >-
+      Proposed met. The exact prototype accepts manual text/selections only and has no camera, image, IVD, monitoring-device or signal-acquisition input.
+    required: true
+  - title: Criterion 2 — displays or analyzes routinely used medical information
+    body: >-
+      Proposed met, subject to pharmacy confirmation. It performs established dimensional arithmetic on manually entered vial-label facts, a selected final volume and an already-authorized ordered dose. It contains no drug library or novel patient-specific algorithm.
+    required: true
+  - title: Criterion 3 — only supports decision making
+    body: >-
+      Ambiguous and submitted for Health Canada determination. The prototype does not select, assess or recommend treatment, but the calculated mL may be acted on immediately or in the near term during medication preparation. Health Canada's guidance associates immediate/near-term action with driving clinical/patient management.
+    required: true
+  - title: Criterion 4 — does not replace clinical judgement
+    body: >-
+      Proposed met in functional concept. The user sees every substituted equation and must check each before the result is revealed. The prototype resembles Health Canada's published example of manually entered drug- label calculation that can be independently reviewed, but known numeric and usability limitations are disclosed and equivalence is not assumed.
+    required: true
+  - title: Overall manufacturer position
+    body: >-
+      Draft position for manufacturer/regulatory authorization: criteria 1 and 2 are proposed met from source/function facts; criterion 4 is proposed met in functional concept because every substituted equation is exposed for review; criterion 3 is not assumed met because the mL may be used immediately or in the near term. The request therefore asks Health Canada to verify exclusion rather than asserting a non-device conclusion.
+    required: true
+decisions:
+  - { id: EXC-D01, question: "Does the manufacturer conclude all four criteria are met, while requesting verification of criterion 3?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: EXC-E01, description: "Current official guidance and example response metadata/content hashes", reference: "docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; README.md", status: reviewed, required: true }
+  - { id: EXC-E02, description: "Regulatory/counsel review of each criterion against exact facts", reference: null, status: missing, required: true }
+approvals:
+  - { role: Regulatory lead or qualified Canadian regulatory reviewer, scope: "Approve current four-criterion assessment", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Adopt the assessment and explicit uncertainty as its position", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [ Official guidance/example, exact product, intended use, workflow or evidence change ]
+completion_statement: >-
+  Official source identity and the draft four-criterion position are complete. A qualified Canadian regulatory reviewer and the legal manufacturer must approve the current analysis and explicit criterion 3 uncertainty.

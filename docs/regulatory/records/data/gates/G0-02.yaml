@@ -1,0 +1,36 @@
+record_id: G0-02
+title: Quality and software role appointment and competence
+kind: support
+template: gate.md.mustache
+output: gates/G0-02_ROLE_APPOINTMENT_AND_COMPETENCE.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Fillable execution record for the role authority, competence and independence procedure defined in G0-02_ROLE_APPOINTMENT_AND_COMPETENCE_TEMPLATE.md.
+dependencies: [G0-01]
+required_fields:
+  - { id: G002-F01, label: "Quality lead name, organization and contact", value: null, evidence_ref: null, required: true }
+  - { id: G002-F02, label: "Quality lead delegated authority and escalation rights", value: null, evidence_ref: null, required: true }
+  - { id: G002-F03, label: "Quality lead competence basis", value: null, evidence_ref: null, required: true }
+  - { id: G002-F04, label: "Software lead name, organization and contact", value: null, evidence_ref: null, required: true }
+  - { id: G002-F05, label: "Software lead delegated authority and competence basis", value: null, evidence_ref: null, required: true }
+  - { id: G002-F06, label: "Independence and conflict controls", value: null, evidence_ref: null, required: true }
+sections:
+  - { title: Quality lead competence assessment, body: null, required: true }
+  - { title: Software lead competence assessment, body: null, required: true }
+  - { title: Independence and conflict assessment, body: null, required: true }
+decisions:
+  - { id: G002-D01, question: "Do the named role holders have documented authority, competence, availability and independence appropriate to their assigned approvals?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G002-E01, description: "Signed role appointment and delegation instruments", reference: null, status: missing, required: true }
+  - { id: G002-E02, description: "Current CV, training and relevant experience records for each appointee", reference: null, status: missing, required: true }
+  - { id: G002-E03, description: "Competence and conflict assessments performed against the role criteria", reference: null, status: missing, required: true }
+approvals:
+  - { role: Legal manufacturer officer, scope: "Appoint role holders and delegate authority", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Independent quality competence assessor, scope: "Assess the quality lead against documented criteria", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Independent software competence assessor, scope: "Assess the software lead against documented criteria", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead appointee, scope: "Accept the role, authority, duties and escalation obligations", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Software lead appointee, scope: "Accept the role, authority, duties and escalation obligations", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Role holder, authority, competence basis, employment, availability or conflict change]
+completion_statement: null

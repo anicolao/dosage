@@ -12,7 +12,15 @@ The current repository contains:
 - product, MVP, and UX design documents;
 - an explicit future E2E strategy based on `../food` and `../games/jaipur`.
 
-## Current PR preview
+Current implementation and controlled target are intentionally different. The
+prototype has the visible workflow, mg/mcg conversion, local records, manifest,
+service worker and browser tests. It does **not** yet have the approved exact
+numeric engine, schema/migration boundary, restrictive CSP, complete
+supported-device evidence, clinical validation or regulatory authorization required by
+the target documents. `MVP_DESIGN.md` and `MVP_UX_DESIGN.md` state requirements;
+they do not describe completed release evidence unless they explicitly say so.
+
+## Current prototype
 
 The calculation review uses locally bundled KaTeX to show dimensional analysis and accessible MathML. No equation, font, or input is fetched from a third party.
 
@@ -22,7 +30,9 @@ The calculator is a fixed-height phone interface with no page or panel scrolling
 
 ## Calculation model
 
-The MVP keeps the vial unit and ordered-dose unit separate. Compatible mass units are converted explicitly before division:
+The current prototype keeps the vial unit and ordered-dose unit separate. The
+controlled target retains this behaviour. Compatible mass units are converted
+explicitly before division:
 
 ```text
 prepared concentration = medication amount in vial / final prepared volume

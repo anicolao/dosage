@@ -21,6 +21,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  formal:
+    name: Lean formal verification
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25
+      - run: nix develop --command bash scripts/run-formal-verification.sh
+
   e2e:
     name: Playwright E2E
     runs-on: macos-14
@@ -34,6 +45,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install chromium
       - run: npm run check
+      - run: npm run regulatory:check
       - run: npm run test:e2e
         env:
           CI: 'true'

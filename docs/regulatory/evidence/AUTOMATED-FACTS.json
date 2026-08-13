@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "generated_for_record_date": "2026-08-13",
+  "product": {
+    "name": "dosage",
+    "display_name": "Dosage",
+    "package_version": "0.1.0",
+    "source_baseline": "6b53fde87ff9b193b3c24f7bd93549746b4d6471",
+    "visible_identity": "v0.1.0 · 6b53fde"
+  },
+  "baseline_control": {
+    "controlled_paths": [
+      "index.html",
+      "src",
+      "static",
+      "vite.config.js"
+    ],
+    "changed_paths": [],
+    "result": "Current application source is byte-identical to the inquiry baseline for every controlled path",
+    "baseline_tree": "fe20072281b83bf73f48fd03a0ebbfda07b62aae",
+    "baseline_manifest": "docs/regulatory/evidence/INQ-000/source-baseline-manifest.json",
+    "baseline_manifest_sha256": "3e2a13f949b3ba5d7e54329fcc0741d5c75ebc59cff000c6d59e6c3d633a66c4",
+    "files": [
+      {
+        "file": "index.html",
+        "sha256": "de29f9cbd5a05929daf9cda2c0f5792d3371ba2548f699b84b27dc804e0ee534"
+      },
+      {
+        "file": "src/App.svelte",
+        "sha256": "fb85b1e57d4923bc2d3563bfd773190b43eb6194172c1f22fc509c0700dad8f2"
+      },
+      {
+        "file": "src/main.js",
+        "sha256": "40c174b5d1f8a1d9ec4496c17d9d39ceb5808f1e839d411dd3360a4839339cc1"
+      },
+      {
+        "file": "static/icons/apple-touch-icon.png",
+        "sha256": "4c95dec1bb78cd9963c0acb433aa34404c0f905d89285a6629305c733b921128"
+      },
+      {
+        "file": "static/icons/dosage-192.png",
+        "sha256": "1bc4879e80d60d58d62daa8d69fb49d35234328b303b3fbcb2bf920f18ab69c8"
+      },
+      {
+        "file": "static/icons/dosage-512.png",
+        "sha256": "3b239b19be91e94c66d78a3a8245952817406eae8bda55e715c5f3443baf1fb2"
+      },
+      {
+        "file": "static/images/container-1000ml.png",
+        "sha256": "f15b976f496d50db9a652aca2e429e68ead6687a51e32b37aefb58f6ff0007f1"
+      },
+      {
+        "file": "static/images/container-100ml.png",
+        "sha256": "e4d95699098251ec36b7679b48acd418e0142c4d75db785d0d39e40b4a19b22a"
+      },
+      {
+        "file": "static/images/container-10ml.png",
+        "sha256": "13cfd4b1b8059dafeb223114fdd68641ac3564b7c68c20e17947b293bf344d78"
+      },
+      {
+        "file": "static/images/container-250ml.png",
+        "sha256": "05809c833e935b7beaaebb2f61069e2b2c44aa9068abfd02615404740402fc14"
+      },
+      {
+        "file": "static/images/container-500ml.png",
+        "sha256": "08662d1bc204c711341b159aa084c21ee21fa2b3cef3a96662cc4c17edc22f35"
+      },
+      {
+        "file": "static/images/container-50ml.png",
+        "sha256": "51922f856de33457460cf094c4762233aae167c23a9ec28576de83cfb4f6a1f6"
+      },
+      {
+        "file": "static/images/dilution-containers.png",
+        "sha256": "f0c26e178a04e9d476ce795c2fd8552c998c204f481db609853ae6c7b52af66c"
+      },
+      {
+        "file": "static/manifest.webmanifest",
+        "sha256": "c426bfae122b3a12132b0846ea50d07d2f773492b44b67920979d22521e5f488"
+      },
+      {
+        "file": "vite.config.js",
+        "sha256": "8bdd6e439f956c4fb83630ca987ba192fcbaeeddfe10e4e55928536be7e3329c"
+      }
+    ]
+  },
+  "artifact": {
+    "build_command": "npm run build:submission",
+    "archive": "docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip",
+    "archive_sha256": "8322e6ea7aca435796245a26a796ef5a4508a09b4733642768ae100a63a34442",
+    "archive_bytes": 2208810,
+    "file_manifest_sha256": "87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db",
+    "screenshot_manifest": "docs/regulatory/evidence/SUB-002/MANIFEST.json",
+    "screenshot_manifest_sha256": "f0ad5e51c39803f973eae34f6581d314f5f6a97cdee66189bd599026ffb7e10b",
+    "screenshot_archive_sha256": "96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8",
+    "screenshot_count": 12
+  },
+  "function_boundary": {
+    "units": [
+      "mg",
+      "mcg"
+    ],
+    "final_prepared_volumes_ml": [
+      10,
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "local_storage_keys": [
+      "dosage.favourites.v2",
+      "dosage.history.v2"
+    ],
+    "runtime_application_network_apis": [],
+    "user_visible_claims": [
+      "Prototype only — not for patient care.",
+      "Verify every value with the order, vial label, pharmacy guidance, and local policy.",
+      "Enter the label and ordered values. This app does not recommend a dose.",
+      "Do not enter patient information",
+      "Verify overfill and preparation method.",
+      "Use local policy for measurable volume and rounding.",
+      "I checked the order, vial unit, ordered-dose unit, and final prepared volume.",
+      "Stored on this device only",
+      "Do not use history as a medication order."
+    ],
+    "noindex": true,
+    "manifest": {
+      "id": "./",
+      "name": "Dosage",
+      "short_name": "Dosage",
+      "description": "Local medication dilution arithmetic with explicit calculation review.",
+      "lang": "en-CA",
+      "start_url": "./",
+      "scope": "./",
+      "display": "standalone",
+      "background_color": "#f7f8f5",
+      "theme_color": "#f7f8f5",
+      "categories": [
+        "medical",
+        "utilities"
+      ],
+      "icons": [
+        {
+          "src": "icons/dosage-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "icons/dosage-512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        }
+      ]
+    }
+  },
+  "worked_example": {
+    "inputs": {
+      "medication_display_name": "Example medication",
+      "vial_amount": 10,
+      "vial_unit": "mg",
+      "vial_volume_ml": 1,
+      "final_prepared_volume_ml": 50,
+      "ordered_dose": 2000,
+      "ordered_unit": "mcg"
+    },
+    "expected": {
+      "vial_concentration_mg_per_ml": 10,
+      "prepared_concentration_mg_per_ml": 0.2,
+      "prepared_concentration_mcg_per_ml": 200,
+      "administration_volume_ml": 10
+    }
+  },
+  "automated_evidence": {
+    "e2e_specs": [
+      "tests/e2e/001-cross-unit-calculation/001-cross-unit-calculation.spec.ts",
+      "tests/e2e/002-containers-and-validation/002-containers-and-validation.spec.ts",
+      "tests/e2e/003-local-records/003-local-records.spec.ts",
+      "tests/e2e/004-privacy-and-recovery/004-privacy-and-recovery.spec.ts",
+      "tests/e2e/005-responsive-accessible/005-responsive-accessible.spec.ts",
+      "tests/e2e/006-installable-offline/006-installable-offline.spec.ts"
+    ],
+    "formal_lean_files": [
+      "formal/lean/Dosage/Calculation.lean",
+      "formal/lean/Dosage/Decimal.lean",
+      "formal/lean/Dosage/Properties.lean",
+      "formal/lean/Dosage/ReferenceCli.lean",
+      "formal/lean/Dosage/Rounding.lean",
+      "formal/lean/Dosage/Units.lean",
+      "formal/lean/Dosage.lean",
+      "formal/lean/Main.lean"
+    ],
+    "submission_capture_spec": "tests/submission/02-workflow-and-screenshots.spec.ts"
+  },
+  "limitations": [
+    "This evidence establishes source and observed behavior, not clinical appropriateness or regulatory classification.",
+    "The Lean model is a separate exact-rational reference and is not differential proof of the JavaScript prototype.",
+    "A zero-length runtime API list is a source fact corroborated by E2E observation; the generated service worker still fetches same-origin cache misses.",
+    "Identity, professional competence, clinical/regulatory judgment, evidence acceptance and signatures require attributable humans."
+  ]
+}

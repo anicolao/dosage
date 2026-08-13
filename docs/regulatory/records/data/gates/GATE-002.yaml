@@ -1,0 +1,28 @@
+record_id: GATE-002
+title: Safety requirements approved
+kind: authorization_gate
+template: gate.md.mustache
+output: gates/GATE-002_SAFETY_REQUIREMENTS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: Full G2 completion record governed by docs/regulatory/GATE-002_SAFETY_REQUIREMENTS.md.
+dependencies: [GATE-001]
+required_fields:
+  - { id: G2-F01, label: "Numeric grammar/bounds/formula/rounding/corpus approved", value: null, evidence_ref: null, required: true }
+  - { id: G2-F02, label: "Risk method/hazards/controls approved", value: null, evidence_ref: null, required: true }
+  - { id: G2-F03, label: "Storage/security/privacy decisions approved", value: null, evidence_ref: null, required: true }
+  - { id: G2-F04, label: "Tooling/verification/formal/independence decisions approved", value: null, evidence_ref: null, required: true }
+sections: [{ title: Safety-requirement approval summary, body: null, required: true }]
+decisions:
+  - { id: G2-D01, question: "Are all safety requirements explicit with no blocking TBD or hypothetical command?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: G2-E01, description: "Approved CALC-001/RMF-001/STO-001/SEC-001/DEV-001/VVP-001 and reconciled TRC", reference: null, status: missing, required: true }
+approvals:
+  - { role: Pharmacy lead, scope: "Approve clinical numeric and medication-risk decisions", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Software lead, scope: "Approve implementable technical requirements", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Approve risk/verification method and close G2", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Independent verifier, scope: "Approve oracle/corpus/independence approach", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [Safety requirement, risk, numeric, storage, security, tooling or verification-plan change]
+completion_statement: null

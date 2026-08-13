@@ -1,0 +1,40 @@
+record_id: COR-002
+title: Early classification inquiry correspondence log
+kind: correspondence
+template: record.md.mustache
+output: correspondence/COR-002_EARLY_CLASSIFICATION_INQUIRY_LOG.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Submission-day routing, transmission, acknowledgement and response control for the early exact-prototype classification-verification request.
+dependencies: [ IQ-002 ]
+required_fields:
+  - { id: COR-F01, label: "Applicable official instruction title/URL/version/effective/access dates", value: "Medical Device Establishment Licence application form instructions (FRM-0292); updated 2025-02-26; current before 2026-12-14 unless superseded; https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/medical-device-establishment-licence-application-form-instructions-0292.html; accessed 2026-08-13. Pending transition checked: Medical Device Establishment Licence application instructions effective December 14, 2026; effective 2026-12-14; https://www.canada.ca/en/health-canada/services/drugs-health-products/compliance-enforcement/establishment-licences/forms/dec-medical-device-establishment-licence-application-form-instructions-0292.html.", evidence_ref: docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day, required: true }
+  - { id: COR-F02, label: "Verified primary address", value: "meddevices-instrumentsmed@hc-sc.gc.ca, mechanically verified in the current FRM-0292 response captured 2026-08-13; must be refreshed on the actual submission day", evidence_ref: docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day, required: true }
+  - { id: COR-F03, label: "Outgoing sender/mailbox/date/time/time zone/message ID", value: null, evidence_ref: null, required: true }
+  - { id: COR-F04, label: "Exact outgoing package digest", value: null, evidence_ref: null, required: true }
+  - { id: COR-F05, label: "Health Canada acknowledgement/reference", value: null, evidence_ref: null, required: true }
+sections:
+  - title: Routing control
+    body: >-
+      Verify the then-current official classification-request instruction on the sending day. Record the pending 2026-12-14 FRM-0292 transition where applicable. Send one request to the designated primary address; do not duplicate it to older SaMD-guidance contacts unless redirected.
+    required: true
+  - title: Correspondence chronology
+    body: null
+    required: true
+  - title: Health Canada response and controlling assumptions
+    body: null
+    required: true
+decisions:
+  - { id: COR-D01, question: "Has every response/question been assigned, preserved and assessed for product/plan impact?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: COR-E01, description: "Exact outgoing message and delivery evidence", reference: null, status: missing, required: true }
+  - { id: COR-E02, description: "Exact acknowledgement and complete response thread", reference: null, status: missing, required: true }
+approvals:
+  - { role: Regulatory lead, scope: "Certify routing and correspondence log completeness", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Quality lead, scope: "Verify package/message identity and response impact control", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [ New outgoing/incoming correspondence or routing instruction ]
+completion_statement: >-
+  This record is intentionally event-driven. Complete it only after IQ-002 by running the official-source refresh on the sending day, recording the exact transmitted package/message and preserving Health Canada's acknowledgement and response with attributable regulatory/quality authorization.

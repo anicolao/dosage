@@ -1,0 +1,41 @@
+record_id: SUB-008
+title: Fallback classification, comparisons and prior correspondence
+kind: submission
+template: submission.md.mustache
+output: submission/08_FALLBACK_CLASSIFICATION_AND_COMPARISONS.md
+revision: "0.1"
+status: incomplete
+source_baseline: 6b53fde87ff9b193b3c24f7bd93549746b4d6471
+supersedes: null
+summary: >-
+  Manufacturer's proposed classification if Health Canada considers the exact prototype SaMD, together with published-example, MDALL and prior-decision comparisons. It asks for verification rather than presupposing the outcome.
+dependencies: [ SUB-007 ]
+required_fields:
+  - { id: FAL-F01, label: "Proposed SaMD class and current Schedule 1 rule(s)", value: "Conservative planning proposal pending regulatory authorization: Class III under Rule 10(2) if Health Canada considers the output to drive management in critical situations with immediate danger; evaluate Class II under Rule 10(1) for serious situations and Class I fallback Rule 12 if only informing and Rule 10 does not apply", evidence_ref: "HC SaMD guidance Table 2; MDR Schedule 1; REG-003", required: true }
+  - { id: FAL-F02, label: "Significance of information and healthcare situation category", value: "Conservative proposal pending clinical/regulatory authorization: drive clinical/patient management; potentially critical because exact prototype code does not enforce medication, patient, acuity or setting restrictions and an erroneous result may create immediate danger", evidence_ref: "SUB-001; SUB-005; HC SaMD guidance sections 2.3.1–2.3.2", required: true }
+  - { id: FAL-F03, label: "Current MDALL/comparable Canadian product search date and method", value: "2026-08-13 automated active-licence-name API searches (dosage=0, dose calculator=0, dosing calculator=0, medication calculator=0, drug dosing=0, infusion calculator=0, dilution=4). “Dilution” matches: ARK METHOTREXATE DILUTION BUFFER, licence 86613, Class 2; PULMONARY ARTERY MONITORING AND THERMODILUTION CATHETERS, licence 14294, Class 4; HANDS-OFF THERMODILUTION CATHETERS, licence 2085, Class 4; BALLOON THERMODILUTION CATHETERS, licence 2087, Class 4. See manifest limitations.", evidence_ref: "docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; refresh with npm run regulatory:sources on the submission day", required: true }
+  - { id: FAL-F04, label: "Prior Canadian classification/correspondence inventory", value: "No prior Health Canada classification response is present in the controlled repository. The legal manufacturer/regulatory lead must confirm whether any off-repository correspondence exists before approval.", evidence_ref: "Repository documentation search; COR-002; manufacturer/regulatory approval below", required: true }
+sections:
+  - title: Conservative fallback analysis
+    body: >-
+      The mL output may drive immediate medication preparation and an erroneous result could contribute to serious injury or death. The prototype does not select a medication/dose or diagnose a condition. The manufacturer must analyze current Rules 10(1), 10(2), 12 and any other applicable rule and apply Health Canada's significance/situation framework to the exact submitted user, setting and exclusions. Class III remains a planning possibility for critical use unless a current reviewed analysis supports another route.
+    required: true
+  - title: Published-example comparison
+    body: >-
+      Compare the exact prototype with Health Canada's non-device example for drug dosing calculated from manually entered drug-label parameters where the calculation is independently reviewable. Distinguish the prototype's administration-volume output, immediate-preparation context, final-volume selection, local records and known implementation limitations.
+    required: true
+  - title: Similar products and prior decisions
+    body: >-
+      The recorded MDALL licence-name searches found no active entry for six calculator/dosing terms. Four “dilution” hits were a methotrexate dilution buffer and thermodilution catheters, not name-identified comparable medication-calculation software. MDALL omits Class I devices and keyword names do not establish technical equivalence, so the result is supporting search evidence rather than a conclusion. No prior Health Canada decision was found in this repository; the manufacturer must disclose any held outside it.
+    required: true
+decisions:
+  - { id: FAL-D01, question: "Is the proposed fallback class/rule supported by current official material and the same facts used in the exclusion analysis?", decision: null, rationale: null, evidence_ref: null, required: true }
+evidence:
+  - { id: FAL-E01, description: "Current official guidance/regulations source identities and draft classification analysis", reference: "docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; REG-003_CLASSIFICATION_QUESTION.md", status: draft, required: true }
+  - { id: FAL-E02, description: "MDALL comparator and repository prior-correspondence search record", reference: "docs/regulatory/evidence/OFFICIAL-SOURCES/MANIFEST.json; README.md; COR-002", status: reviewed, required: true }
+approvals:
+  - { role: Regulatory lead or qualified Canadian regulatory reviewer, scope: "Approve fallback rule/class and comparator analysis", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+  - { role: Legal manufacturer, scope: "Adopt the fallback proposal and authorize Health Canada verification", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
+change_triggers: [ Rule/guidance, intended use, risk context, comparator or prior correspondence change ]
+completion_statement: >-
+  The conservative fallback proposal, current official-source capture, MDALL search and repository correspondence inventory are drafted. A qualified Canadian regulatory reviewer and legal manufacturer must validate the rule, class, clinical category, comparators and any off-repository correspondence.

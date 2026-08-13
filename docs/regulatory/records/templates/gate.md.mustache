@@ -1,0 +1,81 @@
+# {{record_id}} — {{title}}
+
+> **{{status_label}} — GENERATED GATE RECORD.** Edit `{{source_path}}`, then run
+> `npm run regulatory:build`. This gate cannot close while any required value,
+> accepted evidence, upstream dependency, or approval is missing.
+
+| Gate control | Value |
+| --- | --- |
+| Gate | `{{record_id}}` |
+| Revision | {{revision}} |
+| Mechanical readiness | **{{completion_label}}** |
+| Controlled status | **{{status_label}}** |
+| Exact source baseline | `{{{source_baseline_display}}}` |
+| Structured source / SHA-256 | `{{source_path}}` / `{{source_hash}}` |
+| Template / SHA-256 | `{{template_path}}` / `{{template_hash}}` |
+
+{{{summary}}}
+
+## Dependencies
+
+{{#dependencies}}
+- `{{.}}`
+{{/dependencies}}
+{{^dependencies}}
+None.
+{{/dependencies}}
+
+## Gate fields and exit criteria
+
+| ID | Criterion | Recorded value | Evidence | Required | State |
+| --- | --- | --- | --- | --- | --- |
+{{#required_fields}}
+| `{{id}}` | {{label}} | {{{value_display}}} | {{{evidence_display}}} | {{required_label}} | {{state_label}} |
+{{/required_fields}}
+
+{{#sections}}
+## {{number}}. {{title}}
+
+{{{body_display}}}
+
+{{/sections}}
+## Controlled decisions
+
+| ID | Decision required | Decision | Rationale | Evidence | State |
+| --- | --- | --- | --- | --- | --- |
+{{#decisions}}
+| `{{id}}` | {{question}} | {{{decision_display}}} | {{{rationale_display}}} | {{{evidence_display}}} | {{state_label}} |
+{{/decisions}}
+
+## Objective evidence
+
+| ID | Evidence | Reference | Status | Required | State |
+| --- | --- | --- | --- | --- | --- |
+{{#evidence}}
+| `{{id}}` | {{description}} | {{{reference_display}}} | {{status}} | {{required_label}} | {{state_label}} |
+{{/evidence}}
+
+## Gate signatures
+
+| Role | Scope | Name / organization | Decision | Date | Signature reference | State |
+| --- | --- | --- | --- | --- | --- | --- |
+{{#approvals}}
+| {{role}} | {{scope}} | {{{identity_display}}} | {{{decision_display}}} | {{{date_display}}} | {{{signature_display}}} | {{state_label}} |
+{{/approvals}}
+
+## Gate determination
+
+**{{completion_label}}**
+
+{{{completion_statement_display}}}
+
+{{#missing.length}}
+Blocking structured items:
+
+{{#missing}}
+- `{{.}}`
+{{/missing}}
+{{/missing.length}}
+
+A generated `READY` result is necessary but not sufficient: the accountable
+gate owner must confirm the evidence and sign the governing decision.

@@ -34,6 +34,10 @@ test('cross-unit calculations expose every mathematical step', async ({ page }, 
       { spec: 'No answer or review action is present for incomplete input', check: async () => {
         await expect(page.locator('.result-number')).toHaveCount(0);
         await expect(page.getByRole('button', { name: 'Review calculation' })).toHaveCount(0);
+      } },
+      { spec: 'The build is visibly identified as a non-clinical prototype and tells crawlers not to index it', check: async () => {
+        await expect(page.getByText('Prototype only — not for patient care.')).toBeVisible();
+        await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow, noarchive');
       } }
     ]
   });

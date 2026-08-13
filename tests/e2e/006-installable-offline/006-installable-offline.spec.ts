@@ -40,7 +40,7 @@ test('the installed app shell and local records work without a network', async (
   const offlinePage = await context.newPage();
   await offlinePage.goto('/');
   await expect(offlinePage.getByRole('heading', { name: 'Prepare a dose' })).toBeVisible();
-  await expect(offlinePage.getByText('Prototype — not for patient care.')).toBeVisible();
+  await expect(offlinePage.getByText('Prototype only — not for patient care.')).toBeVisible();
 
   await enterStandardCalculation(offlinePage);
   await completeCalculationReview(offlinePage);

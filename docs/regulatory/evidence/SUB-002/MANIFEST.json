@@ -1,0 +1,558 @@
+{
+  "schema_version": 1,
+  "record_id": "SUB-002",
+  "source_baseline": "6b53fde87ff9b193b3c24f7bd93549746b4d6471",
+  "package_version": "0.1.0",
+  "capture_date": "2026-08-13",
+  "fixed_clock": "2026-08-13T10:00:00-04:00",
+  "operator": "Automated Playwright capture; no human operator",
+  "environment": {
+    "browser": "Playwright Chromium",
+    "locale": "en-CA",
+    "timezone": "America/Toronto",
+    "viewport": "393x852 CSS pixels at device scale factor 1"
+  },
+  "capture_plan": "docs/regulatory/evidence/SUB-002/capture-plan.json",
+  "capture_plan_sha256": "42127b9b17d920db88e686d7aefa26c2bf198506f28a892a5e1dd4dfc07ce773",
+  "build_command": "npm run build:submission",
+  "test_command": "playwright test --config playwright.submission.config.ts",
+  "artifact_file_manifest_sha256": "87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db",
+  "artifact_files": [
+    {
+      "file": "dist/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+      "sha256": "0cdd387c9590a1a9f9794560022dbb59654a7d86f187aa0c81495ad42d3a7308",
+      "bytes": 28076
+    },
+    {
+      "file": "dist/assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+      "sha256": "30da91e84c893f875e252689faebdc590b2871145e8adc7f9a9d4dbd8ce0b251",
+      "bytes": 33516
+    },
+    {
+      "file": "dist/assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+      "sha256": "68534840bcfdd2bffb6f0e8deb48684dd01e7f04ea2813267577afb906de1d13",
+      "bytes": 63632
+    },
+    {
+      "file": "dist/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+      "sha256": "07d8e303ce4fc12b4bb54f1004170dd190a1f3db45d400fe68060df3e0897268",
+      "bytes": 12368
+    },
+    {
+      "file": "dist/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+      "sha256": "1ae6bd7475590e97e7f145a89e09ccde322f7a6bc0b91607b1c8b8ee28290fed",
+      "bytes": 7716
+    },
+    {
+      "file": "dist/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+      "sha256": "de7701e42cf1f4cf0b766c03fb27977207eee2f4fd5d76fa82188406da43ea4c",
+      "bytes": 6912
+    },
+    {
+      "file": "dist/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+      "sha256": "3398dd02302557a793f2863f88e02d96ce10df2abffa07c8e9fa90775116e65c",
+      "bytes": 7656
+    },
+    {
+      "file": "dist/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+      "sha256": "5d53e70ad607c2352162dec9e0923fb54ecdafaccbf604cd8dcf7d00facb989b",
+      "bytes": 6908
+    },
+    {
+      "file": "dist/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+      "sha256": "ed0b74372feefcbb9c0666b2e210da37b7e49fa7fbbf3eeb11db5f693dacfbb7",
+      "bytes": 12344
+    },
+    {
+      "file": "dist/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+      "sha256": "9163df9c7122432e6495b4229fa9071cf9ae86a758ae5efc4924ec2e1a6dbce1",
+      "bytes": 19584
+    },
+    {
+      "file": "dist/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+      "sha256": "9be7ceb88004ab8ad124082246fbfcca4091e36385d4ec6ed1df67375dad50fb",
+      "bytes": 13296
+    },
+    {
+      "file": "dist/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+      "sha256": "74444efd593c005e3f4573b44524704c0af0a937fe911cca9e94068d0d140d3f",
+      "bytes": 11348
+    },
+    {
+      "file": "dist/assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+      "sha256": "1e6f9579e90e2cac37f8f60a597c436e075c114385652b7cbeb0dec0421291b3",
+      "bytes": 19572
+    },
+    {
+      "file": "dist/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+      "sha256": "51814d270d06ff0255dba0799994fa4d8c84d11f09951d47595f4abb1f3602dc",
+      "bytes": 11316
+    },
+    {
+      "file": "dist/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+      "sha256": "5e28753be717dac97f559f49bc10be9cf3c124ddcabda6659d11cb68febc6463",
+      "bytes": 13208
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+      "sha256": "0f60d1b897938ec918c8ce073092411baf9438f6739465693ff18b0f9d20b021",
+      "bytes": 25324
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+      "sha256": "c76c5d696297d51b9cb1639c7da4334f0e7dec81b42b11213b5e25ef671bb822",
+      "bytes": 29912
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+      "sha256": "138ac28d1663b3037e9c5f52371fa5c63d8324f4a38d22cd573e6ea3a3fd0cf8",
+      "bytes": 51336
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+      "sha256": "99cd42a3c072d918f2f44984a807cf7aa16e13545fd0875fc07c6c65f99e715b",
+      "bytes": 16780
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+      "sha256": "70ee1f64a20f2048c21940ef46d0144fd215baa953ca69afd1e31e98544f708f",
+      "bytes": 32968
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+      "sha256": "a6f7ec0d846ac7ad975adb8959c37ed49b94acbc4ae436db9ce9e20287e4a64c",
+      "bytes": 19412
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+      "sha256": "0d85ae7cc30f23790a7f1a58c4a112fdca8aae769b6ba11429af1d98b1b6cb3a",
+      "bytes": 33580
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Italic-BMLOBm91.woff",
+      "sha256": "f1d6ef86f3b11a528bd5185199bd2443ecb2b0dead96d88674b5a2c12be24bdf",
+      "bytes": 19676
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+      "sha256": "97479ca6cce906abc961ecac96faa5f9ca2e61b8e7670d475826bcdee9a7c267",
+      "bytes": 16988
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Regular-B22Nviop.woff2",
+      "sha256": "c2342cd8b869e01752a9321dc17213fc40d4d04c79688c1d43f2cf316abd7866",
+      "bytes": 26272
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+      "sha256": "c6368d87e8a1a3a5d337623d83d8dc4b868f242a9ad476237d6f8d1e0f168cdc",
+      "bytes": 30772
+    },
+    {
+      "file": "dist/assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+      "sha256": "d0332f52868370fd83ae7fa46470f90c8f2eab2fcf12bc4f88080b340c95a830",
+      "bytes": 53580
+    },
+    {
+      "file": "dist/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+      "sha256": "f9377ab0271cda59af24bcffbd46a4d0c8a3572ffafdbb38de2ad5ea7b0d5ee5",
+      "bytes": 31196
+    },
+    {
+      "file": "dist/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+      "sha256": "dc47344dbb6cb5b655c8460d561f4df5f501b90c804ad3c6cec65fe322351ab1",
+      "bytes": 16400
+    },
+    {
+      "file": "dist/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+      "sha256": "850c0af5c2238497febaf5e461d880bf458c341f42f4f330f1b1ab5698b1998e",
+      "bytes": 18668
+    },
+    {
+      "file": "dist/assets/KaTeX_Math-Italic-DA0__PXp.woff",
+      "sha256": "8a8d244581371912b8f3f5a23e2437cb2a59cd9bcaebb0346e722c05737a2571",
+      "bytes": 18748
+    },
+    {
+      "file": "dist/assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+      "sha256": "08ce98e51b04d58945a301e639e02b6998af29fdfd61a7b8afdd07bbfc479d4a",
+      "bytes": 31308
+    },
+    {
+      "file": "dist/assets/KaTeX_Math-Italic-t53AETM-.woff2",
+      "sha256": "7af58c5ec8f132a2ddde9027c6d7814decce4d3b822a11192a42a20e2e973264",
+      "bytes": 16440
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+      "sha256": "1ece03f79f95277d57dc7f6b435a74e1379b0d46104a8530286b60ff49369ea0",
+      "bytes": 24504
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+      "sha256": "e99ae51144bf1232efcc1bfe5add36262c6866b0faab24fa75740e1b98577a62",
+      "bytes": 12216
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+      "sha256": "ece03cfd83e22c212cdef66feb8442d25a083beb988db3f1883f3f9738d750ba",
+      "bytes": 14408
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+      "sha256": "00b26ac825e2095056396e0553b8ac26d3f8ad158c3826e28b4c45b385c4714a",
+      "bytes": 12028
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+      "sha256": "91ee67500cc0129aa0ace3ac5c61ff1692102f0f31d02b69347fba35dcb75bf2",
+      "bytes": 14112
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+      "sha256": "3931dd81faed86ba021bb2bbdc36f5bed9a38d6b4f4077aca59b265aa1b02083",
+      "bytes": 22364
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+      "sha256": "f36ea897e19f4a2e571d1e900e4e3710e438deb05a842486045ba0a3e616a4ad",
+      "bytes": 19436
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+      "sha256": "11e4dc8a6471ff6d6ee561d53d10fde8f7489e798257ff449c5d37c197435605",
+      "bytes": 12316
+    },
+    {
+      "file": "dist/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+      "sha256": "68e8c73ef42afd3ccec58bf0fba302cce448938e7fc020a5e31f8a952eee1342",
+      "bytes": 10344
+    },
+    {
+      "file": "dist/assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+      "sha256": "1c67f068fea8bb09bf099c088b1cf64bd27516a6e07f4684344873564bb66a67",
+      "bytes": 16648
+    },
+    {
+      "file": "dist/assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+      "sha256": "036d4e95149b69ff9bcc0cd55771efeb25ffa3947293e69acd78d5ac328c684b",
+      "bytes": 9644
+    },
+    {
+      "file": "dist/assets/KaTeX_Script-Regular-D5yQViql.woff",
+      "sha256": "d96cdf2b3bdd4d64a8fd5f74a4c467f123a8a73931cd435889f08ffaf9bf947a",
+      "bytes": 10588
+    },
+    {
+      "file": "dist/assets/KaTeX_Size1-Regular-C195tn64.woff",
+      "sha256": "c943cc986384f59e86bea5fd7dc50a9c4dfe567a7c05eb40d6790720dead97c9",
+      "bytes": 6496
+    },
+    {
+      "file": "dist/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+      "sha256": "95b6d2f1a50173bfedb8c63e1d1c99b10427d0a4df4201cb44513b226951a22b",
+      "bytes": 12228
+    },
+    {
+      "file": "dist/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+      "sha256": "6b47c40166b6dbe21a5dfca7718413f2147fd2399be1ba605d8ad39cedf25dfe",
+      "bytes": 5468
+    },
+    {
+      "file": "dist/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+      "sha256": "a6b2099fb555c60e3a0db3a08842ebf1d732c6eb4e4bf44913613bed4fc4e39b",
+      "bytes": 11508
+    },
+    {
+      "file": "dist/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+      "sha256": "d04c54219f9eaec6d4d4fd42dfb28785975a4794d6b2fc71e566b9cd6db842dd",
+      "bytes": 5208
+    },
+    {
+      "file": "dist/assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+      "sha256": "2014c523c3210bcc166648c4d4cc57f05b747df07a24277bf71c51e67dc79e3d",
+      "bytes": 6188
+    },
+    {
+      "file": "dist/assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+      "sha256": "6ab6b62e9b62dae2c00dd90f791bd10950be0ecc3490d7d6045f51c2e8fe0949",
+      "bytes": 4420
+    },
+    {
+      "file": "dist/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+      "sha256": "500e04d54f0d51666332c9d2089aa803be22aa878eca539e59fa53c6e522b082",
+      "bytes": 7588
+    },
+    {
+      "file": "dist/assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+      "sha256": "99f9c6750b489c9462bf04900bd3f939df9b829339daaaaa99ef5495cdddea58",
+      "bytes": 5980
+    },
+    {
+      "file": "dist/assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+      "sha256": "c647367d1dd4e162468717d020e1fc0f1dc5c26ebfdffbe55261713bf88c5877",
+      "bytes": 10364
+    },
+    {
+      "file": "dist/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+      "sha256": "a4af7d414440a1c1790825cfb700cf9cf43b0f2c4b04f0ebc523011ad9853ec0",
+      "bytes": 4928
+    },
+    {
+      "file": "dist/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+      "sha256": "e14fed02b1aba7ce9f5afd5844b5d0321b22351febc720e0de8b8723527609f7",
+      "bytes": 16028
+    },
+    {
+      "file": "dist/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+      "sha256": "71d517d67827787cfabdf186914cc3358eda539e37931941f2b2fd4a21f68c0b",
+      "bytes": 13568
+    },
+    {
+      "file": "dist/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+      "sha256": "f01f3e87d9c6a61c0c081ceb577abd864eb00a612f7ac1620dd6915fad2ef5aa",
+      "bytes": 27556
+    },
+    {
+      "file": "dist/assets/index-DUTpR9jK.js",
+      "sha256": "5a5f7d5168c6b074e06954a38b58991b1279d03d10d437d1554344b5a0b7e098",
+      "bytes": 321519
+    },
+    {
+      "file": "dist/assets/index-KPWCwc1h.css",
+      "sha256": "18cab318fff22c99e144dd9bcae8cb2eb19d8f0f122b690962c7566ba0204415",
+      "bytes": 49352
+    },
+    {
+      "file": "dist/icons/apple-touch-icon.png",
+      "sha256": "4c95dec1bb78cd9963c0acb433aa34404c0f905d89285a6629305c733b921128",
+      "bytes": 26117
+    },
+    {
+      "file": "dist/icons/dosage-192.png",
+      "sha256": "1bc4879e80d60d58d62daa8d69fb49d35234328b303b3fbcb2bf920f18ab69c8",
+      "bytes": 30040
+    },
+    {
+      "file": "dist/icons/dosage-512.png",
+      "sha256": "3b239b19be91e94c66d78a3a8245952817406eae8bda55e715c5f3443baf1fb2",
+      "bytes": 224169
+    },
+    {
+      "file": "dist/images/container-1000ml.png",
+      "sha256": "f15b976f496d50db9a652aca2e429e68ead6687a51e32b37aefb58f6ff0007f1",
+      "bytes": 15684
+    },
+    {
+      "file": "dist/images/container-100ml.png",
+      "sha256": "e4d95699098251ec36b7679b48acd418e0142c4d75db785d0d39e40b4a19b22a",
+      "bytes": 17608
+    },
+    {
+      "file": "dist/images/container-10ml.png",
+      "sha256": "13cfd4b1b8059dafeb223114fdd68641ac3564b7c68c20e17947b293bf344d78",
+      "bytes": 10846
+    },
+    {
+      "file": "dist/images/container-250ml.png",
+      "sha256": "05809c833e935b7beaaebb2f61069e2b2c44aa9068abfd02615404740402fc14",
+      "bytes": 16237
+    },
+    {
+      "file": "dist/images/container-500ml.png",
+      "sha256": "08662d1bc204c711341b159aa084c21ee21fa2b3cef3a96662cc4c17edc22f35",
+      "bytes": 20289
+    },
+    {
+      "file": "dist/images/container-50ml.png",
+      "sha256": "51922f856de33457460cf094c4762233aae167c23a9ec28576de83cfb4f6a1f6",
+      "bytes": 15431
+    },
+    {
+      "file": "dist/images/dilution-containers.png",
+      "sha256": "f0c26e178a04e9d476ce795c2fd8552c998c204f481db609853ae6c7b52af66c",
+      "bytes": 371021
+    },
+    {
+      "file": "dist/index.html",
+      "sha256": "b65c1d6129a61c136ea6fbbf0acfa40b44b89b88b25fdecc832f43559772ff0e",
+      "bytes": 1088
+    },
+    {
+      "file": "dist/manifest.webmanifest",
+      "sha256": "c426bfae122b3a12132b0846ea50d07d2f773492b44b67920979d22521e5f488",
+      "bytes": 619
+    },
+    {
+      "file": "dist/service-worker.js",
+      "sha256": "ec557988989ecadad9f36f430ec5d4a7fb3b901a2c3b9fc33c0663840d552a60",
+      "bytes": 4682
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "01-blank-mix",
+      "title": "Blank Mix screen and prototype identity",
+      "caption": "Initial Mix screen showing the persistent non-clinical warning, v0.1.0 · 6b53fde build identity, manual fields, closed final-volume choices and local-only navigation.",
+      "workflow_steps": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/01-blank-mix.png",
+      "sha256": "eece9cfdec376a22ef104e453d9b9bf7cea14a582e49a113b6f8a42d49913c8f",
+      "bytes": 48616,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "02-complete-inputs-answer-hidden",
+      "title": "Complete inputs with answer hidden",
+      "caption": "Worked-example inputs are complete, but no administration volume appears before equation review.",
+      "workflow_steps": [
+        2,
+        3,
+        4,
+        6
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/02-complete-inputs-answer-hidden.png",
+      "sha256": "bb11ce9da750d7300d5f55b0fa9fb4becf6932b46bd6227e2f5cf35ac3004996",
+      "bytes": 63305,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "03-equation-review",
+      "title": "Mandatory substituted-equation review",
+      "caption": "The review dialog displays vial, prepared, mg-to-mcg conversion and administration equations; every step must be checked before completion.",
+      "workflow_steps": [
+        6
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/03-equation-review.png",
+      "sha256": "34ac80e7975c02c2d921db899ec4d6f8ad61529e177fcb36fa6849bbe86e0adf",
+      "bytes": 66585,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "04-result-revealed",
+      "title": "Result revealed after completed review",
+      "caption": "After all equations are checked, the prototype reveals 10 mL and requires a separate acknowledgement before history can be saved.",
+      "workflow_steps": [
+        7
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/04-result-revealed.png",
+      "sha256": "92b5c93ba2ac9085317cce432bd7e2ef22da16ca9c184096cb7b69c028fbc518",
+      "bytes": 65918,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "05-result-acknowledged",
+      "title": "External-check acknowledgement",
+      "caption": "The user acknowledges checking the order, vial unit, ordered-dose unit and final prepared volume; the save action is then enabled.",
+      "workflow_steps": [
+        7
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/05-result-acknowledged.png",
+      "sha256": "d4ecd4db1467a69a4886356c519f8afdfb9f7e26067518f0a9bea1827b9ba92e",
+      "bytes": 71186,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "06-one-vial-block",
+      "title": "Order above one vial is blocked",
+      "caption": "An ordered dose greater than the converted amount available in one vial produces a blocking error and no actionable result.",
+      "workflow_steps": [
+        5
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/06-one-vial-block.png",
+      "sha256": "4616744a701f3b62d0f38394b70f27e0f729aa1a1fe1c38683b3bea9e79dd068",
+      "bytes": 61043,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "07-final-volume-block",
+      "title": "Final volume below vial volume is blocked",
+      "caption": "A 51 mL vial volume with a 50 mL final prepared volume produces a blocking error and no actionable result.",
+      "workflow_steps": [
+        5
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/07-final-volume-block.png",
+      "sha256": "c9fba3bb8755db9acca1b3e222af76e571af91554e5b7d6857d377cdb6fbde36",
+      "bytes": 61093,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "08-favourites-local-record",
+      "title": "Favourite stores vial facts only",
+      "caption": "Favourites are labelled stored on this device only and retain medication/vial facts without an ordered dose.",
+      "workflow_steps": [
+        8
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/08-favourites-local-record.png",
+      "sha256": "ebcdb29b19a39f2bcbd6628bd4e8ccc3875160d3a61cff8d54a6b299be558564",
+      "bytes": 29450,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "09-history-local-record",
+      "title": "Saved calculation in local history",
+      "caption": "Mix history is labelled stored on this device only, warns that it is not a medication order, and displays the source inputs and result.",
+      "workflow_steps": [
+        8
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/09-history-local-record.png",
+      "sha256": "ad91dd1b69af9b48c72776d7361af195b6c285c93ef5ad086289cc67ea687534",
+      "bytes": 45787,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "10-history-rereview",
+      "title": "History re-review resets equation checks",
+      "caption": "Opening a saved mix restores inputs into mandatory equation review with every check reset and the result concealed.",
+      "workflow_steps": [
+        8
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/10-history-rereview.png",
+      "sha256": "0d3807ac653e630014514b5231c929d58bc9cc1a651f71d65516bb89c6d8b35d",
+      "bytes": 67779,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "11-storage-unavailable",
+      "title": "Corrupt local storage does not block calculation",
+      "caption": "A corrupt favourites record disables persistence, displays a recovery warning and leaves the reviewed calculation available.",
+      "workflow_steps": [
+        5,
+        8
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/11-storage-unavailable.png",
+      "sha256": "cd95fcf1fe7ae7115980d1d96d56521336944a54ebd0e675d9c0548f3fe9e1bc",
+      "bytes": 73047,
+      "width": 393,
+      "height": 852
+    },
+    {
+      "id": "12-offline-reopen",
+      "title": "Installed app shell reopened offline",
+      "caption": "After a successful online app-shell installation and service-worker control, a new page opens offline with the prototype identity and calculator available.",
+      "workflow_steps": [
+        1,
+        8
+      ],
+      "file": "docs/regulatory/evidence/SUB-002/screenshots/12-offline-reopen.png",
+      "sha256": "eece9cfdec376a22ef104e453d9b9bf7cea14a582e49a113b6f8a42d49913c8f",
+      "bytes": 48616,
+      "width": 393,
+      "height": 852
+    }
+  ]
+}
