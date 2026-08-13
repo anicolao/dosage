@@ -12,7 +12,7 @@ This evidence was derived from repository source and controlled tests. It is not
 | Screenshot archive | 12 captures; `96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8` |
 | Units / final volumes | mg, mcg / 10, 50, 100, 250, 500, 1000 mL |
 | Runtime application network APIs | None in `src/App.svelte`; representative runtime observation is tested separately |
-| Evidence JSON SHA-256 | `bfec6c257fced6303fdfc571f26dd684b5e2c046b5736edacff8dad9a09701ff` |
+| Evidence JSON SHA-256 | `d63124de29c5eedff941436dce6660fe576ea86e14d11edc73d95d799377bef8` |
 
 ## Mechanically reproduced worked example
 

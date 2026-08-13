@@ -90,7 +90,7 @@
     "archive_bytes": 2208810,
     "file_manifest_sha256": "87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db",
     "screenshot_manifest": "docs/regulatory/evidence/SUB-002/MANIFEST.json",
-    "screenshot_manifest_sha256": "d35a57e2013e8ae17434b26d4641e777c1f99afb565bf5d454178363aa93c753",
+    "screenshot_manifest_sha256": "f0ad5e51c39803f973eae34f6581d314f5f6a97cdee66189bd599026ffb7e10b",
     "screenshot_archive_sha256": "96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8",
     "screenshot_count": 12
   },
