@@ -41,9 +41,12 @@ sections:
 decisions:
   - { id: LBL-D01, question: "Is all intended/represented use across UI, manifest, repository and submission mutually consistent?", decision: null, rationale: null, evidence_ref: null, required: true }
 evidence:
-  - { id: LBL-E01, description: "Complete current UI/manifest/repository claims inventory", reference: null, status: missing, required: true }
+  - { id: LBL-E01, description: "Automated current UI/manifest claims inventory", reference: "docs/regulatory/evidence/AUTOMATED-FACTS.json; scripts/regulatory-facts.mjs", status: reviewed, required: true }
 approvals:
   - { role: Regulatory lead, scope: "Approve classification-inquiry claims consistency and prohibited claims", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Legal manufacturer, scope: "Approve represented purpose for the exact inquiry product", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
 change_triggers: [Any UI, manifest, README, website, screenshot or intended-use wording change]
-completion_statement: null
+completion_statement: >-
+  The executable UI and manifest claims inventory is mechanically complete.
+  Manufacturer/contact identity plus regulatory/manufacturer consistency review
+  and authorization remain required.

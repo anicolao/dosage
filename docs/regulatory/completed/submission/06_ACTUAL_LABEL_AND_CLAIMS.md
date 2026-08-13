@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-006.yaml` / `f6bc21ad75573dd48b09edc716fff7c9cafc9a03877bcb5a3e2a0b78f2052f91` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-006.yaml` / `5b68e4af6dfcbe5376ab51352c2af231b45e8b7e393cdf455b9f08a66873f064` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Exact English status/safety/claims text represented by the current prototype and associated repository materials. It is not final market labelling.
@@ -52,7 +52,7 @@ The prototype must not be described as Health Canada approved, licensed, cleared
 
 | ID | Evidence | Reference | Status | State |
 | --- | --- | --- | --- | --- |
-| `LBL-E01` | Complete current UI/manifest/repository claims inventory | ⟦MISSING: SUB-006.evidence.LBL-E01.reference⟧ | missing | Open |
+| `LBL-E01` | Automated current UI/manifest claims inventory | docs/regulatory/evidence/AUTOMATED-FACTS.json; scripts/regulatory-facts.mjs | reviewed | Open |
 
 ## Review and authorization
 
@@ -65,7 +65,7 @@ The prototype must not be described as Health Canada approved, licensed, cleared
 
 **NOT READY**
 
-⟦MISSING: SUB-006.completion_statement⟧
+The executable UI and manifest claims inventory is mechanically complete. Manufacturer/contact identity plus regulatory/manufacturer consistency review and authorization remain required.
 
 Required items still open:
 
@@ -79,11 +79,9 @@ Required items still open:
 - `SUB-006.approvals.2.name`
 - `SUB-006.approvals.2.organization`
 - `SUB-006.approvals.2.signature_ref`
-- `SUB-006.completion_statement`
 - `SUB-006.decisions.LBL-D01.decision`
 - `SUB-006.decisions.LBL-D01.evidence_ref`
 - `SUB-006.decisions.LBL-D01.rationale`
-- `SUB-006.evidence.LBL-E01.reference`
 - `SUB-006.evidence.LBL-E01.status`
 - `SUB-006.required_fields.LBL-F01.evidence_ref`
 - `SUB-006.required_fields.LBL-F01.value`

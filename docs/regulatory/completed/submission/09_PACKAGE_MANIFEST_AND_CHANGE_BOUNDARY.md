@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-009.yaml` / `dad8761d2f16232f535307c255ede3bf2ee5581c3663be8badb0a6698dbcc95f` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-009.yaml` / `fa12283b95ae807ed8bf0bf64e305ffcb8088ade5788f0e1c3d00a719deca01e` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Exact attachment, source, artifact and change boundary for the classification inquiry. Later implementation remediation may proceed without adding or materially changing submitted functionality unless reassessed.
@@ -20,10 +20,10 @@ Exact attachment, source, artifact and change boundary for the classification in
 
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
-| `MAN-F01` | Generated package manifest SHA-256 | ⟦MISSING: SUB-009.required_fields.MAN-F01.value⟧ | ⟦MISSING: SUB-009.required_fields.MAN-F01.evidence_ref⟧ | Open |
+| `MAN-F01` | Generated package manifest and digest location | docs/regulatory/completed/MANIFEST.json; its current deterministic SHA-256 is recorded by docs/regulatory/completed/COMPLETENESS.md and must be frozen after final approvals | scripts/regulatory-records.mjs; docs/regulatory/completed/COMPLETENESS.md | Complete |
 | `MAN-F02` | Exact source commit | 6b53fde87ff9b193b3c24f7bd93549746b4d6471 | INQ-000 | Complete |
-| `MAN-F03` | Exact executable artifact or URL/digest | ⟦MISSING: SUB-009.required_fields.MAN-F03.value⟧ | ⟦MISSING: SUB-009.required_fields.MAN-F03.evidence_ref⟧ | Open |
-| `MAN-F04` | Exact screenshot archive/digest | ⟦MISSING: SUB-009.required_fields.MAN-F04.value⟧ | ⟦MISSING: SUB-009.required_fields.MAN-F04.evidence_ref⟧ | Open |
+| `MAN-F03` | Exact executable artifact or URL/digest | docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip; SHA-256 8322e6ea7aca435796245a26a796ef5a4508a09b4733642768ae100a63a34442 | docs/regulatory/evidence/AUTOMATED-FACTS.json | Complete |
+| `MAN-F04` | Exact screenshot archive/digest | 12 PNG captures under docs/regulatory/evidence/SUB-002/screenshots/; archive SHA-256 96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8 | docs/regulatory/evidence/SUB-002/MANIFEST.json | Complete |
 
 ## 1. Attachment register
 
@@ -47,7 +47,7 @@ Reassess before adding/removing/materially changing inputs, formulas, outputs, r
 
 | ID | Evidence | Reference | Status | State |
 | --- | --- | --- | --- | --- |
-| `MAN-E01` | Final generated manifest and independent hash verification | ⟦MISSING: SUB-009.evidence.MAN-E01.reference⟧ | missing | Open |
+| `MAN-E01` | Current deterministic manifests; final independent acceptance occurs at IQ-002 | docs/regulatory/completed/MANIFEST.json; docs/regulatory/completed/COMPLETENESS.md; docs/regulatory/evidence/AUTOMATED-FACTS.json; docs/regulatory/evidence/SUB-002/MANIFEST.json | draft | Open |
 
 ## Review and authorization
 
@@ -60,7 +60,7 @@ Reassess before adding/removing/materially changing inputs, formulas, outputs, r
 
 **NOT READY**
 
-⟦MISSING: SUB-009.completion_statement⟧
+Source, executable and screenshot identities are generated. The package manifest will continue changing as human approvals are filled; quality and regulatory authorization must freeze its final digest at IQ-002.
 
 Required items still open:
 
@@ -74,16 +74,8 @@ Required items still open:
 - `SUB-009.approvals.2.name`
 - `SUB-009.approvals.2.organization`
 - `SUB-009.approvals.2.signature_ref`
-- `SUB-009.completion_statement`
 - `SUB-009.decisions.MAN-D01.decision`
 - `SUB-009.decisions.MAN-D01.evidence_ref`
 - `SUB-009.decisions.MAN-D01.rationale`
-- `SUB-009.evidence.MAN-E01.reference`
 - `SUB-009.evidence.MAN-E01.status`
-- `SUB-009.required_fields.MAN-F01.evidence_ref`
-- `SUB-009.required_fields.MAN-F01.value`
-- `SUB-009.required_fields.MAN-F03.evidence_ref`
-- `SUB-009.required_fields.MAN-F03.value`
-- `SUB-009.required_fields.MAN-F04.evidence_ref`
-- `SUB-009.required_fields.MAN-F04.value`
 - `SUB-009.status`

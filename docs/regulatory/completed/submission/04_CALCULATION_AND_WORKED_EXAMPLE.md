@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-004.yaml` / `4f4856e4777b02d43c65fc0ea794f6e77814d228a3a76bb30128197e9aed49f1` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-004.yaml` / `0b5fd37404c18717aa5309701ad4b2b2d0cec773369c4736c19c523e626db1ca` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Formula, actual Number/formatting implementation, independently reproducible example and current evidence. Formal work is disclosed but not misrepresented as proof that the prototype implements the Lean model.
@@ -21,7 +21,7 @@ Formula, actual Number/formatting implementation, independently reproducible exa
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
 | `CAL-F01` | Authoritative formula source | ⟦MISSING: SUB-004.required_fields.CAL-F01.value⟧ | ⟦MISSING: SUB-004.required_fields.CAL-F01.evidence_ref⟧ | Open |
-| `CAL-F02` | Approved worked-example inputs and expected values | ⟦MISSING: SUB-004.required_fields.CAL-F02.value⟧ | ⟦MISSING: SUB-004.required_fields.CAL-F02.evidence_ref⟧ | Open |
+| `CAL-F02` | Worked-example inputs and mechanically reproduced expected values | Example medication; 10 mg in 1 mL; 50 mL final prepared volume; 2000 mcg ordered dose; vial concentration 10 mg/mL; prepared concentration 0.2 mg/mL = 200 mcg/mL; administration volume 10 mL | docs/regulatory/evidence/AUTOMATED-FACTS.json; SUB-002 captures 02–05 | Complete |
 | `CAL-F03` | Independent calculation reviewer | ⟦MISSING: SUB-004.required_fields.CAL-F03.value⟧ | ⟦MISSING: SUB-004.required_fields.CAL-F03.evidence_ref⟧ | Open |
 
 ## 1. Actual formula
@@ -41,7 +41,14 @@ Inputs are converted with JavaScript Number and operations use IEEE-754 arithmet
 
 ## 3. Worked example
 
-⟦MISSING: SUB-004.sections.3.body⟧
+For A=10 mg, Vv=1 mL, Vf=50 mL and D=2000 mcg:
+
+1. Vial concentration: 10 mg ÷ 1 mL = 10 mg/mL.
+2. Prepared concentration: 10 mg ÷ 50 mL = 0.2 mg/mL.
+3. Unit conversion: 0.2 mg/mL × 1000 mcg/mg = 200 mcg/mL.
+4. Administration volume: 2000 mcg ÷ 200 mcg/mL = 10 mL.
+
+Playwright observes these substituted equations and the concealed/revealed 10 mL output in SUB-002. The automated reproduction is not the required independent pharmacy/calculation authorization.
 
 ## 4. Current verification evidence and boundary
 
@@ -51,14 +58,14 @@ Existing Playwright tests exercise representative same/cross-unit paths, one-via
 
 | ID | Question | Position/decision | Rationale | Evidence | State |
 | --- | --- | --- | --- | --- | --- |
-| `CAL-D01` | Does the worked example independently reproduce every displayed equation and result? | ⟦MISSING: SUB-004.decisions.CAL-D01.decision⟧ | ⟦MISSING: SUB-004.decisions.CAL-D01.rationale⟧ | ⟦MISSING: SUB-004.decisions.CAL-D01.evidence_ref⟧ | Open |
+| `CAL-D01` | Does the worked example independently reproduce every displayed equation and result? | Mechanically reproduced; independent human verification pending | The repository facts script calculates the four expected values without importing application calculation code, and Playwright observes the corresponding equations/result. The named independent verifier must still review the formula source, units and arithmetic. | docs/regulatory/evidence/AUTOMATED-FACTS.json; docs/regulatory/evidence/SUB-002/ | Complete |
 
 ## Supporting evidence
 
 | ID | Evidence | Reference | Status | State |
 | --- | --- | --- | --- | --- |
 | `CAL-E01` | Pharmacy-authoritative formula basis | ⟦MISSING: SUB-004.evidence.CAL-E01.reference⟧ | missing | Open |
-| `CAL-E02` | Independently calculated worked-example sheet | ⟦MISSING: SUB-004.evidence.CAL-E02.reference⟧ | missing | Open |
+| `CAL-E02` | Mechanically independent worked-example reproduction; awaiting named verifier acceptance | docs/regulatory/evidence/AUTOMATED-FACTS.json; scripts/regulatory-facts.mjs | reviewed | Open |
 | `CAL-E03` | Current automated-test and Lean evidence summary | tests/e2e/; formal/lean/README.md | reviewed | Open |
 
 ## Review and authorization
@@ -73,7 +80,7 @@ Existing Playwright tests exercise representative same/cross-unit paths, one-via
 
 **NOT READY**
 
-⟦MISSING: SUB-004.completion_statement⟧
+The implementation description, worked-example arithmetic and automated test references are complete. A pharmacy-authoritative formula source, named independent verifier and the three attributable approvals remain required.
 
 Required items still open:
 
@@ -92,20 +99,12 @@ Required items still open:
 - `SUB-004.approvals.3.name`
 - `SUB-004.approvals.3.organization`
 - `SUB-004.approvals.3.signature_ref`
-- `SUB-004.completion_statement`
-- `SUB-004.decisions.CAL-D01.decision`
-- `SUB-004.decisions.CAL-D01.evidence_ref`
-- `SUB-004.decisions.CAL-D01.rationale`
 - `SUB-004.evidence.CAL-E01.reference`
 - `SUB-004.evidence.CAL-E01.status`
-- `SUB-004.evidence.CAL-E02.reference`
 - `SUB-004.evidence.CAL-E02.status`
 - `SUB-004.evidence.CAL-E03.status`
 - `SUB-004.required_fields.CAL-F01.evidence_ref`
 - `SUB-004.required_fields.CAL-F01.value`
-- `SUB-004.required_fields.CAL-F02.evidence_ref`
-- `SUB-004.required_fields.CAL-F02.value`
 - `SUB-004.required_fields.CAL-F03.evidence_ref`
 - `SUB-004.required_fields.CAL-F03.value`
-- `SUB-004.sections.3.body`
 - `SUB-004.status`

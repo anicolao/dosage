@@ -12,8 +12,22 @@ summary: >-
   service-worker behavior; future target controls are excluded.
 dependencies: [INQ-000]
 required_fields:
-  - { id: ARC-F01, label: "Deployment/review URL and host owner", value: null, evidence_ref: null, required: true }
-  - { id: ARC-F02, label: "Exact built-artifact digest", value: null, evidence_ref: null, required: true }
+  - id: ARC-F01
+    label: Deployment/review URL and host owner
+    value: >-
+      Controlled review uses the archived static executable and local
+      npm run preview:e2e server. GitHub Pages is an unvalidated public
+      prototype channel owned by the repository account, not a clinical host.
+    evidence_ref: docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip; vite.config.js; AUTHORIZATION_PLAN.md
+    required: true
+  - id: ARC-F02
+    label: Exact built-artifact digest
+    value: >-
+      ZIP SHA-256 8322e6ea7aca435796245a26a796ef5a4508a09b4733642768ae100a63a34442;
+      internal artifact file-manifest SHA-256
+      87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db
+    evidence_ref: docs/regulatory/evidence/AUTOMATED-FACTS.json
+    required: true
 sections:
   - title: Current runtime components
     body: |-
@@ -43,12 +57,24 @@ sections:
       prototype review channel, not a clinical distribution channel.
     required: true
 decisions:
-  - { id: ARC-D01, question: "Is every actual runtime interface and persistence path disclosed?", decision: null, rationale: null, evidence_ref: null, required: true }
+  - id: ARC-D01
+    question: Is every actual runtime interface and persistence path disclosed?
+    decision: Mechanically complete; pending attributable technical and security/privacy acceptance
+    rationale: >-
+      The controlled application paths are byte-identical to the baseline;
+      automated source inventory and E2E observation cover DOM calculation,
+      KaTeX, both localStorage keys, same-origin static loading and the generated
+      service worker. No other application runtime interface was found.
+    evidence_ref: docs/regulatory/evidence/AUTOMATED-FACTS.json; tests/e2e/004-privacy-and-recovery
+    required: true
 evidence:
-  - { id: ARC-E01, description: "Independent source/build interface inventory", reference: null, status: missing, required: true }
-  - { id: ARC-E02, description: "Runtime network observation for representative workflows", reference: null, status: missing, required: true }
+  - { id: ARC-E01, description: "Automated source/build interface inventory", reference: "docs/regulatory/evidence/AUTOMATED-FACTS.json; scripts/regulatory-facts.mjs", status: reviewed, required: true }
+  - { id: ARC-E02, description: "Runtime network observation for representative workflows", reference: "tests/e2e/004-privacy-and-recovery/004-privacy-and-recovery.spec.ts", status: reviewed, required: true }
 approvals:
   - { role: Software lead, scope: "Approve exact current-state technical accuracy", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Security/privacy reviewer, scope: "Confirm interfaces, network and local-data statements are complete for classification facts", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
 change_triggers: [Source, dependency, build, host, storage, network or service-worker change]
-completion_statement: null
+completion_statement: >-
+  Repository-derived architecture, interface, artifact and runtime-observation
+  evidence is complete. Named software and security/privacy reviewers must
+  accept its completeness and authorize the record.

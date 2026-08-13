@@ -14,7 +14,14 @@ summary: >-
 dependencies: [INQ-000]
 required_fields:
   - { id: CAL-F01, label: "Authoritative formula source", value: null, evidence_ref: null, required: true }
-  - { id: CAL-F02, label: "Approved worked-example inputs and expected values", value: null, evidence_ref: null, required: true }
+  - id: CAL-F02
+    label: Worked-example inputs and mechanically reproduced expected values
+    value: >-
+      Example medication; 10 mg in 1 mL; 50 mL final prepared volume;
+      2000 mcg ordered dose; vial concentration 10 mg/mL; prepared
+      concentration 0.2 mg/mL = 200 mcg/mL; administration volume 10 mL
+    evidence_ref: docs/regulatory/evidence/AUTOMATED-FACTS.json; SUB-002 captures 02–05
+    required: true
   - { id: CAL-F03, label: "Independent calculation reviewer", value: null, evidence_ref: null, required: true }
 sections:
   - title: Actual formula
@@ -37,7 +44,15 @@ sections:
       known positive-to-displayed-zero risk is disclosed.
     required: true
   - title: Worked example
-    body: null
+    body: |-
+      For A=10 mg, Vv=1 mL, Vf=50 mL and D=2000 mcg:
+
+      1. Vial concentration: 10 mg ÷ 1 mL = 10 mg/mL.
+      2. Prepared concentration: 10 mg ÷ 50 mL = 0.2 mg/mL.
+      3. Unit conversion: 0.2 mg/mL × 1000 mcg/mg = 200 mcg/mL.
+      4. Administration volume: 2000 mcg ÷ 200 mcg/mL = 10 mL.
+
+      Playwright observes these substituted equations and the concealed/revealed 10 mL output in SUB-002. The automated reproduction is not the required independent pharmacy/calculation authorization.
     required: true
   - title: Current verification evidence and boundary
     body: >-
@@ -49,14 +64,17 @@ sections:
       suite proves clinical appropriateness.
     required: true
 decisions:
-  - { id: CAL-D01, question: "Does the worked example independently reproduce every displayed equation and result?", decision: null, rationale: null, evidence_ref: null, required: true }
+  - { id: CAL-D01, question: "Does the worked example independently reproduce every displayed equation and result?", decision: "Mechanically reproduced; independent human verification pending", rationale: "The repository facts script calculates the four expected values without importing application calculation code, and Playwright observes the corresponding equations/result. The named independent verifier must still review the formula source, units and arithmetic.", evidence_ref: "docs/regulatory/evidence/AUTOMATED-FACTS.json; docs/regulatory/evidence/SUB-002/", required: true }
 evidence:
   - { id: CAL-E01, description: "Pharmacy-authoritative formula basis", reference: null, status: missing, required: true }
-  - { id: CAL-E02, description: "Independently calculated worked-example sheet", reference: null, status: missing, required: true }
+  - { id: CAL-E02, description: "Mechanically independent worked-example reproduction; awaiting named verifier acceptance", reference: "docs/regulatory/evidence/AUTOMATED-FACTS.json; scripts/regulatory-facts.mjs", status: reviewed, required: true }
   - { id: CAL-E03, description: "Current automated-test and Lean evidence summary", reference: tests/e2e/; formal/lean/README.md, status: reviewed, required: true }
 approvals:
   - { role: Pharmacy reviewer, scope: "Approve formula basis and worked example as routine-practice facts", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Independent calculation verifier, scope: "Independently reproduce example and verify disclosed implementation limits", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Software lead, scope: "Confirm implementation description matches source", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
 change_triggers: [Formula, operation order, validation, unit, formatting, review or source-baseline change]
-completion_statement: null
+completion_statement: >-
+  The implementation description, worked-example arithmetic and automated test
+  references are complete. A pharmacy-authoritative formula source, named
+  independent verifier and the three attributable approvals remain required.

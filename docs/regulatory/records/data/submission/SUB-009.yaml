@@ -13,10 +13,10 @@ summary: >-
   materially changing submitted functionality unless reassessed.
 dependencies: [SUB-000, SUB-001, SUB-002, SUB-003, SUB-004, SUB-005, SUB-006, SUB-007, SUB-008]
 required_fields:
-  - { id: MAN-F01, label: "Generated package manifest SHA-256", value: null, evidence_ref: null, required: true }
+  - { id: MAN-F01, label: "Generated package manifest and digest location", value: "docs/regulatory/completed/MANIFEST.json; its current deterministic SHA-256 is recorded by docs/regulatory/completed/COMPLETENESS.md and must be frozen after final approvals", evidence_ref: "scripts/regulatory-records.mjs; docs/regulatory/completed/COMPLETENESS.md", required: true }
   - { id: MAN-F02, label: "Exact source commit", value: 6b53fde87ff9b193b3c24f7bd93549746b4d6471, evidence_ref: INQ-000, required: true }
-  - { id: MAN-F03, label: "Exact executable artifact or URL/digest", value: null, evidence_ref: null, required: true }
-  - { id: MAN-F04, label: "Exact screenshot archive/digest", value: null, evidence_ref: null, required: true }
+  - { id: MAN-F03, label: "Exact executable artifact or URL/digest", value: "docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip; SHA-256 8322e6ea7aca435796245a26a796ef5a4508a09b4733642768ae100a63a34442", evidence_ref: "docs/regulatory/evidence/AUTOMATED-FACTS.json", required: true }
+  - { id: MAN-F04, label: "Exact screenshot archive/digest", value: "12 PNG captures under docs/regulatory/evidence/SUB-002/screenshots/; archive SHA-256 96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8", evidence_ref: "docs/regulatory/evidence/SUB-002/MANIFEST.json", required: true }
 sections:
   - title: Attachment register
     body: >-
@@ -43,9 +43,12 @@ sections:
 decisions:
   - { id: MAN-D01, question: "Does the manifest identify the exact package IQ-002 authorized?", decision: null, rationale: null, evidence_ref: null, required: true }
 evidence:
-  - { id: MAN-E01, description: "Final generated manifest and independent hash verification", reference: null, status: missing, required: true }
+  - { id: MAN-E01, description: "Current deterministic manifests; final independent acceptance occurs at IQ-002", reference: "docs/regulatory/completed/MANIFEST.json; docs/regulatory/completed/COMPLETENESS.md; docs/regulatory/evidence/AUTOMATED-FACTS.json; docs/regulatory/evidence/SUB-002/MANIFEST.json", status: draft, required: true }
 approvals:
   - { role: Quality lead, scope: "Approve exact attachment identity and change-control boundary", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
   - { role: Regulatory lead, scope: "Approve classification reassessment triggers", name: null, organization: null, decision: null, date: null, signature_ref: null, required: true }
 change_triggers: [Any attachment, hash, baseline, feature or reassessment-trigger change]
-completion_statement: null
+completion_statement: >-
+  Source, executable and screenshot identities are generated. The package
+  manifest will continue changing as human approvals are filled; quality and
+  regulatory authorization must freeze its final digest at IQ-002.

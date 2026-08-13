@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "generated_for_record_date": "2026-08-13",
+  "product": {
+    "name": "dosage",
+    "display_name": "Dosage",
+    "package_version": "0.1.0",
+    "source_baseline": "6b53fde87ff9b193b3c24f7bd93549746b4d6471",
+    "visible_identity": "v0.1.0 · 6b53fde"
+  },
+  "baseline_control": {
+    "controlled_paths": [
+      "index.html",
+      "src",
+      "static",
+      "vite.config.js"
+    ],
+    "changed_paths": [],
+    "result": "Current application source is byte-identical to the inquiry baseline for every controlled path",
+    "baseline_tree": "fe20072281b83bf73f48fd03a0ebbfda07b62aae"
+  },
+  "artifact": {
+    "build_command": "npm run build:submission",
+    "archive": "docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip",
+    "archive_sha256": "8322e6ea7aca435796245a26a796ef5a4508a09b4733642768ae100a63a34442",
+    "archive_bytes": 2208810,
+    "file_manifest_sha256": "87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db",
+    "screenshot_manifest": "docs/regulatory/evidence/SUB-002/MANIFEST.json",
+    "screenshot_manifest_sha256": "d35a57e2013e8ae17434b26d4641e777c1f99afb565bf5d454178363aa93c753",
+    "screenshot_archive_sha256": "96251e9737a40a662d722778d565489ecf4f18753df6e74abe3968f9245778f8",
+    "screenshot_count": 12
+  },
+  "function_boundary": {
+    "units": [
+      "mg",
+      "mcg"
+    ],
+    "final_prepared_volumes_ml": [
+      10,
+      50,
+      100,
+      250,
+      500,
+      1000
+    ],
+    "local_storage_keys": [
+      "dosage.favourites.v2",
+      "dosage.history.v2"
+    ],
+    "runtime_application_network_apis": [],
+    "user_visible_claims": [
+      "Prototype only — not for patient care.",
+      "Verify every value with the order, vial label, pharmacy guidance, and local policy.",
+      "Enter the label and ordered values. This app does not recommend a dose.",
+      "Do not enter patient information",
+      "Verify overfill and preparation method.",
+      "Use local policy for measurable volume and rounding.",
+      "I checked the order, vial unit, ordered-dose unit, and final prepared volume.",
+      "Stored on this device only",
+      "Do not use history as a medication order."
+    ],
+    "noindex": true,
+    "manifest": {
+      "id": "./",
+      "name": "Dosage",
+      "short_name": "Dosage",
+      "description": "Local medication dilution arithmetic with explicit calculation review.",
+      "lang": "en-CA",
+      "start_url": "./",
+      "scope": "./",
+      "display": "standalone",
+      "background_color": "#f7f8f5",
+      "theme_color": "#f7f8f5",
+      "categories": [
+        "medical",
+        "utilities"
+      ],
+      "icons": [
+        {
+          "src": "icons/dosage-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "icons/dosage-512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        }
+      ]
+    }
+  },
+  "worked_example": {
+    "inputs": {
+      "medication_display_name": "Example medication",
+      "vial_amount": 10,
+      "vial_unit": "mg",
+      "vial_volume_ml": 1,
+      "final_prepared_volume_ml": 50,
+      "ordered_dose": 2000,
+      "ordered_unit": "mcg"
+    },
+    "expected": {
+      "vial_concentration_mg_per_ml": 10,
+      "prepared_concentration_mg_per_ml": 0.2,
+      "prepared_concentration_mcg_per_ml": 200,
+      "administration_volume_ml": 10
+    }
+  },
+  "automated_evidence": {
+    "e2e_specs": [
+      "tests/e2e/001-cross-unit-calculation/001-cross-unit-calculation.spec.ts",
+      "tests/e2e/002-containers-and-validation/002-containers-and-validation.spec.ts",
+      "tests/e2e/003-local-records/003-local-records.spec.ts",
+      "tests/e2e/004-privacy-and-recovery/004-privacy-and-recovery.spec.ts",
+      "tests/e2e/005-responsive-accessible/005-responsive-accessible.spec.ts",
+      "tests/e2e/006-installable-offline/006-installable-offline.spec.ts"
+    ],
+    "formal_lean_files": [
+      "formal/lean/Dosage/Calculation.lean",
+      "formal/lean/Dosage/Decimal.lean",
+      "formal/lean/Dosage/Properties.lean",
+      "formal/lean/Dosage/ReferenceCli.lean",
+      "formal/lean/Dosage/Rounding.lean",
+      "formal/lean/Dosage/Units.lean",
+      "formal/lean/Dosage.lean",
+      "formal/lean/Main.lean"
+    ],
+    "submission_capture_spec": "tests/submission/02-workflow-and-screenshots.spec.ts"
+  },
+  "limitations": [
+    "This evidence establishes source and observed behavior, not clinical appropriateness or regulatory classification.",
+    "The Lean model is a separate exact-rational reference and is not differential proof of the JavaScript prototype.",
+    "A zero-length runtime API list is a source fact corroborated by E2E observation; the generated service worker still fetches same-origin cache misses.",
+    "Identity, professional competence, clinical/regulatory judgment, evidence acceptance and signatures require attributable humans."
+  ]
+}

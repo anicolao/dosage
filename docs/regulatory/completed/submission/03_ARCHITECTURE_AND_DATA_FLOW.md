@@ -11,7 +11,7 @@
 | Document status | **INCOMPLETE / NOT APPROVED** |
 | Package readiness | **NOT READY** |
 | Exact prototype baseline | `6b53fde87ff9b193b3c24f7bd93549746b4d6471` |
-| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-003.yaml` / `1d3fe8fd72ccdb960dda2aa97fafc354296e630459a6239b3933c557fbb7e4be` |
+| Structured source / SHA-256 | `docs/regulatory/records/data/submission/SUB-003.yaml` / `5fb3732775f79670718a2328481c7413b3d081106d67965d13a99c51b27dab7e` |
 | Template / SHA-256 | `docs/regulatory/records/templates/submission.md.mustache` / `e8ca736dd37df3c77076e5355d01d1dcf34927304e42b852884b2fca7e14decd` |
 
 Current-state architecture of the source baseline, including localStorage and service-worker behavior; future target controls are excluded.
@@ -20,8 +20,8 @@ Current-state architecture of the source baseline, including localStorage and se
 
 | ID | Field | Value | Evidence | State |
 | --- | --- | --- | --- | --- |
-| `ARC-F01` | Deployment/review URL and host owner | ⟦MISSING: SUB-003.required_fields.ARC-F01.value⟧ | ⟦MISSING: SUB-003.required_fields.ARC-F01.evidence_ref⟧ | Open |
-| `ARC-F02` | Exact built-artifact digest | ⟦MISSING: SUB-003.required_fields.ARC-F02.value⟧ | ⟦MISSING: SUB-003.required_fields.ARC-F02.evidence_ref⟧ | Open |
+| `ARC-F01` | Deployment/review URL and host owner | Controlled review uses the archived static executable and local npm run preview:e2e server. GitHub Pages is an unvalidated public prototype channel owned by the repository account, not a clinical host. | docs/regulatory/evidence/INQ-000/dosage-0.1.0-6b53fde.zip; vite.config.js; AUTHORIZATION_PLAN.md | Complete |
+| `ARC-F02` | Exact built-artifact digest | ZIP SHA-256 8322e6ea7aca435796245a26a796ef5a4508a09b4733642768ae100a63a34442; internal artifact file-manifest SHA-256 87394f7ba3170760d54004916cf3a79ebc1e56cf3c1982d573a8d9af625fe9db | docs/regulatory/evidence/AUTOMATED-FACTS.json | Complete |
 
 ## 1. Current runtime components
 
@@ -45,14 +45,14 @@ Vite/Svelte/KaTeX and locked npm dependencies build the static app. Vite injects
 
 | ID | Question | Position/decision | Rationale | Evidence | State |
 | --- | --- | --- | --- | --- | --- |
-| `ARC-D01` | Is every actual runtime interface and persistence path disclosed? | ⟦MISSING: SUB-003.decisions.ARC-D01.decision⟧ | ⟦MISSING: SUB-003.decisions.ARC-D01.rationale⟧ | ⟦MISSING: SUB-003.decisions.ARC-D01.evidence_ref⟧ | Open |
+| `ARC-D01` | Is every actual runtime interface and persistence path disclosed? | Mechanically complete; pending attributable technical and security/privacy acceptance | The controlled application paths are byte-identical to the baseline; automated source inventory and E2E observation cover DOM calculation, KaTeX, both localStorage keys, same-origin static loading and the generated service worker. No other application runtime interface was found. | docs/regulatory/evidence/AUTOMATED-FACTS.json; tests/e2e/004-privacy-and-recovery | Complete |
 
 ## Supporting evidence
 
 | ID | Evidence | Reference | Status | State |
 | --- | --- | --- | --- | --- |
-| `ARC-E01` | Independent source/build interface inventory | ⟦MISSING: SUB-003.evidence.ARC-E01.reference⟧ | missing | Open |
-| `ARC-E02` | Runtime network observation for representative workflows | ⟦MISSING: SUB-003.evidence.ARC-E02.reference⟧ | missing | Open |
+| `ARC-E01` | Automated source/build interface inventory | docs/regulatory/evidence/AUTOMATED-FACTS.json; scripts/regulatory-facts.mjs | reviewed | Open |
+| `ARC-E02` | Runtime network observation for representative workflows | tests/e2e/004-privacy-and-recovery/004-privacy-and-recovery.spec.ts | reviewed | Open |
 
 ## Review and authorization
 
@@ -65,7 +65,7 @@ Vite/Svelte/KaTeX and locked npm dependencies build the static app. Vite injects
 
 **NOT READY**
 
-⟦MISSING: SUB-003.completion_statement⟧
+Repository-derived architecture, interface, artifact and runtime-observation evidence is complete. Named software and security/privacy reviewers must accept its completeness and authorize the record.
 
 Required items still open:
 
@@ -79,16 +79,6 @@ Required items still open:
 - `SUB-003.approvals.2.name`
 - `SUB-003.approvals.2.organization`
 - `SUB-003.approvals.2.signature_ref`
-- `SUB-003.completion_statement`
-- `SUB-003.decisions.ARC-D01.decision`
-- `SUB-003.decisions.ARC-D01.evidence_ref`
-- `SUB-003.decisions.ARC-D01.rationale`
-- `SUB-003.evidence.ARC-E01.reference`
 - `SUB-003.evidence.ARC-E01.status`
-- `SUB-003.evidence.ARC-E02.reference`
 - `SUB-003.evidence.ARC-E02.status`
-- `SUB-003.required_fields.ARC-F01.evidence_ref`
-- `SUB-003.required_fields.ARC-F01.value`
-- `SUB-003.required_fields.ARC-F02.evidence_ref`
-- `SUB-003.required_fields.ARC-F02.value`
 - `SUB-003.status`
